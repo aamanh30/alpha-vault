@@ -1,0 +1,15 @@
+@import '../../../../../assets/scss/variables';
+.row {
+  .col {
+    .back-icon {
+      color: $cadmium-violet;
+      font-size: 42px;
+    }
+    .logo {
+      max-width: 500px;
+      @media screen and (max-width: $small) {
+        max-width: 300px;
+      }
+    }
+  }
+}

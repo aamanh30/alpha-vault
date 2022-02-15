@@ -1,0 +1,33 @@
+<section class="auth-form-wrapper mb-4">
+  <alpha-vault-card-details>
+    <alpha-vault-account-preferences-form
+      class="additional-content"
+      [form]="form"
+      [submitted]="submitted"
+    ></alpha-vault-account-preferences-form>
+
+    <div class="footer-content col-xs-12">
+      <div class="row mb-4">
+        <div class="col text-center">
+          <a
+            class="primary-button"
+            [routerLink]="['/home']"
+            routerLinkActive="active-link"
+          >
+            <button class="btn btn-primary btn-alpha-vault">SKIP</button>
+          </a>
+        </div>
+
+        <div class="col text-center">
+          <a
+            class="primary-button"
+            [routerLink]="['/portfolio/dashboard']"
+            routerLinkActive="active-link"
+          >
+            <button class="btn btn-primary btn-alpha-vault">NEXT</button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </alpha-vault-card-details>
+</section>

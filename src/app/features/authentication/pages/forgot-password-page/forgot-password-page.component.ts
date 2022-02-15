@@ -1,24 +1,24 @@
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import {
-  signUpFormConfig,
-  signUpConfig
+  forgotPasswordConfig,
+  forgotPasswordFormConfig
 } from './../../configs/auth-form.config';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
-import { Component, OnInit, OnDestroy } from '@angular/core';
 
 @Component({
-  selector: 'alpha-vault-sign-up-page',
-  templateUrl: './sign-up-page.component.html',
-  styleUrls: ['./sign-up-page.component.scss']
+  selector: 'alpha-vault-forgot-password-page',
+  templateUrl: './forgot-password-page.component.html',
+  styleUrls: ['./forgot-password-page.component.scss']
 })
-export class SignUpPageComponent implements OnInit, OnDestroy {
+export class ForgotPasswordPageComponent implements OnInit, OnDestroy {
   submitted: boolean = false;
   form: FormGroup = new FormGroup({});
   unsubscribe: Subject<any> = new Subject<any>();
-  signUpDetails: any = signUpConfig;
+  forgotPasswordDetails: any = forgotPasswordConfig;
   constructor(
     private fb: FormBuilder,
     private authenticationService: AuthenticationService,
@@ -26,7 +26,7 @@ export class SignUpPageComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.form = this.fb.group(signUpFormConfig);
+    this.form = this.fb.group(forgotPasswordFormConfig);
   }
 
   ngOnDestroy(): void {
@@ -36,13 +36,12 @@ export class SignUpPageComponent implements OnInit, OnDestroy {
 
   onSubmit(): void {
     this.submitted = true;
-    this.router.navigate(['/auth/account-preferences']);
     if (this.form.invalid) {
       return;
     }
 
     this.authenticationService
-      .signUp(this.form.value)
+      .forgotPassword(this.form.value)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
         res => {

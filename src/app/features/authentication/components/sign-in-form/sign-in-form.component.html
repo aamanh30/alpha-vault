@@ -1,3 +1,36 @@
-<section class="sign-in-form-wrapper">
-  <form [formGroup]="form"></form>
-</section>
+<div class="row auth-form-wrapper">
+  <div class="col text-left">
+    <form [formGroup]="form">
+      <div class="w-100 d-block">
+        <mat-form-field class="w-100" appearance="fill">
+          <mat-icon matPrefix>email</mat-icon>
+          <input
+            type="text"
+            matInput
+            placeholder="Email"
+            formControlName="emailAddress"
+          />
+        </mat-form-field>
+      </div>
+
+      <div class="w-100 d-block">
+        <mat-form-field class="w-100" appearance="fill">
+          <mat-icon matPrefix>lock</mat-icon>
+          <input
+            matInput
+            type="password"
+            formControlName="password"
+            placeholder="******"
+          />
+          <mat-icon
+            matSuffix
+            alphaVaultToggleInput
+            [type]="inputTypes.password"
+            [toggleType]="inputTypes.text"
+            >visibility</mat-icon
+          >
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
+</div>
