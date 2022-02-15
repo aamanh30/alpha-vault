@@ -1,0 +1,40 @@
+@import '../../../../../assets/scss/variables';
+
+:host::ng-deep .connect-wallet-wrapper {
+  .icon-content {
+    .list-inline {
+      .list-inline-item {
+        .link-round {
+          display: block;
+          width: 16px;
+          height: 16px;
+          border-radius: 50%;
+          border: 2px solid $quick-silver;
+          &.active-link {
+            background-color: $bright-pink;
+            border: 2px solid $bright-pink;
+          }
+        }
+      }
+    }
+  }
+  .card-separator {
+    width: 50px;
+    border: 2px solid $quick-silver;
+  }
+  .card-details-body {
+    &.card-content {
+      & > .row {
+        width: 100%;
+        margin: 0px;
+      }
+      .col {
+        .payment-card-icon {
+          width: 64px;
+          font-size: 64px;
+          color: $cadmium-violet;
+        }
+      }
+    }
+  }
+}
