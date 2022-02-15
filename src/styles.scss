@@ -1,105 +1,76 @@
 /* You can add global styles to this file, and also import other style files */
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
+
+/* Importing Variables SCSS file. */
+@import './assets/scss/variables';
 
 html,
 body {
   height: 100%;
+  outline: none;
 }
+
 body {
+  margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
-  background: url('./assets/images/main-background.png');
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-attachment: fixed;
-  padding-right: 50px;
+  // background-image: url('./assets/images/bg.jpg');
+  // background-repeat: no-repeat;
+  // background-position: center center;
+  // background-attachment: fixed;
+  background-color: $cultured;
+  box-sizing: border-box;
+  .btn-alpha-vault {
+    padding: 12px 32px;
+    border: 0px;
+    border-radius: 23px;
+    text-align: center;
+    font-weight: bold;
+    font-size: small;
+    letter-spacing: 2px;
+    white-space: nowrap;
+    :hover {
+      box-shadow: 0px 0px 12px $dark-gunmetal;
+    }
+  }
+  .btn-primary {
+    color: $dark-gunmetal;
+    background: $bright-turquoise !important;
+    :hover {
+      color: $white;
+    }
+  }
+  .btn-secondary {
+    color: $white;
+    background: $cadmium-violet !important;
+    :hover {
+      color: $dark-gunmetal;
+    }
+  }
 
   a {
-    text-decoration: none;
-    &:active {
-      color: #e323ff;
+    cursor: pointer;
+    &:hover {
+      text-decoration: none;
     }
   }
 
-  .bg-transparent {
-    background: transparent;
+  .ws-nowrap {
+    white-space: nowrap;
   }
 
-  .border-0 {
-    border: 0;
-  }
-
-  .border-radius-50 {
-    border-radius: 50%;
-  }
-
-  .d-flex {
-    display: inline-flex;
-  }
-
-  .d-inline-flex {
-    display: inline-flex;
-  }
-
-  .align-items-center {
-    align-items: center;
-  }
-
-  .justify-content-space-between {
-    justify-content: space-between;
-  }
-
-  .justify-content-center {
-    justify-content: center;
-  }
-
-  .w-100 {
-    width: 100%;
-  }
-
-  .w-50 {
-    width: 50%;
-  }
-
-  .h-100 {
-    height: 100%;
-  }
-
-  .h-50 {
-    height: 50%;
-  }
-
-  .padding-0 {
-    padding: 0px 0px;
-  }
-
-  .margin-0 {
-    margin: 0px 0px;
-  }
-
-  .text-white {
-    color: #ffffff;
-  }
-
-  .active-link {
-    background: rgba(80, 27, 105, 0.81);
-    mat-icon {
-      color: #e323ff;
+  @media screen and (max-width: $small) {
+    .btn-alpha-vault {
+      padding: 12px 24px;
     }
   }
 
-  //   .search-form-wrapper {
-  //     margin-right: 20px;
-  //     .mat-form-field {
-  //       .mat-form-field-flex {
-  //         padding: 0px 20px !important;
-  //         border-radius: 50px;
-  //         background: #2f293e;
-  //         color: #e2d8fd;
-  //       }
-  //       .mat-form-field-flex {
-  //         background: #505050;
-  //         border-radius: 50px;
-  //         padding: 0px 20px;
-  //       }
-  //     }
-  //   }
+  @keyframes marquee {
+    0% {
+      transform: translate(0, 0);
+    }
+    100% {
+      transform: translate(-100%, 0);
+    }
+  }
 }
