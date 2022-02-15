@@ -1,0 +1,12 @@
+<ul class="category-filters-wrapper nav justify-content-center">
+  <li class="nav-item" *ngFor="let category of categories">
+    <a
+      class="nav-link btn-alpha-vault"
+      [ngClass]="{
+        'btn-primary': activeCategory && activeCategory.id === category.id
+      }"
+      (click)="filterPortfolios(category)"
+      >{{ category.label }}</a
+    >
+  </li>
+</ul>
