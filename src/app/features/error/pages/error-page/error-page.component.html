@@ -1,2 +1,26 @@
-<h2 class="text-white">Error</h2>
-<p class="text-white">Coming Soon</p>
+<section>
+  <div class="container py-5 text-center">
+    <h1 class="display-1">ERROR</h1>
+    <ng-container class="card-body" [ngSwitch]="code">
+      <ng-container *ngSwitchCase="404">
+        <h1 class="display-2">{{ code }}</h1>
+        <p class="display-5">The page you're looking for doesn't exist.</p>
+      </ng-container>
+      <ng-container *ngSwitchCase="403">
+        <h1 class="display-2">{{ code }}</h1>
+        <p class="display-5">You're not authorised to view the pge.</p>
+      </ng-container>
+      <ng-container *ngSwitchDefault>
+        <p class="display-5">Something went wrong.</p>
+      </ng-container>
+    </ng-container>
+
+    <a
+      class="primary-button"
+      [routerLink]="['/home']"
+      routerLinkActive="active-link"
+    >
+      <button class="btn btn-primary btn-alpha-vault">HOME</button>
+    </a>
+  </div>
+</section>
