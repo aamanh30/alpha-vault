@@ -1,0 +1,24 @@
+<nav class="navbar navbar-expand-lg navbar-light justify-content-between px-0">
+  <a [routerLink]="['/home']" routerLinkActive="active-link">
+    <img class="logo" src="assets/images/logo-dark.png" alt="Alpha Vault" />
+  </a>
+
+  <ul class="nav navbar-nav">
+    <li>
+      <a [routerLink]="['/auth/sign-in']" routerLinkActive="active-link">
+        <button class="btn btn-primary btn-alpha-vault">LOGIN</button>
+      </a>
+    </li>
+    <!-- <li *ngIf="user$ | async">
+      <mat-card class="avatar-card p-0">
+        <mat-card-header>
+          <div mat-card-avatar class="avatar-card-icon">
+            <mat-icon class="icon-content" aria-hidden="false" aria-label="User"
+              >person</mat-icon
+            >
+          </div>
+        </mat-card-header>
+      </mat-card>
+    </li> -->
+  </ul>
+</nav>

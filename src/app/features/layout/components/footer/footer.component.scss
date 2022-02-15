@@ -1,0 +1,14 @@
+@import '../../../../../assets/scss/variables';
+
+.footer-menu {
+  .text-center {
+    a {
+      color: $bright-turquoise;
+      border-bottom: 2px transparent;
+      &.active-link {
+        color: $cadmium-violet;
+        border-bottom: 2px solid $cadmium-violet;
+      }
+    }
+  }
+}

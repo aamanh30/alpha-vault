@@ -1,0 +1,24 @@
+@import '../../../../../assets/scss/variables';
+
+.navbar {
+  .logo {
+    max-width: 300px;
+    @media screen and (max-width: $small) {
+      max-width: 200px;
+    }
+  }
+}
+
+:host::ng-deep .nav {
+  .avatar-card {
+    .avatar-card-icon {
+      mat-icon {
+        width: 40px;
+        height: 40px;
+      }
+    }
+    .mat-card-header-text {
+      display: none;
+    }
+  }
+}
