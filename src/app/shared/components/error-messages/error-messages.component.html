@@ -1,0 +1,20 @@
+<ng-container *ngIf="control?.errors">
+  <span class="mb-0 text-danger" *ngIf="control?.errors?.required">
+    {{ label | titlecase }} is required
+  </span>
+  <span class="mb-0 text-danger" *ngIf="control?.errors?.min">
+    {{ label | titlecase }} is too low
+  </span>
+  <span class="mb-0 text-danger" *ngIf="control?.errors?.max">
+    {{ label | titlecase }} is too high
+  </span>
+  <span class="mb-0 text-danger" *ngIf="control?.errors?.minlength">
+    {{ label | titlecase }} is too short
+  </span>
+  <span class="mb-0 text-danger" *ngIf="control?.errors?.maxlength">
+    {{ label | titlecase }} is too long
+  </span>
+  <span class="mb-0 text-danger" *ngIf="control?.errors?.pattern">
+    {{ label | titlecase }} is invalid
+  </span>
+</ng-container>
