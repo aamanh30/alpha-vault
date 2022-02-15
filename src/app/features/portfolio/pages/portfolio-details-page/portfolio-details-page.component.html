@@ -1,0 +1,55 @@
+<ng-container *ngIf="loading">
+  <alpha-vault-spinner></alpha-vault-spinner>
+</ng-container>
+
+<ng-container *ngIf="!loading">
+  <article [formGroup]="form" (ngSubmit)="investNow()">
+    <section class="my-4">
+      <alpha-vault-card-details [heading]="form.value.title">
+        <alpha-vault-portfolio-value
+          class="icon-content"
+          [portfolioValue]="form.value?.percentage"
+          [isTrending]="form.value?.isTrending"
+        ></alpha-vault-portfolio-value>
+
+        <ng-container class="additional-content">
+          <alpha-vault-portfolio-details
+            [portfolio]="form.value"
+          ></alpha-vault-portfolio-details>
+        </ng-container>
+      </alpha-vault-card-details>
+    </section>
+
+    <section class="my-4" formArrayName="coinHoldings">
+      <alpha-vault-card-details [heading]="'Coin Holdings'">
+        <ng-container class="additional-content">
+          <alpha-vault-coin-holdings-section
+            [readonly]="true"
+            [coinHoldings]="form.controls.coinHoldings"
+            (rowClickedEmitter)="coinSelected($event)"
+          ></alpha-vault-coin-holdings-section>
+        </ng-container>
+      </alpha-vault-card-details>
+    </section>
+
+    <section class="pt-4 my-4 text-center bg-white">
+      <div class="row">
+        <div class="col-md-8 col-12">
+          <alpha-vault-coin-search-form
+            [form]="form"
+            [submitted]="submitted"
+            [coins]="(coins$ | async) || []"
+            (coinSelectedEmitter)="onCoinSelect($event)"
+          >
+          </alpha-vault-coin-search-form>
+        </div>
+
+        <div class="col-md-4 col-12">
+          <button class="btn btn-primary btn-alpha-vault" type="submit">
+            INVEST NOW
+          </button>
+        </div>
+      </div>
+    </section>
+  </article>
+</ng-container>

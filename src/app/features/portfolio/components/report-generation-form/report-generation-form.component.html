@@ -1,0 +1,32 @@
+<div class="row" [formGroup]="form">
+  <div class="col-6">
+    <mat-form-field class="w-100" appearance="fill">
+      <mat-label>From Date</mat-label>
+      <input
+        matInput
+        [disabled]="true"
+        [matDatepicker]="fromPicker"
+        formControlName="from"
+      />
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="fromPicker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #fromPicker disabled="false"></mat-datepicker>
+    </mat-form-field>
+  </div>
+
+  <div class="col-6">
+    <mat-form-field class="w-100" appearance="fill">
+      <mat-label>To Date</mat-label>
+      <input
+        matInput
+        [disabled]="true"
+        [matDatepicker]="toPicker"
+        formControlName="to"
+      />
+      <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
+      <mat-datepicker #toPicker disabled="false"></mat-datepicker>
+    </mat-form-field>
+  </div>
+</div>

@@ -1,0 +1,50 @@
+<section *ngIf="portfolio" class="portfolio-details-section">
+  <div class="row">
+    <div class="col">
+      <alpha-vault-area-chart></alpha-vault-area-chart>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <table class="table">
+        <tbody>
+          <tr>
+            <td class="border-0" scope="row">Type</td>
+            <td class="text-right font-weight-bold border-0">
+              <p class="d-inline-flex align-items-center m-0">
+                {{ portfolio?.type }}
+                <mat-icon
+                  class="portfolio-icon"
+                  role="button"
+                  aria-hidden="false"
+                  [matTooltip]="portfolio?.type"
+                  aria-label="Portfolio Type"
+                  >question_mark</mat-icon
+                >
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td class="border-0" scope="row">Annual Fee</td>
+            <td class="text-right font-weight-bold border-0">
+              {{ portfolio?.annualFees / 100 | percent: '2.2' }}
+            </td>
+          </tr>
+          <tr>
+            <td class="border-0" scope="row">Top Holdings</td>
+            <td class="text-right font-weight-bold border-0">
+              {{ portfolio?.topHoldings }}
+            </td>
+          </tr>
+          <tr>
+            <td class="border-0" scope="row">Market Segment</td>
+            <td class="text-right font-weight-bold border-0">
+              {{ portfolio?.marketSegment }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
