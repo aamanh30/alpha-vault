@@ -1,8 +1,0 @@
-<mat-list>
-    <mat-list-item *ngFor="let nav of navList;">
-        <a [routerLink]="nav.routerLink" [routerLinkActive]="'active-link'">
-            <mat-icon mat-list-icon>{{ nav.icon }}</mat-icon>
-            <div class="mat-label" mat-line>{{ nav.label }}</div>
-        </a>
-    </mat-list-item>
-</mat-list>
