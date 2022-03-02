@@ -1,54 +1,32 @@
-import { UserService } from '../../../../core/services/user/user.service';
-import { environment } from '../../../../../environments/environment';
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
+
 import { HttpService } from '../../../../core/services/http/http.service';
+import { environment } from '../../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService extends HttpService {
-  constructor(
-    protected override http: HttpClient,
-    private userService: UserService
-  ) {
+  constructor(protected override http: HttpClient) {
     super(http);
+    this.slug = 'user/';
   }
 
   signUp(data: any): Observable<any> {
-    const url = `${environment.baseUrl}/auth-service/sign-up`;
-    this.storeDetails(data);
-    // return this.post(url, data);
-    return of(data);
+    const url = `${environment.baseUrl}${this.slug}signup`;
+    return this.post(url, data);
   }
 
   signIn(data: any): Observable<any> {
-    const url = `${environment.baseUrl}/auth-service/sign-in`;
-    this.storeDetails(data);
-    // return this.post(url, data);
-    return of(data);
+    const url = `${environment.baseUrl}${this.slug}signin`;
+    return this.post(url, data);
   }
 
   forgotPassword(data: any): Observable<any> {
-    const url = `${environment.baseUrl}/auth-service/forgot-password`;
-    this.clearDetails();
+    const url = `${environment.baseUrl}${this.slug}forgot-password`;
     // return this.post(url, data);
     return of(data);
-  }
-
-  signOut(): Observable<any> {
-    localStorage.clear();
-    return of(true);
-  }
-
-  storeDetails(data: any): void {
-    localStorage.setItem('alpha-vault-user', JSON.stringify(data));
-    this.userService.updateUser(data);
-  }
-
-  clearDetails() {
-    localStorage.removeItem('alpha-vault-user');
-    this.userService.updateUser(null);
   }
 }

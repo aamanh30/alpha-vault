@@ -1,43 +1,9 @@
-import { Validators } from '@angular/forms';
-
-export const signUpFormConfig = {
-  emailAddress: [
-    '',
-    [Validators.required, Validators.email, Validators.pattern(/.*@.*\..*/)]
-  ],
-  username: ['', [Validators.required, Validators.minLength(4)]],
-  password: [
-    '',
-    [
-      Validators.required,
-      Validators.minLength(8),
-      Validators.pattern(/.*[a-zA-Z0-9]/)
-    ]
-  ],
-  confirmPassword: [
-    '',
-    [
-      Validators.required,
-      Validators.minLength(8),
-      Validators.pattern(/.*[a-zA-Z0-9]/)
-    ]
-  ]
-};
-
-export const signInFormConfig = {
-  emailAddress: [
-    '',
-    [Validators.required, Validators.email, Validators.pattern(/.*@.*\..*/)]
-  ],
-  password: [
-    '',
-    [
-      Validators.required,
-      Validators.minLength(8),
-      Validators.pattern(/.*[a-zA-Z0-9]/)
-    ]
-  ]
-};
+import {
+  AbstractControl,
+  FormGroup,
+  ValidatorFn,
+  Validators
+} from '@angular/forms';
 
 export const forgotPasswordFormConfig = {
   emailAddress: [
@@ -91,3 +57,28 @@ export const forgotPasswordConfig = {
   isTrending: null,
   content: null
 };
+
+export const passwordMatcher =
+  (controlName: string, matchingControlName: string): ValidatorFn =>
+  (group: AbstractControl): { [key: string]: boolean } | null => {
+    const control = (group as FormGroup).controls[controlName];
+    const matchingControl = (group as FormGroup).controls[matchingControlName];
+
+    if (matchingControl.errors && !matchingControl.errors.custom) {
+      return matchingControl.errors;
+    }
+
+    if (control.value !== matchingControl.value) {
+      matchingControl.setErrors({
+        custom: `${
+          controlName.charAt(0).toUpperCase() + controlName.substring(1)
+        } and ${
+          matchingControlName.charAt(0).toUpperCase() +
+          matchingControlName.substring(1)
+        } do not match`
+      });
+    } else {
+      matchingControl.setErrors(null);
+    }
+    return null;
+  };
