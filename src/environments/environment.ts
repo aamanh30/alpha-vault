@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'http://www.alpha-vault.com/api'
+  baseUrl: 'http://localhost:8585/alpha/'
 };
 /*
  * For easier debugging in development mode, you can import the following file

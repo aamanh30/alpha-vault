@@ -20,6 +20,12 @@
           (click)="resetSearch()"
           >close</mat-icon
         >
+        <mat-error *ngIf="submitted && form.controls?.searchCoin?.errors">
+          <alpha-vault-error-messages
+            [label]="'Coin Name'"
+            [control]="form.controls?.searchCoin"
+          ></alpha-vault-error-messages>
+        </mat-error>
         <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
           <mat-option
             *ngFor="let option of coins"
@@ -27,14 +33,15 @@
           >
             {{ option?.title }}
           </mat-option>
+          <mat-option
+            *ngIf="
+              !coins?.length &&
+              form.controls.searchCoin?.value?.title?.length > 3
+            "
+            >{{ noMatchMessage }}
+          </mat-option>
         </mat-autocomplete>
       </mat-form-field>
-
-      <alpha-vault-error-messages
-        *ngIf="submitted"
-        [label]="'Coin Name'"
-        [control]="form?.controls?.searchCoin"
-      ></alpha-vault-error-messages>
     </div>
 
     <div class="col-4">
@@ -47,13 +54,13 @@
           formControlName="percentage"
         />
         <mat-icon matSuffix>%</mat-icon>
+        <mat-error *ngIf="submitted && form.controls?.percentage?.errors">
+          <alpha-vault-error-messages
+            [label]="'Percentage'"
+            [control]="form.controls?.percentage"
+          ></alpha-vault-error-messages>
+        </mat-error>
       </mat-form-field>
-
-      <alpha-vault-error-messages
-        *ngIf="submitted"
-        [label]="'Percentage'"
-        [control]="form?.controls?.searchCoin"
-      ></alpha-vault-error-messages>
     </div>
   </div>
 </mat-card-content>

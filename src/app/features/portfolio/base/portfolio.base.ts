@@ -47,7 +47,6 @@ export class PortfolioBase {
   }
 
   onAddCoin(): void {
-    this.submitted = true;
     if (this.form.controls.searchCoin.invalid) {
       return;
     }

@@ -8,8 +8,14 @@
             type="text"
             matInput
             placeholder="Email"
-            formControlName="emailAddress"
+            formControlName="email"
           />
+          <mat-error *ngIf="submitted && form.controls?.email?.errors">
+            <alpha-vault-error-messages
+              [label]="'Email'"
+              [control]="form.controls?.email"
+            ></alpha-vault-error-messages>
+          </mat-error>
         </mat-form-field>
       </div>
 
@@ -29,6 +35,12 @@
             [toggleType]="inputTypes.text"
             >visibility</mat-icon
           >
+          <mat-error *ngIf="submitted && form.controls?.password?.errors">
+            <alpha-vault-error-messages
+              [label]="'Password'"
+              [control]="form.controls?.password"
+            ></alpha-vault-error-messages>
+          </mat-error>
         </mat-form-field>
       </div>
     </form>

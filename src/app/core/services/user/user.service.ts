@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +9,7 @@ export class UserService {
   constructor() {}
 
   updateUser(user: any): void {
+    localStorage.setItem('alpha-vault-user', JSON.stringify(user));
     this._user.next(user);
   }
 
@@ -23,5 +24,11 @@ export class UserService {
     }
     user = JSON.parse(user);
     this.updateUser(user);
+  }
+
+  signOut(): Observable<any> {
+    this._user.next(null);
+    localStorage.clear();
+    return of(true);
   }
 }

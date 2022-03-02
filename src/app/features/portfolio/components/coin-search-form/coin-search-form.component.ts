@@ -9,6 +9,7 @@ import { FormGroup } from '@angular/forms';
 export class CoinSearchFormComponent {
   @Input() form: FormGroup = new FormGroup({});
   @Input() submitted: boolean = false;
+  @Input() noMatchMessage: string = 'No matches found';
   @Input() coins: any[] = [];
   @Output() coinSelectedEmitter = new EventEmitter();
   constructor() {}

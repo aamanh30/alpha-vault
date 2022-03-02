@@ -4,9 +4,11 @@ import { Observable } from 'rxjs';
 export class HttpService {
   headers: HttpHeaders;
   params: HttpParams;
+  slug: string;
   constructor(protected http: HttpClient) {
     this.headers = new HttpHeaders({ 'Content-type': 'application/json' });
     this.params = new HttpParams();
+    this.slug = '';
   }
 
   get(

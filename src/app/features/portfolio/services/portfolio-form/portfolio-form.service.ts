@@ -10,7 +10,7 @@ export class PortfolioFormService {
   constructor(private fb: FormBuilder) {}
 
   getPortfolioForm(portfolio = <any>{}): FormGroup {
-    const portfolioGroup = {
+    const portfolioGroup = this.fb.group({
       id: [portfolio.id || null],
       title: [
         portfolio.title || null,
@@ -25,29 +25,30 @@ export class PortfolioFormService {
       topHoldings: [portfolio.topHoldings || null],
       marketSegment: [portfolio.marketSegment || null],
       coinHoldings: this.getCoinHoldingFormArray(portfolio.coinHoldings || [])
-    };
-    return this.fb.group(portfolioGroup);
+    });
+    portfolioGroup.markAllAsTouched();
+
+    return portfolioGroup;
   }
 
   getCoinHoldingFormArray(coinHoldings = []): FormArray {
     let coinHoldingsArray: any[] | FormArray = coinHoldings.map(
       (holding: any) => this.getCoinHoldingForm(holding)
     );
-    coinHoldingsArray = this.fb.array(coinHoldingsArray);
-    coinHoldingsArray.addValidators([Validators.required, totalValueValidator]);
+    coinHoldingsArray = this.fb.array(coinHoldingsArray, [
+      Validators.required,
+      totalValueValidator()
+    ]);
 
     return coinHoldingsArray;
   }
 
   getCoinHoldingForm(holding = <any>{}): FormGroup {
     const coinGroup = this.fb.group({
-      id: [holding.id || null, [Validators.required]],
+      id: [holding.id || null],
       icon: [holding.icon || null],
-      title: [
-        holding.title || null,
-        [Validators.required, Validators.minLength(3)]
-      ],
-      percentage: [holding.percentage || null, [Validators.required]]
+      title: [holding.title || null],
+      percentage: [holding.percentage || null]
     });
 
     return coinGroup;

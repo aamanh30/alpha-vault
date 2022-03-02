@@ -41,23 +41,23 @@ export class CreatePortfolioPageComponent
   saveDraft(): void {
     this.submitted = true;
 
-    this.router.navigate(['/payment/connect']);
     if (this.form.invalid) {
       return;
     }
 
     console.log(`FORM SAVED: `, this.form.value);
     this.initForm();
+    this.router.navigate(['/payment/connect']);
   }
 
   investNow(): void {
     this.submitted = true;
-    this.router.navigate(['/payment/connect']);
     if (this.form.invalid) {
       return;
     }
 
     console.log(`INVEST NOW: `, this.form.value);
     this.initForm();
+    this.router.navigate(['/payment/connect']);
   }
 }

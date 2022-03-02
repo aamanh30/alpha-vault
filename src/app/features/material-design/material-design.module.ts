@@ -14,6 +14,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatListModule } from '@angular/material/list';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [],
@@ -32,7 +34,9 @@ import { MatListModule } from '@angular/material/list';
     MatTableModule,
     MatTooltipModule,
     MatAutocompleteModule,
-    MatListModule
+    MatListModule,
+    MatSnackBarModule,
+    MatMenuModule
   ],
   exports: [
     ReactiveFormsModule,
@@ -48,7 +52,9 @@ import { MatListModule } from '@angular/material/list';
     MatTableModule,
     MatTooltipModule,
     MatAutocompleteModule,
-    MatListModule
+    MatListModule,
+    MatSnackBarModule,
+    MatMenuModule
   ]
 })
 export class MaterialDesignModule {}

@@ -7,6 +7,18 @@
       max-width: 200px;
     }
   }
+  .navbar-nav {
+    .user-icon-btn {
+      .mat-button-focus-overlay {
+        opacity: 0;
+      }
+      .user-icon {
+        width: 32px;
+        height: 32px;
+        border: 2px solid $dark-gunmetal;
+      }
+    }
+  }
 }
 
 :host::ng-deep .nav {
