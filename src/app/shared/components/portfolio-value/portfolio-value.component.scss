@@ -1,0 +1,13 @@
+@import '../../../../assets/scss/variables';
+
+.portfolio-value-wrapper {
+  .icon-caret-up {
+    color: $green !important;
+  }
+  .icon-caret-down {
+    color: $red !important;
+  }
+  .font-weight-normal {
+    font-size: 1rem;
+  }
+}

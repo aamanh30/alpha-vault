@@ -1,19 +1,61 @@
-<!-- <mat-grid-list cols="2" rowHeight="2:1">
-  <mat-grid-tile>
-    <alpha-vault-vault-info></alpha-vault-vault-info>
-  </mat-grid-tile>
+<section class="auth-form-wrapper mb-4">
+  <alpha-vault-card-details
+    [heading]="signInDetails?.title"
+    [subHeading]="true"
+  >
+    <ng-container class="sub-heading-content mt-0"
+      >{{ signInDetails?.type }}
+    </ng-container>
 
-  <mat-grid-tile>
-    <alpha-vault-sign-in-form></alpha-vault-sign-in-form>
-  </mat-grid-tile>
-</mat-grid-list> -->
+    <alpha-vault-sign-in-form
+      class="additional-content"
+      [form]="form"
+      [submitted]="submitted"
+    ></alpha-vault-sign-in-form>
 
-<section class="d-inline-flex">
-  <div class="">
-    <alpha-vault-vault-info></alpha-vault-vault-info>
-  </div>
+    <div class="footer-content col-xs-12">
+      <div class="row">
+        <div class="col text-center">
+          <p>
+            <a [routerLink]="['/auth/forgot-password']">Forgot Password</a>
+          </p>
+        </div>
+      </div>
+      <div class="row mb-4">
+        <div class="col text-center">
+          <button class="btn btn-primary btn-alpha-vault" (click)="onSubmit()">
+            LOGIN
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col text-center">
+          <p>
+            <a [routerLink]="['/auth/sign-up']">I don't have an acount</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </alpha-vault-card-details>
+</section>
 
-  <div class="">
-    <alpha-vault-sign-in-form></alpha-vault-sign-in-form>
-  </div>
+<section class="auth-form-wrapper mb-4">
+  <alpha-vault-card-details
+    [heading]="connectWalletDetails?.title"
+    [content]="connectWalletDetails?.content"
+  >
+    <mat-icon
+      class="icon-content"
+      aria-hidden="false"
+      [attr.aria-label]="connectWalletDetails?.title"
+      >account_balance_wallet</mat-icon
+    >
+    <a
+      class="primary-button"
+      [routerLink]="['/payment/connect']"
+      routerLinkActive="active-link"
+    >
+      <button class="btn btn-primary btn-alpha-vault">CONNECT WALLET</button>
+    </a>
+  </alpha-vault-card-details>
 </section>

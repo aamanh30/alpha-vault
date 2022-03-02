@@ -1,19 +1,32 @@
-<!-- <mat-grid-list cols="2" rowHeight="2:1">
-  <mat-grid-tile>
-    <alpha-vault-vault-info></alpha-vault-vault-info>
-  </mat-grid-tile>
+<section class="auth-form-wrapper mb-4">
+  <alpha-vault-card-details
+    [heading]="signUpDetails?.title"
+    [subHeading]="true"
+  >
+    <ng-container class="sub-heading-content mt-0"
+      >{{ signUpDetails?.type }}
+    </ng-container>
+    <alpha-vault-sign-up-form
+      class="additional-content"
+      [form]="form"
+      [submitted]="submitted"
+    ></alpha-vault-sign-up-form>
 
-  <mat-grid-tile>
-    <alpha-vault-sign-up-form></alpha-vault-sign-up-form>
-  </mat-grid-tile>
-</mat-grid-list> -->
-
-<section class="d-inline-flex">
-  <div class="">
-    <alpha-vault-vault-info></alpha-vault-vault-info>
-  </div>
-
-  <div class="">
-    <alpha-vault-sign-up-form></alpha-vault-sign-up-form>
-  </div>
+    <div class="footer-content col-xs-12">
+      <div class="row mb-4">
+        <div class="col text-center">
+          <button class="btn btn-primary btn-alpha-vault" (click)="onSubmit()">
+            REGISTER
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col text-center">
+          <p>
+            <a [routerLink]="['/auth/sign-in']">I already have an acount</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </alpha-vault-card-details>
 </section>

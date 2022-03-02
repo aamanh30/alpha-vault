@@ -1,0 +1,37 @@
+<mat-card class="portfolio-name-wrapper card-wrapper" [formGroup]="form">
+  <mat-card-title-group class="card-details-header mb-4">
+    <mat-card-title class="heading font-weight-bold">
+      Custom Portfolio
+    </mat-card-title>
+  </mat-card-title-group>
+
+  <mat-card-content class="card-details-body card-content">
+    <div class="w-100 d-block">
+      <mat-form-field class="w-100" appearance="fill">
+        <mat-icon matPrefix>pie_chart</mat-icon>
+        <input
+          type="text"
+          matInput
+          placeholder="Portfolio Name"
+          formControlName="title"
+        />
+      </mat-form-field>
+      <alpha-vault-error-messages
+        *ngIf="submitted"
+        [label]="'Portfolio Name'"
+        [control]="form.get('title')"
+      ></alpha-vault-error-messages>
+    </div>
+  </mat-card-content>
+
+  <mat-card-actions class="card-details-footer">
+    <div class="row pb-4">
+      <div class="col">
+        Lorem Ipsum is simply dummy text of the printing and typesetting
+        industry. Lorem Ipsum has been the industry's standard dummy text ever
+        since the 1500s, when an unknown printer took a galley of type and
+        scrambled it to make a type specimen book.
+      </div>
+    </div>
+  </mat-card-actions>
+</mat-card>

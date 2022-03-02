@@ -1,0 +1,27 @@
+<nav class="navbar navbar-expand-lg navbar-light justify-content-between px-0">
+  <a [routerLink]="['/home']" routerLinkActive="active-link">
+    <img class="logo" src="assets/images/logo-dark.png" alt="Alpha Vault" />
+  </a>
+
+  <ul class="nav navbar-nav">
+    <li *ngIf="!(user$ | async)">
+      <a [routerLink]="['/auth/sign-in']" routerLinkActive="active-link">
+        <button class="btn btn-primary btn-alpha-vault">LOGIN</button>
+      </a>
+    </li>
+    <li *ngIf="user$ | async">
+      <button mat-button class="user-icon-btn" [matMenuTriggerFor]="belowMenu">
+        <mat-icon
+          class="user-icon rounded-circle d-flex justify-content-center align-items-center"
+          aria-hidden="false"
+          aria-label="Example home icon"
+          >person</mat-icon
+        >
+      </button>
+      <mat-menu #belowMenu="matMenu" yPosition="below">
+        <a [routerLink]="['/portfolio/dashboard']" mat-menu-item>Dashboard</a>
+        <a [routerLink]="['/auth/sign-out']" mat-menu-item>Log Out</a>
+      </mat-menu>
+    </li>
+  </ul>
+</nav>

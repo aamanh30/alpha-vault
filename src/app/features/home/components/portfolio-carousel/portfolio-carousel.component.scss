@@ -1,0 +1,13 @@
+.portfolio-carousel-wrapper {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.1rem;
+  -ms-overflow-style: none;
+  scrollbar-width: thin;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  .portfolio-carousel {
+    clear: both;
+  }
+}

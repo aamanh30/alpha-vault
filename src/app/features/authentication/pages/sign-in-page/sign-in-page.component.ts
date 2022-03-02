@@ -1,23 +1,46 @@
-import { signInFormConfig } from './../../configs/auth-form.config';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { AuthenticationService } from './../../services/authentication.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
+import { FormGroup } from '@angular/forms';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+
+import {
+  signInConfig,
+  connectWalletConfig
+} from './../../configs/auth-form.config';
+import { AuthenticationService } from '../../services/authentication/authentication.service';
+import { AuthFormService } from '../../services/auth-form/auth-form.service';
+import { PageBase } from '../../../../core/base';
+import { UserService } from '../../../../core/services/user/user.service';
+import { AnimationService } from '../../../../shared/services/animation/animation.service';
 
 @Component({
   selector: 'alpha-vault-sign-in-page',
   templateUrl: './sign-in-page.component.html',
   styleUrls: ['./sign-in-page.component.scss']
 })
-export class SignInPageComponent implements OnInit {
-  submitted: boolean = false;
+export class SignInPageComponent extends PageBase implements OnInit, OnDestroy {
   form: FormGroup = new FormGroup({});
+  unsubscribe: Subject<any> = new Subject<any>();
+  signInDetails: any = signInConfig;
+  connectWalletDetails: any = connectWalletConfig;
   constructor(
-    private fb: FormBuilder,
-    private authenticationService: AuthenticationService
-  ) {}
+    private router: Router,
+    private authFormService: AuthFormService,
+    private authenticationService: AuthenticationService,
+    private userService: UserService,
+    private animationService: AnimationService
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
-    this.form = this.fb.group(signInFormConfig);
+    this.form = this.authFormService.getSignInForm();
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
   }
 
   onSubmit(): void {
@@ -25,7 +48,23 @@ export class SignInPageComponent implements OnInit {
     if (this.form.invalid) {
       return;
     }
-
-    console.log(`Value: `, this.form.value);
+    this.submitting = true;
+    this.authenticationService
+      .signIn(this.form.value)
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe(
+        ({ user, message }: any) => {
+          this.submitting = false;
+          this.userService.updateUser(user);
+          this.animationService.open(message);
+          const url =
+            this.router['browserUrlTree']?.queryParams?.url || '/home/main';
+          this.router.navigate([url]);
+        },
+        ({ error }) => {
+          this.submitting = false;
+          this.animationService.open(error.message, 'error');
+        }
+      );
   }
 }

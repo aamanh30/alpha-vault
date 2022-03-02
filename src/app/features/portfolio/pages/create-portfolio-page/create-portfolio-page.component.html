@@ -1,0 +1,89 @@
+<section class="portfolio-page-wrapper" [formGroup]="form">
+  <div class="row mb-4">
+    <div class="col">
+      <alpha-vault-portfolio-name-section
+        [submitted]="submitted"
+        [form]="form"
+      ></alpha-vault-portfolio-name-section>
+    </div>
+  </div>
+
+  <div class="row mb-4">
+    <div class="col">
+      <mat-card class="portfolio-search-wrapper card-wrapper">
+        <mat-card-title-group class="card-details-header mb-4">
+          <mat-card-title class="heading font-weight-bold">
+            Search and Add Coin
+          </mat-card-title>
+        </mat-card-title-group>
+
+        <alpha-vault-coin-search-form
+          [form]="form"
+          [submitted]="submitted"
+          [coins]="(coins$ | async) || []"
+          (coinSelectedEmitter)="onCoinSelect($event)"
+        >
+        </alpha-vault-coin-search-form>
+
+        <mat-card-actions class="card-details-footer">
+          <div class="row">
+            <div class="col">
+              <button
+                type="button"
+                class="btn btn-primary btn-alpha-vault"
+                [disabled]="
+                  !form.value.searchCoin.id ||
+                  !form.value.searchCoin.percentage ||
+                  form.value.searchCoin.percentage <= 0
+                "
+                (click)="onAddCoin()"
+              >
+                ADD COIN
+              </button>
+            </div>
+          </div>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+
+  <div class="row mb-4">
+    <div class="col">
+      <section class="my-4" formArrayName="coinHoldings">
+        <alpha-vault-card-details [heading]="'Coin Holdings'">
+          <ng-container class="additional-content">
+            <alpha-vault-coin-holdings-section
+              [coinHoldings]="form.controls.coinHoldings"
+              [submitted]="submitted"
+              [readonly]="false"
+              (rowClickedEmitter)="coinSelected($event)"
+              (removeCoinEmitter)="coinRemoved($event)"
+            ></alpha-vault-coin-holdings-section>
+          </ng-container>
+        </alpha-vault-card-details>
+      </section>
+    </div>
+  </div>
+
+  <div class="row mb-4 py-4 bg-white">
+    <div class="col text-center">
+      <button
+        class="btn btn-secondary btn-alpha-vault"
+        type="button"
+        (click)="saveDraft()"
+      >
+        SAVE AS DRAFT
+      </button>
+    </div>
+
+    <div class="col text-center">
+      <button
+        class="btn btn-primary btn-alpha-vault"
+        type="button"
+        (click)="investNow()"
+      >
+        INVEST NOW
+      </button>
+    </div>
+  </div>
+</section>

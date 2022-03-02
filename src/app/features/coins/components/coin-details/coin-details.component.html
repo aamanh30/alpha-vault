@@ -1,0 +1,66 @@
+<section *ngIf="coin" class="coin-details-section">
+  <div class="row">
+    <div class="col">
+      <alpha-vault-line-chart></alpha-vault-line-chart>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <p class="text-justify">{{ coin.content }}</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <table class="table">
+        <tbody>
+          <tr>
+            <td class="border-0" scope="row">Trading Volume 24h</td>
+            <td class="text-right font-weight-bold border-0">
+              <p class="d-inline-flex align-items-center m-0">
+                ${{ coin?.tradingVolume24h }}
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td class="border-0" scope="row">Volume / Market Cap</td>
+            <td class="text-right font-weight-bold border-0">
+              {{ coin?.volumeOrMarketCap }}
+            </td>
+          </tr>
+          <tr>
+            <td class="border-0" scope="row">Market Cap</td>
+            <td class="text-right font-weight-bold border-0">
+              ${{ coin?.marketCap }}
+            </td>
+          </tr>
+          <tr>
+            <td class="border-0" scope="row">Fully Diluted Market Cap</td>
+            <td class="text-right font-weight-bold border-0">
+              ${{ coin?.fullyDilutedMarketCap }}
+            </td>
+          </tr>
+          <tr>
+            <td class="border-0" scope="row">Circulating Supply</td>
+            <td class="text-right font-weight-bold border-0">
+              {{ coin?.circulatingSupply }} {{ coin?.abbr }}
+            </td>
+          </tr>
+          <tr>
+            <td class="border-0" scope="row">Total Supply</td>
+            <td class="text-right font-weight-bold border-0">
+              {{ coin?.totalSupply }} {{ coin?.abbr }}
+            </td>
+          </tr>
+          <tr>
+            <td class="border-0" scope="row">Max Supply</td>
+            <td class="text-right font-weight-bold border-0">
+              {{ coin?.maxSupply }} {{ coin?.abbr }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

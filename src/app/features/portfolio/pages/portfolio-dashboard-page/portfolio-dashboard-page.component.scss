@@ -1,0 +1,51 @@
+@import '../../../../../assets/scss/variables';
+
+.portfolio-allocation-wrapper {
+  mat-list {
+    mat-list-item {
+      .allocation-row {
+        span {
+          margin-right: 20px;
+          &.round {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+          }
+        }
+        @media screen and (max-width: $small) {
+          span {
+            text-overflow: ellipsis;
+            margin-right: 20px;
+            font-size: 12px;
+            &.round {
+              width: 8px;
+              height: 8px;
+            }
+            &.allocation-title {
+              overflow: hidden;
+              white-space: nowrap;
+            }
+          }
+        }
+      }
+    }
+    @media screen and (max-width: $small) {
+      mat-list-item {
+        height: 32px;
+      }
+    }
+  }
+}
+
+.portfolio-performance-wrapper {
+  .text-center {
+    .portfolio-value {
+      display: inline;
+      padding: 4px 8px;
+      border-radius: 16px;
+      color: $white;
+      background-color: $bright-pink;
+    }
+  }
+}

@@ -1,0 +1,36 @@
+@import '../../../../../assets/scss/variables';
+
+.navbar {
+  .logo {
+    max-width: 300px;
+    @media screen and (max-width: $small) {
+      max-width: 200px;
+    }
+  }
+  .navbar-nav {
+    .user-icon-btn {
+      .mat-button-focus-overlay {
+        opacity: 0;
+      }
+      .user-icon {
+        width: 32px;
+        height: 32px;
+        border: 2px solid $dark-gunmetal;
+      }
+    }
+  }
+}
+
+:host::ng-deep .nav {
+  .avatar-card {
+    .avatar-card-icon {
+      mat-icon {
+        width: 40px;
+        height: 40px;
+      }
+    }
+    .mat-card-header-text {
+      display: none;
+    }
+  }
+}

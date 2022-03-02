@@ -1,0 +1,28 @@
+@import '../../../../assets/scss/variables';
+
+.card-wrapper {
+  border-radius: 30px;
+  .question-icon {
+    font-weight: bold;
+  }
+  .card-details-header {
+    display: block;
+    .heading {
+      .icon-wrapper {
+        color: $quick-silver;
+      }
+      @media screen and (max-width: $small) {
+        .heading-content {
+          font-size: medium;
+        }
+      }
+    }
+  }
+  .card-details-body {
+    display: block;
+    text-align: justify;
+  }
+  .card-details-footer {
+    display: block;
+  }
+}

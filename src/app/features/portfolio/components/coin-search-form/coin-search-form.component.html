@@ -1,0 +1,66 @@
+<mat-card-content class="card-details-body card-content m-0" [formGroup]="form">
+  <div class="row m-0" formGroupName="searchCoin">
+    <div class="col-8">
+      <mat-form-field class="w-100" appearance="fill">
+        <mat-icon matPrefix>search</mat-icon>
+        <input
+          type="text"
+          placeholder="Search and Add Coin"
+          aria-label="Search and Add Coin"
+          matInput
+          formControlName="title"
+          [matAutocomplete]="auto"
+          [readonly]="form.value?.searchCoin?.id"
+        />
+        <mat-icon
+          *ngIf="form.value?.searchCoin?.id"
+          matSuffix
+          mat-icon-button
+          aria-label="Clear"
+          (click)="resetSearch()"
+          >close</mat-icon
+        >
+        <mat-error *ngIf="submitted && form.controls?.searchCoin?.errors">
+          <alpha-vault-error-messages
+            [label]="'Coin Name'"
+            [control]="form.controls?.searchCoin"
+          ></alpha-vault-error-messages>
+        </mat-error>
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+          <mat-option
+            *ngFor="let option of coins"
+            (click)="coinSelectedEmitter.emit(option)"
+          >
+            {{ option?.title }}
+          </mat-option>
+          <mat-option
+            *ngIf="
+              !coins?.length &&
+              form.controls.searchCoin?.value?.title?.length > 3
+            "
+            >{{ noMatchMessage }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+
+    <div class="col-4">
+      <mat-form-field class="w-100 coin-value-wrapper" appearance="fill">
+        <mat-icon matPrefix>animation</mat-icon>
+        <input
+          type="number"
+          matInput
+          placeholder="Coin"
+          formControlName="percentage"
+        />
+        <mat-icon matSuffix>%</mat-icon>
+        <mat-error *ngIf="submitted && form.controls?.percentage?.errors">
+          <alpha-vault-error-messages
+            [label]="'Percentage'"
+            [control]="form.controls?.percentage"
+          ></alpha-vault-error-messages>
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+</mat-card-content>

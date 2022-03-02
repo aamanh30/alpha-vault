@@ -1,0 +1,25 @@
+@import '../../../../../assets/scss/variables';
+.portfolio-details-section {
+  .row {
+    .col {
+      .table {
+        td {
+          .portfolio-icon {
+            background-color: $quick-silver;
+            color: $white;
+            font-size: 12px;
+            border: 1px solid;
+            border-radius: 50%;
+            text-align: center;
+            align-items: center;
+            padding: 2px 2px;
+            width: 12px;
+            height: 12px;
+            margin: -2px 0px 0px 4px;
+            box-sizing: content-box;
+          }
+        }
+      }
+    }
+  }
+}

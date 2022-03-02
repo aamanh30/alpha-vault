@@ -1,0 +1,22 @@
+<span
+  class="portfolio-value-wrapper d-flex align-items-center"
+  *ngIf="portfolioValue"
+>
+  <ng-container [ngSwitch]="isTrending">
+    <ng-container *ngSwitchCase="true">
+      <mat-icon class="icon-content icon-caret-up" aria-hidden="false"
+        >arrow_drop_up</mat-icon
+      >
+      <span class="font-weight-normal">+{{ portfolioValue }}%</span>
+    </ng-container>
+    <ng-container *ngSwitchCase="false">
+      <mat-icon class="icon-content icon-caret-down" aria-hidden="false"
+        >arrow_drop_down</mat-icon
+      >
+      <span class="font-weight-normal">-{{ portfolioValue }}%</span>
+    </ng-container>
+    <ng-container *ngSwitchDefault>
+      <span class="font-weight-normal">{{ portfolioValue }}%</span>
+    </ng-container>
+  </ng-container>
+</span>

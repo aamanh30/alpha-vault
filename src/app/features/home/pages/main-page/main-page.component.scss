@@ -1,0 +1,23 @@
+@import '../../../../../assets/scss/variables';
+.portfolio-details-wrapper {
+  .coin-holdings-wrapper {
+    .nav-item {
+      .nav-link {
+        border: 1px solid $cadmium-violet;
+        border-radius: 30px;
+      }
+
+      @media screen and (max-width: $small) {
+        .nav-link {
+          padding: 4px 8px;
+          font-size: x-small;
+          margin-bottom: 10px;
+          .img-fluid {
+            width: 16px;
+            height: 16px;
+          }
+        }
+      }
+    }
+  }
+}

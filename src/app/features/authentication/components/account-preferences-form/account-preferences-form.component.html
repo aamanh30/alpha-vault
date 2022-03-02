@@ -1,0 +1,95 @@
+<div class="row auth-form-wrapper">
+  <div class="col">
+    <form [formGroup]="form">
+      <div class="row mb-4">
+        <div class="col">
+          <h3 class="h3 font-weight-bold">Investment Styles</h3>
+          <mat-radio-group
+            class="w-100 d-inline-flex align-items-center"
+            aria-label="Select Investment Styles"
+            formControlName="investmentStyles"
+          >
+            <mat-radio-button class="mr-4" [value]="investmentStyles.passive">{{
+              investmentStyles.passive
+            }}</mat-radio-button>
+            <mat-radio-button
+              class="mr-4"
+              [value]="investmentStyles.aggressive"
+              >{{ investmentStyles.aggressive }}</mat-radio-button
+            >
+            <mat-radio-button class="mr-4" [value]="investmentStyles.mix">{{
+              investmentStyles.mix
+            }}</mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+
+      <div class="row mb-4">
+        <div class="col">
+          <h3 class="h3 font-weight-bold">Investment Goals</h3>
+          <mat-radio-group
+            class="w-100 d-inline-flex align-items-center"
+            aria-label="Select Investment Goals"
+            formControlName="investmentGoals"
+          >
+            <mat-radio-button
+              class="mr-4"
+              [value]="investmentGoals.shortTerm"
+              >{{ investmentGoals.shortTerm }}</mat-radio-button
+            >
+            <mat-radio-button
+              class="mr-4"
+              [value]="investmentGoals.mediumTerm"
+              >{{ investmentGoals.mediumTerm }}</mat-radio-button
+            >
+            <mat-radio-button class="mr-4" [value]="investmentGoals.longTerm">{{
+              investmentGoals.longTerm
+            }}</mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+
+      <div class="row mb-4">
+        <div class="col">
+          <h3 class="h3 font-weight-bold">Crypto Experience</h3>
+          <mat-radio-group
+            class="w-100 d-inline-flex align-items-center"
+            aria-label="Crypto Experience"
+            formControlName="cryptoExperience"
+          >
+            <mat-radio-button class="mr-4" [value]="true">YES</mat-radio-button>
+            <mat-radio-button class="mr-4" [value]="false">NO</mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+
+      <div class="row mb-4">
+        <div class="col-6">
+          <h3 class="h3 font-weight-bold">Age</h3>
+          <mat-form-field class="w-100" appearance="fill">
+            <input
+              type="number"
+              placeholder="Age"
+              aria-label="Age"
+              matInput
+              formControlName="age"
+            />
+          </mat-form-field>
+        </div>
+
+        <div class="col-6">
+          <h3 class="h3 font-weight-bold">Trading Experience</h3>
+          <mat-form-field class="w-100" appearance="fill">
+            <input
+              type="number"
+              placeholder="Trading Experience"
+              aria-label="Trading Experience"
+              matInput
+              formControlName="tradingExperience"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

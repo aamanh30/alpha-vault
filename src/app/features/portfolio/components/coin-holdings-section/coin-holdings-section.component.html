@@ -1,0 +1,61 @@
+<ng-container
+  *ngIf="
+    coinHoldings?.value?.length;
+    then coinHoldingsTable;
+    else noCoinHoldings
+  "
+></ng-container>
+<div class="row" *ngIf="submitted">
+  <div class="col">
+    <alpha-vault-error-messages
+      [label]="'Coin Holdings'"
+      [control]="coinHoldings"
+    ></alpha-vault-error-messages>
+  </div>
+</div>
+
+<ng-template #noCoinHoldings>
+  <div class="row">
+    <div class="col">
+      <p class="text-center">No Coin Holdings</p>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #coinHoldingsTable>
+  <mat-table [dataSource]="coinHoldings.value">
+    <ng-container matColumnDef="icon">
+      <mat-cell *matCellDef="let cell">
+        <img [src]="cell.icon" />
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="title">
+      <mat-cell *matCellDef="let cell" class="ws-nowrap">
+        {{ cell.title }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="percentage">
+      <mat-cell
+        *matCellDef="let cell; let i = index"
+        class="justify-content-end"
+      >
+        {{ cell.percentage / 100 | percent: '2.2' }}
+        <span
+          *ngIf="!readonly"
+          class="ml-1 cursor-pointer text-danger"
+          (click)="$event.stopPropagation(); removeCoinEmitter.emit(i)"
+        >
+          <mat-icon aria-hidden="false">cancel</mat-icon>
+        </span>
+      </mat-cell>
+    </ng-container>
+
+    <mat-row
+      class="border-0"
+      *matRowDef="let row; columns: columns; let i = index"
+      (click)="rowClickedEmitter.emit(row)"
+    ></mat-row>
+  </mat-table>
+</ng-template>

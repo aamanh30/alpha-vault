@@ -1,0 +1,37 @@
+<div class="portfolio-carousel-wrapper">
+  <div
+    class="portfolio-carousel"
+    [ngStyle]="{ width: portfolios.length * 90 + '%' }"
+  >
+    <ng-container *ngFor="let portfolio of portfolios; let i = index">
+      <alpha-vault-card-details
+        [heading]="portfolio?.title"
+        [subHeading]="true"
+        [content]="portfolio?.content"
+        class="portfolio-carousel-item float-left"
+        [ngStyle]="{
+          width: 'calc(100%/ ' + portfolios.length + ' - 1rem)',
+          'margin-right': '1rem'
+        }"
+      >
+        <ng-container class="sub-heading-content mt-0"
+          >{{ portfolio?.type }}
+        </ng-container>
+
+        <alpha-vault-portfolio-value
+          class="icon-content"
+          [portfolioValue]="portfolio?.percentage"
+          [isTrending]="portfolio?.isTrending"
+        ></alpha-vault-portfolio-value>
+
+        <a
+          class="primary-button"
+          [routerLink]="['/portfolio/details/' + portfolio?.id]"
+          routerLinkActive="active-link"
+        >
+          <button class="btn btn-primary btn-alpha-vault">INVEST NOW</button>
+        </a>
+      </alpha-vault-card-details>
+    </ng-container>
+  </div>
+</div>

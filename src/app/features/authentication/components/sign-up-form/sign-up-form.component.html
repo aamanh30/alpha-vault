@@ -1,3 +1,129 @@
-<section class="sign-up-form-wrapper">
-  <form [formGroup]="form"></form>
-</section>
+<div class="row auth-form-wrapper">
+  <div class="col text-left">
+    <form [formGroup]="form">
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="w-100" appearance="fill">
+            <mat-icon matPrefix>badge</mat-icon>
+            <input
+              type="text"
+              matInput
+              placeholder="First Name"
+              formControlName="firstname"
+            />
+            <mat-error *ngIf="submitted && form.controls?.firstname?.errors">
+              <alpha-vault-error-messages
+                [label]="'First Name'"
+                [control]="form.controls?.firstname"
+              ></alpha-vault-error-messages>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col">
+          <mat-form-field class="w-100" appearance="fill">
+            <mat-icon matPrefix>badge</mat-icon>
+            <input
+              type="text"
+              matInput
+              placeholder="Last Name"
+              formControlName="lastname"
+            />
+            <mat-error *ngIf="submitted">
+              <alpha-vault-error-messages
+                [label]="'Last Name'"
+                [control]="form.get('lastname')"
+              ></alpha-vault-error-messages>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="w-100 d-block">
+        <mat-form-field class="w-100" appearance="fill">
+          <mat-icon matPrefix>email</mat-icon>
+          <input
+            type="text"
+            matInput
+            placeholder="Email"
+            formControlName="email"
+          />
+          <mat-error *ngIf="submitted">
+            <alpha-vault-error-messages
+              [label]="'Email'"
+              [control]="form.get('email')"
+            ></alpha-vault-error-messages>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="w-100 d-block">
+        <mat-form-field class="w-100" appearance="fill">
+          <mat-icon matPrefix>person</mat-icon>
+          <input
+            type="text"
+            matInput
+            placeholder="Username"
+            formControlName="username"
+          />
+          <mat-error *ngIf="submitted">
+            <alpha-vault-error-messages
+              [label]="'Username'"
+              [control]="form.get('username')"
+            ></alpha-vault-error-messages>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="w-100 d-block">
+        <mat-form-field class="w-100" appearance="fill">
+          <mat-icon matPrefix>lock</mat-icon>
+          <input
+            matInput
+            type="password"
+            formControlName="password"
+            placeholder="******"
+          />
+          <mat-icon
+            matSuffix
+            alphaVaultToggleInput
+            [type]="inputTypes.password"
+            [toggleType]="inputTypes.text"
+            >visibility</mat-icon
+          >
+          <mat-error *ngIf="submitted">
+            <alpha-vault-error-messages
+              [label]="'Password'"
+              [control]="form.get('password')"
+            ></alpha-vault-error-messages>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="w-100 d-block">
+        <mat-form-field class="w-100" appearance="fill">
+          <mat-icon matPrefix>lock</mat-icon>
+          <input
+            matInput
+            type="password"
+            formControlName="confirmPassword"
+            placeholder="******"
+          />
+          <mat-icon
+            matSuffix
+            alphaVaultToggleInput
+            [type]="inputTypes.password"
+            [toggleType]="inputTypes.text"
+            >visibility</mat-icon
+          >
+          <mat-error *ngIf="submitted">
+            <alpha-vault-error-messages
+              [label]="'Confirm Password'"
+              [control]="form.get('confirmPassword')"
+            ></alpha-vault-error-messages>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
+</div>

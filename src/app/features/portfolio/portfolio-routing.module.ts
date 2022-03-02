@@ -1,11 +1,32 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PortfolioPageComponent } from './pages/portfolio-page/portfolio-page.component';
+
+import { CreatePortfolioPageComponent } from './pages/create-portfolio-page/create-portfolio-page.component';
+import { PortfolioDashboardPageComponent } from './pages/portfolio-dashboard-page/portfolio-dashboard-page.component';
+import { PortfolioDetailsPageComponent } from './pages/portfolio-details-page/portfolio-details-page.component';
 
 const routes: Routes = [
   {
+    path: 'dashboard',
+    component: PortfolioDashboardPageComponent
+  },
+  {
+    path: 'create',
+    component: CreatePortfolioPageComponent
+  },
+  {
+    path: 'details',
+    children: [
+      {
+        path: ':id',
+        component: PortfolioDetailsPageComponent
+      }
+    ]
+  },
+  {
     path: '',
-    component: PortfolioPageComponent
+    redirectTo: 'dashboard',
+    pathMatch: 'full'
   }
 ];
 

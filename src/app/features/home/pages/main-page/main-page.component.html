@@ -1,0 +1,106 @@
+<section *ngIf="loading" class="d-flex justify-content-center">
+  <alpha-vault-spinner></alpha-vault-spinner>
+</section>
+
+<ng-container *ngIf="!loading">
+  <section *ngIf="categories" class="my-4">
+    <alpha-vault-category-filters
+      [categories]="categories"
+      (categoryFilterEmitter)="filter = $event"
+    ></alpha-vault-category-filters>
+  </section>
+
+  <section *ngIf="portfolios" class="my-4">
+    <div
+      class="portfolio-details-wrapper row"
+      *ngFor="let portfolio of portfolios | portfolioFilter: filter"
+    >
+      <div class="col my-4">
+        <alpha-vault-card-details
+          [heading]="portfolio.title"
+          [subHeading]="true"
+        >
+          <ng-container class="sub-heading-content mt-0"
+            >{{ portfolio?.type }}
+          </ng-container>
+
+          <alpha-vault-portfolio-value
+            class="icon-content"
+            [portfolioValue]="portfolio?.percentage"
+            [isTrending]="portfolio?.isTrending"
+          ></alpha-vault-portfolio-value>
+
+          <ng-container class="additional-content">
+            <p class="">{{ portfolio.content }}</p>
+            <a
+              class="text-dark font-weight-bold"
+              [routerLink]="['/portfolio/details/' + portfolio?.id]"
+              routerLinkActive="active-link"
+            >
+              More Details >
+            </a>
+            <ul class="coin-holdings-wrapper nav my-2">
+              <li
+                class="nav-item"
+                *ngFor="let coinHolding of portfolio.coinHoldings"
+              >
+                <a
+                  class="nav-link text-dark mx-1"
+                  [routerLink]="['/coins/coin-details/' + coinHolding?.id]"
+                  >{{ coinHolding.percentage / 100 | percent: '2.2' }}
+                  {{ coinHolding.abbr }}
+                  <img class="img-fluid" [src]="coinHolding.icon"
+                /></a>
+              </li>
+            </ul>
+          </ng-container>
+
+          <a
+            class="primary-button"
+            [routerLink]="['/portfolio/details/' + portfolio?.id]"
+            routerLinkActive="active-link"
+          >
+            <button class="btn btn-primary btn-alpha-vault">INVEST NOW</button>
+          </a>
+        </alpha-vault-card-details>
+      </div>
+    </div>
+
+    <div
+      class="row py-4 bg-white"
+      *ngIf="!(portfolios | portfolioFilter: filter).length"
+    >
+      <div class="col" *ngIf="filter">
+        <p class="text-center">
+          No portfolios found matching filter -
+          <span class="font-weight-bold">{{ filter.label }}</span>
+        </p>
+      </div>
+      <div class="col" *ngIf="!filter">
+        <p class="h3 text-center">No portfolios found</p>
+      </div>
+    </div>
+  </section>
+
+  <section *ngIf="createYouOwnPortfolioDetails" class="my-4">
+    <alpha-vault-card-details
+      [heading]="createYouOwnPortfolioDetails?.title"
+      [content]="createYouOwnPortfolioDetails?.content"
+    >
+      <mat-icon
+        class="icon-content"
+        aria-hidden="false"
+        [attr.aria-label]="createYouOwnPortfolioDetails?.title"
+        >pie_chart</mat-icon
+      >
+
+      <a
+        class="primary-button"
+        [routerLink]="['/portfolio/create']"
+        routerLinkActive="active-link"
+      >
+        <button class="btn btn-primary btn-alpha-vault">CREATE NOW</button>
+      </a>
+    </alpha-vault-card-details>
+  </section>
+</ng-container>
