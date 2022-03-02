@@ -5,6 +5,14 @@
     else noCoinHoldings
   "
 ></ng-container>
+<div class="row" *ngIf="submitted">
+  <div class="col">
+    <alpha-vault-error-messages
+      [label]="'Coin Holdings'"
+      [control]="coinHoldings"
+    ></alpha-vault-error-messages>
+  </div>
+</div>
 
 <ng-template #noCoinHoldings>
   <div class="row">
@@ -50,13 +58,4 @@
       (click)="rowClickedEmitter.emit(row)"
     ></mat-row>
   </mat-table>
-  <div class="row" *ngIf="coinHoldings.errors">
-    <div class="col">
-      <alpha-vault-error-messages
-        *ngIf="submitted"
-        [label]="'Coin Holdings'"
-        [control]="coinHoldings"
-      ></alpha-vault-error-messages>
-    </div>
-  </div>
 </ng-template>
