@@ -24,18 +24,17 @@ export class AuthenticatedGuard implements CanActivate, CanActivateChild {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    console.log(`Route: `, route);
-    console.log(`State: `, state);
     return this.userService.getUser().pipe(
       map((user: any) => {
-        console.log(`DATA: `, user);
         if (!user) {
-          // this.router.navigate(['/auth/sign-in'], {
-          //   queryParams: {
-          //     url: this.router.url
-          //   }
-          // });
+          this.router.navigate(['/auth/sign-in'], {
+            queryParams: {
+              url: state.url
+            }
+          });
+          return false;
         }
+
         return true;
       })
     );
