@@ -6,8 +6,8 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
 import { VideoPlayerComponent } from './components/video-player/video-player.component';
 import { CardDetailsComponent } from './components/card-details/card-details.component';
 import { PortfolioValueComponent } from './components/portfolio-value/portfolio-value.component';
-import { ToggleInputDirective } from './directives/toggle-input/toggle-input.directive';
 import { ErrorMessagesComponent } from './components/error-messages/error-messages.component';
+import { ToggleInputDirective, LoadingLayerDirective } from './directives';
 
 @NgModule({
   imports: [CommonModule, MaterialDesignModule, RouterModule],
@@ -17,7 +17,8 @@ import { ErrorMessagesComponent } from './components/error-messages/error-messag
     CardDetailsComponent,
     PortfolioValueComponent,
     ToggleInputDirective,
-    ErrorMessagesComponent
+    ErrorMessagesComponent,
+    LoadingLayerDirective
   ],
   exports: [
     SpinnerComponent,
@@ -25,7 +26,8 @@ import { ErrorMessagesComponent } from './components/error-messages/error-messag
     CardDetailsComponent,
     PortfolioValueComponent,
     ToggleInputDirective,
-    ErrorMessagesComponent
+    ErrorMessagesComponent,
+    LoadingLayerDirective
   ]
 })
 export class SharedModule {}
