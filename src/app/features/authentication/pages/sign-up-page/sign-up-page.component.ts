@@ -49,11 +49,11 @@ export class SignUpPageComponent extends PageBase implements OnInit, OnDestroy {
       .signUp(this.form.value)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
-        ({ user, message }: any) => {
+        (res: any) => {
           this.submitting = false;
-          this.userService.updateUser(user);
-          this.animationService.open(message);
-          //this.router.navigate([url]);
+          this.userService.updateUser(res);
+          this.animationService.open(res.message);
+          this.router.navigate(['/auth/account-preferences']);
         },
         ({ error }) => {
           this.submitting = false;

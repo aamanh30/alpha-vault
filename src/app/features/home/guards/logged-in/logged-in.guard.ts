@@ -9,7 +9,7 @@ import {
 import { Observable, of } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 
-import { UserService } from '../../../core/services/user/user.service';
+import { UserService } from '../../../../core/services/user/user.service';
 
 @Injectable({
   providedIn: 'root'

@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "generate": "node_modules/@angular/cli/bin/ng g"
+    "generate": "node_modules/@angular/cli/bin/ng g",
+    "deploy": "npm run build & npx firebase-tools deploy"
   },
   "private": true,
   "dependencies": {
@@ -36,6 +37,7 @@
     "@types/d3": "^7.1.0",
     "@types/jasmine": "~3.8.0",
     "@types/node": "^12.11.1",
+    "firebase-tools": "^10.2.2",
     "jasmine-core": "~3.8.0",
     "karma": "~6.3.0",
     "karma-chrome-launcher": "~3.1.0",

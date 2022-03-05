@@ -24,6 +24,7 @@ const routes: Routes = [
       },
       {
         path: 'coins',
+        canActivate: [AuthenticatedGuard],
         loadChildren: () =>
           import('./features/coins/coins.module').then(m => m.CoinsModule)
       },
