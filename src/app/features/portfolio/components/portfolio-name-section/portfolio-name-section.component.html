@@ -13,13 +13,13 @@
           type="text"
           matInput
           placeholder="Portfolio Name"
-          formControlName="title"
+          formControlName="name"
         />
       </mat-form-field>
       <alpha-vault-error-messages
         *ngIf="submitted"
         [label]="'Portfolio Name'"
-        [control]="form.get('title')"
+        [control]="form.get('name')"
       ></alpha-vault-error-messages>
     </div>
   </mat-card-content>

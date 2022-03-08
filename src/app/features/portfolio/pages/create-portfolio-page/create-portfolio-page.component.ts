@@ -7,6 +7,7 @@ import { Subject } from 'rxjs';
 import { PortfolioFormService } from './../../services/portfolio-form/portfolio-form.service';
 import { PortfolioBase } from './../../base/portfolio.base';
 import { CoinService } from './../../../coins/services/coin/coin.service';
+import { PortfolioService } from '../../services/portfolio/portfolio.service';
 
 @Component({
   selector: 'alpha-vault-create-portfolio-page',
@@ -24,7 +25,8 @@ export class CreatePortfolioPageComponent
   constructor(
     protected router: Router,
     protected portfolioFormService: PortfolioFormService,
-    protected coinService: CoinService
+    protected coinService: CoinService,
+    protected portfolioService: PortfolioService
   ) {
     super(router, portfolioFormService, coinService);
   }
@@ -46,8 +48,18 @@ export class CreatePortfolioPageComponent
     }
 
     console.log(`FORM SAVED: `, this.form.value);
-    this.initForm();
-    this.router.navigate(['/payment/connect']);
+    this.portfolioService
+      .createPortfolio(this.form.value)
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe(
+        (res: any) => {
+          console.log(`Res: `, res);
+          // this.router.navigate(['/payment/connect']);
+        },
+        (err: any) => {
+          console.error(`Error: `, err);
+        }
+      );
   }
 
   investNow(): void {

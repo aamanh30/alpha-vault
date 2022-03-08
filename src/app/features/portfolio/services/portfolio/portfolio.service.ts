@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { forkJoin, Observable, of } from 'rxjs';
 
 import { environment } from './../../../../../environments/environment';
 import { HttpService } from './../../../../core/services/http/http.service';
@@ -14,13 +14,16 @@ import {
   portfolioPerformanceDetails,
   portfolioAllocationDetails
 } from './../../configs';
+import { UserService } from '../../../../core/services/user/user.service';
+import { mergeMap, switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PortfolioService extends HttpService {
-  constructor(protected http: HttpClient) {
+  constructor(protected http: HttpClient, private userService: UserService) {
     super(http);
+    this.slug = `common`;
   }
 
   getPortfolios(): Observable<any> {
@@ -87,5 +90,19 @@ export class PortfolioService extends HttpService {
       portfolioPerformanceDetails,
       portfolioAllocationDetails
     });
+  }
+
+  createPortfolio({ id, name, coinHoldings }: any): Observable<any> {
+    return this.userService.getUser().pipe(
+      switchMap(({ email: userEmail, isAdmin = false }) => {
+        const url = `${environment.baseUrl}${this.slug}protfolio`;
+        return this.post(url, { id, name, userEmail, isAdmin });
+      }),
+      mergeMap(({ data: { id = null } }: any) => {
+        return forkJoin(
+          coinHoldings.map((coinHolding: any, i: number) => of(coinHolding))
+        );
+      })
+    );
   }
 }

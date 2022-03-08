@@ -12,8 +12,8 @@ export class PortfolioFormService {
   getPortfolioForm(portfolio = <any>{}): FormGroup {
     const portfolioGroup = this.fb.group({
       id: [portfolio.id || null],
-      title: [
-        portfolio.title || null,
+      name: [
+        portfolio.name || null,
         [Validators.required, Validators.minLength(3), Validators.maxLength(30)]
       ],
       type: [portfolio.type || null],
