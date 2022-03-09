@@ -1,8 +1,7 @@
-const { createServer } = require('http');
 const { fork, isMaster } = require('cluster');
 const { cpus } = require('os');
 const { join } = require('path');
-const { statSync, createReadStream } = require('fs');
+const express = require('express');
 
 (() => {
   const numOfCPUs = cpus();
@@ -15,20 +14,17 @@ const { statSync, createReadStream } = require('fs');
     return;
   }
 
-  const server = createServer((req, res) => {});
-  
-  server.on('request', async (req, res) => {
-    const filePath = join(__dirname, 'dist/alpha-vault/index.html');
-    const { size } = statSync(filePath);
+  const app = express();
 
-    res.writeHead(200, {
-        'Content-Type': 'text/html',
-        'Content-Length': size
+  app.use(express.static(join(__dirname, `dist/alpha-vault`)));
+
+  app.get('/', async (req, res) => {
+    return res.sendFile(join(__dirname, `dist/alpha-vault/index.html`), err => {
+      if (err) {
+        console.err(`Server error: `, err);
+      }
     });
-
-    const stream = createReadStream(filePath);
-    stream.pipe(res);
   });
 
-  server.listen(PORT, () => console.log(`Server started on PORT: ${PORT}`));
+  app.listen(PORT, () => console.log(`Server started on PORT: ${PORT}`));
 })();
