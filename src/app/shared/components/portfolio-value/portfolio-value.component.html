@@ -1,6 +1,8 @@
 <span
   class="portfolio-value-wrapper d-flex align-items-center"
-  *ngIf="portfolioValue"
+  *ngIf="
+    portfolioValue && portfolioValue !== '0.00' && portfolioValue !== '-0.00'
+  "
 >
   <ng-container [ngSwitch]="isTrending">
     <ng-container *ngSwitchCase="true">

@@ -8,6 +8,7 @@ import { CardDetailsComponent } from './components/card-details/card-details.com
 import { PortfolioValueComponent } from './components/portfolio-value/portfolio-value.component';
 import { ErrorMessagesComponent } from './components/error-messages/error-messages.component';
 import { ToggleInputDirective, LoadingLayerDirective } from './directives';
+import { ContentExcerptPipe } from './pipes';
 
 @NgModule({
   imports: [CommonModule, MaterialDesignModule, RouterModule],
@@ -18,7 +19,8 @@ import { ToggleInputDirective, LoadingLayerDirective } from './directives';
     PortfolioValueComponent,
     ToggleInputDirective,
     ErrorMessagesComponent,
-    LoadingLayerDirective
+    LoadingLayerDirective,
+    ContentExcerptPipe
   ],
   exports: [
     SpinnerComponent,
@@ -27,7 +29,8 @@ import { ToggleInputDirective, LoadingLayerDirective } from './directives';
     PortfolioValueComponent,
     ToggleInputDirective,
     ErrorMessagesComponent,
-    LoadingLayerDirective
+    LoadingLayerDirective,
+    ContentExcerptPipe
   ]
 })
 export class SharedModule {}

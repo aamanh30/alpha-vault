@@ -6,7 +6,7 @@ import { Component, OnChanges, SimpleChanges, Input } from '@angular/core';
   styleUrls: ['./portfolio-value.component.scss']
 })
 export class PortfolioValueComponent implements OnChanges {
-  @Input() portfolioValue: number | null = null;
+  @Input() portfolioValue: number | string | null = null;
   @Input() isTrending: boolean | null = null;
   constructor() {}
 
