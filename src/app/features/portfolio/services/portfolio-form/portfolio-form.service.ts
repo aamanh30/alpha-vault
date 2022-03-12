@@ -11,19 +11,24 @@ export class PortfolioFormService {
 
   getPortfolioForm(portfolio = <any>{}): FormGroup {
     const portfolioGroup = this.fb.group({
-      id: [portfolio.id || null],
+      id: [portfolio?.id || null],
       name: [
-        portfolio.name || null,
+        portfolio?.name || null,
         [Validators.required, Validators.minLength(3), Validators.maxLength(30)]
       ],
-      type: [portfolio.type || null],
-      content: [portfolio.content || null],
-      isTrending: [portfolio.isTrending],
-      percentage: [portfolio.percentage || null],
+      description: [portfolio?.description || null],
+      type: [portfolio?.type || null],
+      content: [portfolio?.content || null],
+      isTrending: [portfolio?.isTrending],
+      percentage: [portfolio?.percentage || null],
       searchCoin: this.getCoinHoldingForm(),
-      annualFees: [portfolio.annualFees || null],
-      topHoldings: [portfolio.topHoldings || null],
-      marketSegment: [portfolio.marketSegment || null],
+      annualFees: [portfolio?.annualFees || null],
+      topHoldings: [portfolio?.topHoldings || null],
+      marketSegment: [portfolio?.marketSegment || null],
+      strategyType: [portfolio?.strategyType || null, [Validators.required]],
+      rebalancing: [portfolio?.rebalancing || null, [Validators.required]],
+      holdTerm: [portfolio?.holdTerm || null, [Validators.required]],
+      buyType: [portfolio?.buyType || null, [Validators.required]],
       coinHoldings: this.getCoinHoldingFormArray(portfolio.coinHoldings || [])
     });
     portfolioGroup.markAllAsTouched();
@@ -45,10 +50,14 @@ export class PortfolioFormService {
 
   getCoinHoldingForm(holding = <any>{}): FormGroup {
     const coinGroup = this.fb.group({
-      id: [holding.id || null],
-      icon: [holding.icon || null],
-      title: [holding.title || null],
-      percentage: [holding.percentage || null]
+      id: [holding?.id],
+      protfolioId: [null],
+      thumbnail: [holding?.thumbnail || null],
+      coinId: [holding?.coinId || null],
+      name: [holding?.name || null],
+      percentage: [holding.percentage || null],
+      createdPrice: [holding?.createdPrice || null],
+      currentPrice: [holding?.currentPrice || null]
     });
 
     return coinGroup;
@@ -58,7 +67,7 @@ export class PortfolioFormService {
     const { value: coinHoldingGroup } = form.get('searchCoin') as FormGroup;
     const { value: coinHoldingsArray } = form.get('coinHoldings') as FormArray;
     const index = coinHoldingsArray.findIndex(
-      (holding: any) => holding.id === coinHoldingGroup.id
+      (holding: any) => holding.coinId === coinHoldingGroup.coinId
     );
     if (index >= 0) {
       coinHoldingsArray[index] = {
@@ -86,5 +95,21 @@ export class PortfolioFormService {
       to: [null, [Validators.required]]
     };
     return this.fb.group(portfolioReportGroup);
+  }
+
+  getPortfolioInvestmentForm(investment: any = {}): FormGroup {
+    const portfolioInvestmentGroup = this.fb.group({
+      id: [investment?.id || null],
+      protfolioId: [investment?.protfolioId || null],
+      userEmail: [investment?.userEmail || null],
+      createdon: [investment?.createdon || new Date().toISOString()],
+      investmentAmount: [
+        investment?.investmentAmount || null,
+        [Validators.required, Validators.min(1), Validators.max(999999)]
+      ]
+    });
+    portfolioInvestmentGroup.markAllAsTouched();
+
+    return portfolioInvestmentGroup;
   }
 }

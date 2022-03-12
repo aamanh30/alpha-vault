@@ -4,14 +4,20 @@
 
 <ng-container *ngIf="!loading">
   <section
-    *ngIf="portfolioPerformanceDetails"
+    *ngIf="portfolioDashboardConfig?.portfolioPerformanceDetails"
     class="my-4 portfolio-performance-wrapper"
   >
-    <alpha-vault-card-details [heading]="portfolioPerformanceDetails?.title">
+    <alpha-vault-card-details
+      [heading]="portfolioDashboardConfig?.portfolioPerformanceDetails?.title"
+    >
       <alpha-vault-portfolio-value
         class="icon-content"
-        [portfolioValue]="portfolioPerformanceDetails?.percentage"
-        [isTrending]="portfolioPerformanceDetails?.isTrending"
+        [portfolioValue]="
+          portfolioDashboardConfig?.portfolioPerformanceDetails?.percentage
+        "
+        [isTrending]="
+          portfolioDashboardConfig?.portfolioPerformanceDetails?.isTrending
+        "
       ></alpha-vault-portfolio-value>
       <ng-container class="additional-content">
         <div class="my-3 text-center">
@@ -19,7 +25,10 @@
         </div>
         <div class="my-1 text-center">
           <p class="h4 font-weight-bold">
-            {{ portfolioPerformanceDetails?.amount | currency }}
+            {{
+              portfolioDashboardConfig?.portfolioPerformanceDetails?.amount
+                | currency
+            }}
           </p>
           <p class="m-0">USD</p>
         </div>
@@ -28,29 +37,28 @@
   </section>
 
   <section
-    *ngIf="portfolioAllocationDetails"
+    *ngIf="
+      portfolioDashboardConfig?.portfolioAllocationDetails &&
+      !portfolioDashboardConfig?.portfolioAllocationDetails
+    "
     class="my-4 portfolio-allocation-wrapper"
   >
-    <alpha-vault-card-details [heading]="portfolioAllocationDetails?.title">
+    <alpha-vault-card-details
+      [heading]="portfolioDashboardConfig?.portfolioAllocationDetails?.title"
+    >
       <ng-container class="additional-content">
         <div class="row align-items-center">
-          <div class="col-4">
-            <alpha-vault-donut-chart></alpha-vault-donut-chart>
-          </div>
-          <div class="col-8">
+          <div class="col">
             <mat-list>
               <mat-list-item
                 *ngFor="
-                  let allocation of portfolioAllocationDetails?.allocations
+                  let allocation of portfolioDashboardConfig
+                    ?.portfolioAllocationDetails?.allocations
                 "
               >
                 <div
                   class="allocation-row d-flex justify-content-start align-items-center w-100"
                 >
-                  <span
-                    class="round"
-                    [ngStyle]="{ backgroundColor: allocation.color }"
-                  ></span>
                   <span>{{
                     allocation.percentage / 100 | percent: '2.2'
                   }}</span>
@@ -64,66 +72,52 @@
     </alpha-vault-card-details>
   </section>
 
-  <section *ngIf="avxHoldingsDetails" class="my-4">
-    <alpha-vault-card-details [heading]="avxHoldingsDetails?.title">
-      <alpha-vault-portfolio-value
-        class="icon-content"
-        [portfolioValue]="avxHoldingsDetails?.percentage"
-        [isTrending]="avxHoldingsDetails?.isTrending"
-      ></alpha-vault-portfolio-value>
-
+  <section
+    *ngIf="portfolioDashboardConfig?.bucketHoldingsDetails"
+    class="my-4 bucket-holdings-wrapper"
+  >
+    <alpha-vault-card-details
+      [heading]="portfolioDashboardConfig?.bucketHoldingsDetails?.title"
+    >
       <ng-container class="additional-content">
-        <mat-table [dataSource]="avxHoldingsDetails.portfolios">
-          <ng-container matColumnDef="title">
+        <mat-table [dataSource]="(portfolios$ | async) || []">
+          <ng-container matColumnDef="name">
             <mat-cell *matCellDef="let cell" class="ws-nowrap">
-              {{ cell.title }}
+              {{ cell.name }}
             </mat-cell>
           </ng-container>
 
-          <ng-container matColumnDef="amount">
-            <mat-cell *matCellDef="let cell" class="justify-content-end">
-              {{ cell.amount | currency }}
-            </mat-cell>
-          </ng-container>
-
-          <mat-row
-            class="border-0"
-            *matRowDef="let row; columns: avxHoldingsDetails.columns"
-          ></mat-row>
-        </mat-table>
-      </ng-container>
-    </alpha-vault-card-details>
-  </section>
-
-  <section *ngIf="bucketHoldingsDetails" class="my-4">
-    <alpha-vault-card-details [heading]="bucketHoldingsDetails?.title">
-      <ng-container class="additional-content">
-        <mat-table [dataSource]="bucketHoldingsDetails.portfolios">
-          <ng-container matColumnDef="title">
-            <mat-cell *matCellDef="let cell" class="ws-nowrap">
-              {{ cell.title }}
-            </mat-cell>
-          </ng-container>
-
-          <ng-container matColumnDef="percentage">
+          <ng-container matColumnDef="totalCreatedPrice">
             <mat-cell *matCellDef="let cell" class="justify-content-end">
               <alpha-vault-portfolio-value
-                [portfolioValue]="cell.percentage"
-                [isTrending]="cell.isTrending"
+                [portfolioValue]="
+                  (
+                    (cell.totalCurrentPrice - cell.totalCreatedPrice) /
+                    100
+                  ).toFixed(2)
+                "
+                [isTrending]="
+                  cell.totalCurrentPrice === cell.totalCreatedPrice
+                    ? null
+                    : cell.totalCurrentPrice > cell.totalCreatedPrice
+                "
               >
               </alpha-vault-portfolio-value>
             </mat-cell>
           </ng-container>
 
-          <ng-container matColumnDef="amount">
+          <ng-container matColumnDef="investmentAmount">
             <mat-cell *matCellDef="let cell" class="justify-content-end">
-              {{ cell.amount | currency }}
+              {{ cell.investmentAmount | currency }}
             </mat-cell>
           </ng-container>
 
           <mat-row
             class="border-0"
-            *matRowDef="let row; columns: bucketHoldingsDetails.columns"
+            *matRowDef="
+              let row;
+              columns: portfolioDashboardConfig?.bucketHoldingsDetails.columns
+            "
             (click)="openPortfolioDetails(row)"
           ></mat-row>
         </mat-table>
@@ -131,10 +125,13 @@
     </alpha-vault-card-details>
   </section>
 
-  <section *ngIf="reportGenerationDetails" class="my-4">
+  <section
+    *ngIf="portfolioDashboardConfig?.reportGenerationDetails"
+    class="my-4"
+  >
     <alpha-vault-card-details
-      [heading]="reportGenerationDetails?.title"
-      [content]="reportGenerationDetails?.content"
+      [heading]="portfolioDashboardConfig?.reportGenerationDetails?.title"
+      [content]="portfolioDashboardConfig?.reportGenerationDetails?.content"
     >
       <ng-container class="additional-content">
         <alpha-vault-report-generation-form

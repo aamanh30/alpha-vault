@@ -1,0 +1,122 @@
+<mat-card
+  class="portfolio-additional-details-wrapper card-wrapper"
+  [formGroup]="form"
+>
+  <mat-card-content class="card-details-body card-content">
+    <div class="row mb-4">
+      <div class="col">
+        <h3 class="h3 font-weight-bold">Strategy Type</h3>
+        <mat-radio-group
+          class="w-100 d-inline-flex align-items-center"
+          aria-label="Select Strategy Type"
+          formControlName="strategyType"
+        >
+          <mat-radio-button
+            class="mr-4"
+            [value]="config.strategyTypes.aggressive"
+            >{{ config.strategyTypes.aggressive }}</mat-radio-button
+          >
+          <mat-radio-button
+            class="mr-4"
+            [value]="config.strategyTypes.conservative"
+            >{{ config.strategyTypes.conservative }}</mat-radio-button
+          >
+        </mat-radio-group>
+        <mat-error *ngIf="submitted && form.controls?.strategyType?.errors">
+          <alpha-vault-error-messages
+            [label]="'Strategy Type'"
+            [control]="form.controls?.strategyType"
+          ></alpha-vault-error-messages>
+        </mat-error>
+      </div>
+    </div>
+
+    <div class="row mb-4">
+      <div class="col">
+        <h3 class="h3 font-weight-bold">Rebalancing</h3>
+        <mat-radio-group
+          class="w-100 d-inline-flex align-items-center"
+          aria-label="Select Rebalancing"
+          formControlName="rebalancing"
+        >
+          <mat-radio-button
+            class="mr-4"
+            [value]="config.rebalancingTypes.active"
+            >{{ config.rebalancingTypes.active }}</mat-radio-button
+          >
+          <mat-radio-button
+            class="mr-4"
+            [value]="config.rebalancingTypes.passive"
+            >{{ config.rebalancingTypes.passive }}</mat-radio-button
+          >
+        </mat-radio-group>
+        <mat-error *ngIf="submitted && form.controls?.rebalancing?.errors">
+          <alpha-vault-error-messages
+            [label]="'Rebalancing'"
+            [control]="form.controls?.rebalancing"
+          ></alpha-vault-error-messages>
+        </mat-error>
+      </div>
+    </div>
+
+    <div class="row mb-4">
+      <div class="col">
+        <h3 class="h3 font-weight-bold">Hold Term</h3>
+        <mat-radio-group
+          class="w-100 d-inline-flex align-items-center"
+          aria-label="Select Hold Term"
+          formControlName="holdTerm"
+        >
+          <mat-radio-button class="mr-4" [value]="config.holdTermTypes.short">{{
+            config.holdTermTypes.short
+          }}</mat-radio-button>
+          <mat-radio-button
+            class="mr-4"
+            [value]="config.holdTermTypes.medium"
+            >{{ config.holdTermTypes.medium }}</mat-radio-button
+          >
+          <mat-radio-button class="mr-4" [value]="config.holdTermTypes.long">{{
+            config.holdTermTypes.long
+          }}</mat-radio-button>
+        </mat-radio-group>
+
+        <mat-error *ngIf="submitted && form.controls?.holdTerm?.errors">
+          <alpha-vault-error-messages
+            [label]="'Hold Term'"
+            [control]="form.controls?.holdTerm"
+          ></alpha-vault-error-messages>
+        </mat-error>
+      </div>
+    </div>
+
+    <div class="row mb-4">
+      <div class="col">
+        <h3 class="h3 font-weight-bold">Buy Type</h3>
+        <mat-radio-group
+          class="w-100 d-flex align-items-center buy-type-group"
+          aria-label="Select Buy Type"
+          formControlName="buyType"
+        >
+          <mat-radio-button class="mr-4" [value]="config.buyTypes.recurring">{{
+            config.buyTypes.recurring
+          }}</mat-radio-button>
+          <mat-radio-button class="mr-4" [value]="config.buyTypes.buyAndHold">{{
+            config.buyTypes.buyAndHold
+          }}</mat-radio-button>
+          <mat-radio-button
+            class="mr-4"
+            [value]="config.buyTypes.marketDriven"
+            >{{ config.buyTypes.marketDriven }}</mat-radio-button
+          >
+        </mat-radio-group>
+
+        <mat-error *ngIf="submitted && form.controls?.buyType?.errors">
+          <alpha-vault-error-messages
+            [label]="'Buy Type'"
+            [control]="form.controls?.buyType"
+          ></alpha-vault-error-messages>
+        </mat-error>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

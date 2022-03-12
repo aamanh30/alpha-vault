@@ -1,16 +1,22 @@
 <section *ngIf="portfolio" class="portfolio-details-section">
   <div class="row">
     <div class="col">
-      <alpha-vault-area-chart></alpha-vault-area-chart>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col">
       <table class="table">
         <tbody>
           <tr>
-            <td class="border-0" scope="row">Type</td>
+            <td
+              class="border-0"
+              scope="row"
+              colspan="2"
+              *ngIf="portfolio?.description"
+            >
+              <p class="d-inline-flex align-items-center m-0">
+                {{ portfolio?.description }}
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td class="border-0" scope="row">Strategy Type</td>
             <td class="text-right font-weight-bold border-0">
               <p class="d-inline-flex align-items-center m-0">
                 {{ portfolio?.type }}
@@ -26,21 +32,27 @@
             </td>
           </tr>
           <tr>
-            <td class="border-0" scope="row">Annual Fee</td>
+            <td class="border-0" scope="row">Rebalancing</td>
             <td class="text-right font-weight-bold border-0">
-              {{ portfolio?.annualFees / 100 | percent: '2.2' }}
+              <p class="d-inline-flex align-items-center m-0">
+                {{ portfolio?.rebalancing }}
+              </p>
             </td>
           </tr>
           <tr>
-            <td class="border-0" scope="row">Top Holdings</td>
+            <td class="border-0" scope="row">Hold Term</td>
             <td class="text-right font-weight-bold border-0">
-              {{ portfolio?.topHoldings }}
+              <p class="d-inline-flex align-items-center m-0">
+                {{ portfolio?.holdTerm }}
+              </p>
             </td>
           </tr>
           <tr>
-            <td class="border-0" scope="row">Market Segment</td>
+            <td class="border-0" scope="row">Buy Type</td>
             <td class="text-right font-weight-bold border-0">
-              {{ portfolio?.marketSegment }}
+              <p class="d-inline-flex align-items-center m-0">
+                {{ portfolio?.buyType }}
+              </p>
             </td>
           </tr>
         </tbody>

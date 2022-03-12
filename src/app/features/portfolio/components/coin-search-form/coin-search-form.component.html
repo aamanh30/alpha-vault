@@ -1,6 +1,6 @@
 <mat-card-content class="card-details-body card-content m-0" [formGroup]="form">
   <div class="row m-0" formGroupName="searchCoin">
-    <div class="col-8">
+    <div class="col-md-8 col-6">
       <mat-form-field class="w-100" appearance="fill">
         <mat-icon matPrefix>search</mat-icon>
         <input
@@ -8,12 +8,12 @@
           placeholder="Search and Add Coin"
           aria-label="Search and Add Coin"
           matInput
-          formControlName="title"
+          formControlName="name"
           [matAutocomplete]="auto"
-          [readonly]="form.value?.searchCoin?.id"
+          [readonly]="form.value?.searchCoin?.coinId"
         />
         <mat-icon
-          *ngIf="form.value?.searchCoin?.id"
+          *ngIf="form.value?.searchCoin?.coinId"
           matSuffix
           mat-icon-button
           aria-label="Clear"
@@ -31,12 +31,12 @@
             *ngFor="let option of coins"
             (click)="coinSelectedEmitter.emit(option)"
           >
-            {{ option?.title }}
+            {{ option?.name }}
           </mat-option>
           <mat-option
             *ngIf="
               !coins?.length &&
-              form.controls.searchCoin?.value?.title?.length > 3
+              form.controls.searchCoin?.value?.name?.length > 3
             "
             >{{ noMatchMessage }}
           </mat-option>
@@ -44,7 +44,7 @@
       </mat-form-field>
     </div>
 
-    <div class="col-4">
+    <div class="col-md-4 col-6">
       <mat-form-field class="w-100 coin-value-wrapper" appearance="fill">
         <mat-icon matPrefix>animation</mat-icon>
         <input

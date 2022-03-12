@@ -23,16 +23,20 @@
 </ng-template>
 
 <ng-template #coinHoldingsTable>
-  <mat-table [dataSource]="coinHoldings.value">
-    <ng-container matColumnDef="icon">
+  <mat-table [dataSource]="coinHoldings.value" class="coin-holdings-table">
+    <ng-container matColumnDef="thumbnail">
       <mat-cell *matCellDef="let cell">
-        <img [src]="cell.icon" />
+        <img
+          *ngIf="cell.thumbnail"
+          class="coin-thumbnail"
+          [src]="cell.thumbnail"
+        />
       </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="title">
+    <ng-container matColumnDef="name">
       <mat-cell *matCellDef="let cell" class="ws-nowrap">
-        {{ cell.title }}
+        {{ cell.name }}
       </mat-cell>
     </ng-container>
 

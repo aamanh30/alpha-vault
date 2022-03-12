@@ -1,3 +1,10 @@
+import {
+  strategyTypes,
+  rebalancingTypes,
+  holdTermTypes,
+  buyTypes
+} from '../models';
+
 export const portfolios = [
   {
     id: 1001,
@@ -5,7 +12,7 @@ export const portfolios = [
     type: `AGGRESSIVE`,
     percentage: 92.61,
     isTrending: true,
-    content: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.`,
+    content: `Exposure to top crypto projects in DeFi disruptng the financial industry`,
     annualFees: 2.5,
     topHoldings: `ENJ, MANA, AXS`,
     marketSegment: `NFT, Defi Bucket`,
@@ -17,7 +24,7 @@ export const portfolios = [
     type: `AGGRESSIVE`,
     percentage: 2.61,
     isTrending: false,
-    content: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.`,
+    content: `Exposure to the metaverse, gaming and virtual world assets`,
     annualFees: 4.1,
     topHoldings: `ENJ, AXS, MANA`,
     marketSegment: `Metaverse Bucket`,
@@ -25,11 +32,11 @@ export const portfolios = [
   },
   {
     id: 1003,
-    title: `Defi Bucket II`,
+    title: `Infra Bucket`,
     type: `AGGRESSIVE`,
     percentage: 92.61,
     isTrending: true,
-    content: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.`,
+    content: `Promising crypto projects building on layer 2, web 3.0 and challenging the blockchain industry`,
     annualFees: 0.75,
     topHoldings: `ENJ, MANA`,
     marketSegment: `NFT, Defi Bucket II`,
@@ -37,11 +44,11 @@ export const portfolios = [
   },
   {
     id: 1004,
-    title: `Metaverse Bucket III`,
+    title: `Bluechip`,
     type: `AGGRESSIVE`,
     percentage: 2.61,
     isTrending: false,
-    content: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.`,
+    content: `Top crypto projects with a proven track record of success and stable growth for inflation hedge`,
     annualFees: 3.25,
     topHoldings: `ENJ, MANA, AXS`,
     marketSegment: `Metaverse Bucket III`,
@@ -49,11 +56,11 @@ export const portfolios = [
   },
   {
     id: 1005,
-    title: `Defi Bucket III`,
+    title: `Alpha Exclusive`,
     type: `AGGRESSIVE`,
     percentage: 92.61,
     isTrending: true,
-    content: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.`,
+    content: `Curated projects with very high potential of return and access at very early stages`,
     annualFees: 2.5,
     topHoldings: `ENJ, MANA, AXS`,
     marketSegment: `NFT, Defi Bucket`,
@@ -186,3 +193,27 @@ export const coinHoldingsConfig = [
     ]
   }
 ];
+
+export const customPortfolioAdditionalDetailsConfig = {
+  strategyTypes,
+  rebalancingTypes,
+  holdTermTypes,
+  buyTypes
+};
+
+export const transformPortfolioDetails = (data: any) => {
+  const portfolio = {
+    ...data,
+    type: data.strategyType,
+    isTrending: data.totalCreatedPrice < data.totalCurrentPrice,
+    coinHoldings: data.protfolioCoin.map((holding: any) => ({
+      id: holding.coinId,
+      thumbnail: holding.coin.thumbnail,
+      name: holding.coin.name,
+      percentage: holding.percentage,
+      abbr: holding.coin.symbol
+    }))
+  };
+
+  return portfolio;
+};

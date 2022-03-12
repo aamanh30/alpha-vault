@@ -49,3 +49,22 @@
     }
   }
 }
+
+:host::ng-deep .portfolio-allocation-wrapper,
+:host::ng-deep .bucket-holdings-wrapper {
+  .card-details-body {
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    .row {
+      .col {
+        .mat-row {
+          cursor: pointer;
+          &:hover {
+            background-color: $cultured;
+          }
+        }
+      }
+    }
+  }
+}

@@ -16,5 +16,6 @@ export class CoinSearchFormComponent {
 
   resetSearch(): void {
     this.form?.controls?.searchCoin.reset();
+    this.coins = [];
   }
 }

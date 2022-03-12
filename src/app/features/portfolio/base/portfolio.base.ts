@@ -4,19 +4,19 @@ import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { FormArray, FormGroup } from '@angular/forms';
 import { PortfolioFormService } from '../services/portfolio-form/portfolio-form.service';
+import { PageBase } from '../../../core/base';
 
-export class PortfolioBase {
-  submitted: boolean = false;
-  loading: boolean = true;
+export class PortfolioBase extends PageBase {
   coins$: any;
   form: FormGroup = new FormGroup({});
-  unsubscribe = new Subject();
 
   constructor(
     protected router: Router,
     protected portfolioFormService: PortfolioFormService,
     protected coinService: CoinService
-  ) {}
+  ) {
+    super();
+  }
 
   initForm(portfolio = {}): void {
     this.submitted = false;
@@ -25,25 +25,36 @@ export class PortfolioBase {
   }
 
   addSearchSubscription(): void {
-    const cointTitleControl = (this.form.controls.searchCoin as FormGroup).get(
-      'title'
+    const cointNameControl = (this.form.controls.searchCoin as FormGroup).get(
+      'name'
     );
-    cointTitleControl?.valueChanges
+    cointNameControl?.valueChanges
       .pipe(
         distinctUntilChanged(),
         debounceTime(300),
         takeUntil(this.unsubscribe)
       )
-      .subscribe(title => {
-        if (!title || title.length <= 1) {
+      .subscribe((name: string) => {
+        if (!name || name.length <= 1) {
           return;
         }
-        this.coins$ = this.coinService.searchCoinDetails(title);
+        name = name.trim();
+        this.coins$ = this.coinService.searchCoinDetails(name);
       });
   }
 
   onCoinSelect(coin: any): void {
-    this.form.get('searchCoin')?.patchValue(coin);
+    const searchCoin = {
+      coinId: coin?.id,
+      createdPrice: coin?.tickers?.usd_price,
+      currentPrice: coin?.currentPrice,
+      thumbnail: coin?.thumbnail,
+      id: null,
+      percentage: null,
+      protfolioId: null,
+      name: coin?.name
+    };
+    this.form.get('searchCoin')?.patchValue(searchCoin);
   }
 
   onAddCoin(): void {

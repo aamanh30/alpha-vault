@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { forkJoin, Observable, of } from 'rxjs';
+import { Router } from '@angular/router';
 
 import { environment } from './../../../../../environments/environment';
 import { HttpService } from './../../../../core/services/http/http.service';
@@ -12,16 +13,21 @@ import {
   bucketHoldingsDetails,
   avxHoldingsDetails,
   portfolioPerformanceDetails,
-  portfolioAllocationDetails
+  portfolioAllocationDetails,
+  transformPortfolioDetails
 } from './../../configs';
 import { UserService } from '../../../../core/services/user/user.service';
-import { mergeMap, switchMap } from 'rxjs/operators';
+import { concatMap, map, mergeMap, switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PortfolioService extends HttpService {
-  constructor(protected http: HttpClient, private userService: UserService) {
+  constructor(
+    protected http: HttpClient,
+    private userService: UserService,
+    private router: Router
+  ) {
     super(http);
     this.slug = `common`;
   }
@@ -41,24 +47,21 @@ export class PortfolioService extends HttpService {
     return of({ portfolios: portfolioList });
   }
 
-  getPortfolioDetails(portfolioId: number): Observable<any> {
-    const url = `${environment.baseUrl}/portfolio-service/details`;
-    let portfolio: any = portfolios.find(({ id }) => portfolioId === id);
-    if (portfolio) {
-      const { coinHoldings } =
-        coinHoldingsConfig.find(({ id }) => portfolioId === id) || {};
-      portfolio = {
-        ...portfolio,
-        coinHoldings: coinHoldings || []
-      };
-    }
-    return of(portfolio);
-    // return this.get(url);
+  getPortfolioDetails(id: number): Observable<any> {
+    const url = `${environment.baseUrl}${this.slug}/protfolio-details-coin/${id}`;
+    return this.get(url).pipe(
+      map(({ data }) => {
+        if (!data.id || data.id !== id) {
+          return this.router.navigate(['/error/404']);
+        }
+
+        return transformPortfolioDetails(data);
+      })
+    );
   }
 
   getPortfolioCategories(): Observable<any> {
     const url = `${environment.baseUrl}/portfolio-service/categories`;
-    // return this.get(url);
     return of({ categories });
   }
 
@@ -67,11 +70,11 @@ export class PortfolioService extends HttpService {
     // return this.get(url);
     const bucketHoldings = {
       ...bucketHoldingsDetails,
-      columns: bucketHoldingsDetails.portfolios.map((portfolio: any) =>
-        Object.keys(portfolio).filter(
-          key => key !== 'id' && key !== 'isTrending'
-        )
-      )[0]
+      columns: bucketHoldingsDetails.portfolios.map((portfolio: any) => [
+        'name',
+        'totalCreatedPrice',
+        'investmentAmount'
+      ])[0]
     };
 
     const avxHoldings = {
@@ -92,15 +95,133 @@ export class PortfolioService extends HttpService {
     });
   }
 
-  createPortfolio({ id, name, coinHoldings }: any): Observable<any> {
+  savePortfolioDraft({ id, name, coinHoldings }: any): Observable<any> {
     return this.userService.getUser().pipe(
       switchMap(({ email: userEmail, isAdmin = false }) => {
-        const url = `${environment.baseUrl}${this.slug}protfolio`;
+        const url = `${environment.baseUrl}${this.slug}/protfolio-draft`;
         return this.post(url, { id, name, userEmail, isAdmin });
       }),
       mergeMap(({ data: { id = null } }: any) => {
+        const coinUrl = `${environment.baseUrl}${this.slug}/protfolio-coin`;
         return forkJoin(
-          coinHoldings.map((coinHolding: any, i: number) => of(coinHolding))
+          coinHoldings.map((coinHolding: any, i: number) =>
+            this.post(coinUrl, { ...coinHolding, protfolioId: id })
+          )
+        );
+      })
+    );
+  }
+
+  createPortfolio({
+    id,
+    name,
+    coinHoldings,
+    strategyType,
+    rebalancing,
+    holdTerm,
+    buyType
+  }: any): Observable<any> {
+    return this.userService.getUser().pipe(
+      switchMap(({ email: userEmail, isAdmin = false }) => {
+        const url = `${environment.baseUrl}${this.slug}/protfolio`;
+        return this.post(url, {
+          id,
+          name,
+          userEmail,
+          isAdmin,
+          strategyType,
+          rebalancing,
+          holdTerm,
+          buyType
+        });
+      }),
+      mergeMap(({ data: { id = null } }: any) => {
+        const coinUrl = `${environment.baseUrl}${this.slug}/protfolio-coin`;
+        return forkJoin(
+          coinHoldings.map((coinHolding: any, i: number) =>
+            this.post(coinUrl, { ...coinHolding, protfolioId: id }).pipe(
+              mergeMap(({ data }: any) => of(data))
+            )
+          )
+        );
+      })
+    );
+  }
+
+  getUserPortfolios(): Observable<any> {
+    return this.userService.getUser().pipe(
+      switchMap(({ email }) => {
+        const url = `${environment.baseUrl}${this.slug}/protfolio-list/${email}`;
+        return this.get(url).pipe(map(({ data }) => data));
+      })
+    );
+  }
+
+  getPortfolioList(): Observable<any> {
+    return this.userService.getUser().pipe(
+      switchMap(({ email }) => {
+        const url = `${environment.baseUrl}${this.slug}/protfolio-details-list-all`;
+        return this.get(url).pipe(
+          map(({ data }) =>
+            data.filter((portfolio: any) => portfolio.userEmail === email)
+          )
+        );
+      })
+    );
+  }
+
+  getPortfolioUserAdmin(): Observable<boolean> {
+    return this.userService
+      .getUser()
+      .pipe(
+        switchMap(({ email }) =>
+          this.userService
+            .getAdminEmails()
+            .pipe(map(emails => emails.includes(email)))
+        )
+      );
+  }
+
+  investPortfolio({
+    id,
+    protfolioId,
+    userEmail,
+    investmentAmount,
+    createdon
+  }: any): Observable<any> {
+    return this.userService.getUser().pipe(
+      mergeMap(({ email }) => {
+        const url = `${environment.baseUrl}${this.slug}/user-protfolio`;
+        return this.post(url, {
+          id,
+          protfolioId,
+          userEmail: userEmail || email,
+          investmentAmount,
+          createdon
+        });
+      })
+    );
+  }
+
+  getPortfolioInvestments(): Observable<Map<string, any>> {
+    return this.userService.getUser().pipe(
+      switchMap(({ email }) => {
+        const url = `${environment.baseUrl}${this.slug}/user-protfolio-email/${email}`;
+        return this.get(url).pipe(
+          map(({ data }) => {
+            const investmentMap = new Map();
+            data.forEach((investment: any) => {
+              if (investmentMap.has(`${investment.protfolioId}`)) {
+                const { investmentAmount } = investmentMap.get(
+                  `${investment.protfolioId}`
+                );
+                investment.investmentAmount += investmentAmount;
+              }
+              investmentMap.set(`${investment.protfolioId}`, investment);
+            });
+
+            return investmentMap;
+          })
         );
       })
     );

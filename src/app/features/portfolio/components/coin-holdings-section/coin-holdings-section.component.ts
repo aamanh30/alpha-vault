@@ -27,7 +27,9 @@ export class CoinHoldingsSectionComponent implements OnChanges {
 
   getColumnNames(): string[] {
     const [columns] = this.coinHoldings.value.map((coinHolding: any) =>
-      Object.keys(coinHolding).filter(key => key !== 'id')
+      Object.keys(coinHolding).filter(key =>
+        ['percentage', 'name', 'thumbnail'].includes(key)
+      )
     );
 
     return columns || [];

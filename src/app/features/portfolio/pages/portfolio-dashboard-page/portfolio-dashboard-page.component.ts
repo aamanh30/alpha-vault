@@ -1,34 +1,36 @@
-import { PortfolioFormService } from './../../services/portfolio-form/portfolio-form.service';
 import { FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
+import { combineLatest, Observable, of, Subject } from 'rxjs';
 
 import { PortfolioService } from '../../services/portfolio/portfolio.service';
-import { Router } from '@angular/router';
+import { PortfolioFormService } from './../../services/portfolio-form/portfolio-form.service';
+import { AnimationService } from '../../../../shared/services/animation/animation.service';
+import { PageBase } from '../../../../core/base';
 
 @Component({
   selector: 'alpha-vault-portfolio-dashboard-page',
   templateUrl: './portfolio-dashboard-page.component.html',
   styleUrls: ['./portfolio-dashboard-page.component.scss']
 })
-export class PortfolioDashboardPageComponent implements OnInit, OnDestroy {
+export class PortfolioDashboardPageComponent
+  extends PageBase
+  implements OnInit, OnDestroy
+{
   loading: boolean = false;
-  submitted: boolean = false;
-  unsubscribe: Subject<any> = new Subject<any>();
   form: FormGroup = new FormGroup({});
-  reportGenerationDetails: any = null;
-  bucketHoldingsDetails: any = null;
-  avxHoldingsDetails: any = null;
-  portfolioPerformanceDetails: any = null;
-  portfolioAllocationDetails: any = null;
+  portfolioDashboardConfig: any = null;
   categories: any[] = [];
-  portfolios: any[] = [];
+  portfolios$: Observable<any[]> | undefined;
   constructor(
     private router: Router,
     private portfolioService: PortfolioService,
-    private portfolioFormService: PortfolioFormService
-  ) {}
+    private portfolioFormService: PortfolioFormService,
+    private animationService: AnimationService
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
     this.form = this.portfolioFormService.getPortfolioReportForm();
@@ -42,38 +44,39 @@ export class PortfolioDashboardPageComponent implements OnInit, OnDestroy {
 
   loadContent(): void {
     this.loading = true;
-    this.portfolioService
-      .getPortfolioDashboardDetails()
+    combineLatest([
+      this.portfolioService.getPortfolioDashboardDetails(),
+      this.portfolioService.getPortfolioList(),
+      this.portfolioService.getPortfolioInvestments()
+    ])
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
-        ({
-          reportGenerationDetails,
-          bucketHoldingsDetails,
-          avxHoldingsDetails,
-          portfolioPerformanceDetails,
-          portfolioAllocationDetails
-        }: any) => {
-          setTimeout(() => {
-            this.loading = false;
-            this.reportGenerationDetails = reportGenerationDetails;
-            this.bucketHoldingsDetails = bucketHoldingsDetails;
-            this.avxHoldingsDetails = avxHoldingsDetails;
-            this.portfolioPerformanceDetails = portfolioPerformanceDetails;
-            this.portfolioAllocationDetails = portfolioAllocationDetails;
-          }, 1000);
-        },
-        (err: any) => {
+        ([config, portfolios, investments]) => {
           this.loading = false;
-          this.reportGenerationDetails = null;
-          this.bucketHoldingsDetails = null;
-          this.avxHoldingsDetails = null;
-          this.portfolioPerformanceDetails = null;
-          this.portfolioAllocationDetails = null;
+          this.portfolioDashboardConfig = config;
+          this.portfolios$ = this.formatPortfolios(portfolios, investments);
+        },
+        (error: any) => {
+          this.loading = false;
+          this.animationService.open(error?.message, 'error');
         }
       );
   }
 
   openPortfolioDetails({ id }: any): void {
     this.router.navigate([`portfolio/details/${id}`]);
+  }
+
+  formatPortfolios(
+    portfolios: any,
+    investments: Map<string, any>
+  ): Observable<any[]> {
+    portfolios = portfolios.map((portfolio: any) => {
+      const { investmentAmount = null } =
+        investments.get(`${portfolio.id}`) || {};
+      return { ...portfolio, investmentAmount };
+    });
+
+    return of(portfolios);
   }
 }

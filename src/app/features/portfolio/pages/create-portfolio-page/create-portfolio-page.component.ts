@@ -1,13 +1,15 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormArray, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import { map, takeUntil } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 import { PortfolioFormService } from './../../services/portfolio-form/portfolio-form.service';
 import { PortfolioBase } from './../../base/portfolio.base';
 import { CoinService } from './../../../coins/services/coin/coin.service';
 import { PortfolioService } from '../../services/portfolio/portfolio.service';
+import { HomeService } from '../../../home/services/home/home.service';
+import { customPortfolioAdditionalDetailsConfig } from '../../configs';
+import { AnimationService } from '../../../../shared/services/animation/animation.service';
 
 @Component({
   selector: 'alpha-vault-create-portfolio-page',
@@ -18,17 +20,22 @@ export class CreatePortfolioPageComponent
   extends PortfolioBase
   implements OnInit, OnDestroy
 {
-  submitted: boolean = false;
-  unsubscribe = new Subject();
-  form: FormGroup = new FormGroup({});
-  coins$: any;
+  content$: Observable<string>;
+  isAdmin$: Observable<boolean>;
+  config: any = customPortfolioAdditionalDetailsConfig;
   constructor(
     protected router: Router,
     protected portfolioFormService: PortfolioFormService,
     protected coinService: CoinService,
-    protected portfolioService: PortfolioService
+    protected portfolioService: PortfolioService,
+    private homeService: HomeService,
+    private animationService: AnimationService
   ) {
     super(router, portfolioFormService, coinService);
+    this.content$ = this.homeService
+      .getHomeDetails()
+      .pipe(map(({ createPortfolioDetails: { content } }) => content));
+    this.isAdmin$ = this.portfolioService.getPortfolioUserAdmin();
   }
 
   ngOnInit(): void {
@@ -42,19 +49,17 @@ export class CreatePortfolioPageComponent
 
   saveDraft(): void {
     this.submitted = true;
-
     if (this.form.invalid) {
       return;
     }
 
-    console.log(`FORM SAVED: `, this.form.value);
     this.portfolioService
-      .createPortfolio(this.form.value)
+      .savePortfolioDraft(this.form.value)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
         (res: any) => {
           console.log(`Res: `, res);
-          // this.router.navigate(['/payment/connect']);
+          this.router.navigate(['/portfolio/dashboard']);
         },
         (err: any) => {
           console.error(`Error: `, err);
@@ -68,8 +73,27 @@ export class CreatePortfolioPageComponent
       return;
     }
 
-    console.log(`INVEST NOW: `, this.form.value);
-    this.initForm();
-    this.router.navigate(['/payment/connect']);
+    this.submitting = true;
+    this.portfolioService
+      .createPortfolio(this.form.value)
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe(
+        ([portfolio]: any) => {
+          this.submitting = false;
+          this.submitted = false;
+          this.animationService.open(
+            `Custom portfolio ${this.form?.value?.name} has been created successfully`
+          );
+          setTimeout(() => {
+            this.router.navigate([
+              `/portfolio/details/${portfolio?.protfolioId}`
+            ]);
+          }, 2000);
+        },
+        (error: any) => {
+          this.submitting = false;
+          this.animationService.open(error?.message, 'error');
+        }
+      );
   }
 }

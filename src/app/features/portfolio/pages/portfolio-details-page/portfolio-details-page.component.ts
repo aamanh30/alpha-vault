@@ -1,11 +1,13 @@
-import { CoinService } from './../../../coins/services/coin/coin.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnDestroy } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
 
 import { PortfolioBase } from './../../base/portfolio.base';
 import { PortfolioService } from '../../services/portfolio/portfolio.service';
 import { PortfolioFormService } from '../../services/portfolio-form/portfolio-form.service';
+import { CoinService } from './../../../coins/services/coin/coin.service';
+import { AnimationService } from '../../../../shared/services/animation/animation.service';
 
 @Component({
   selector: 'alpha-vault-portfolio-details-page',
@@ -16,20 +18,26 @@ export class PortfolioDetailsPageComponent
   extends PortfolioBase
   implements OnDestroy
 {
+  investmentForm: FormGroup = new FormGroup({});
   constructor(
     protected router: Router,
     protected portfolioFormService: PortfolioFormService,
     protected coinService: CoinService,
     private route: ActivatedRoute,
-    protected portfolioService: PortfolioService
+    protected portfolioService: PortfolioService,
+    private animationService: AnimationService
   ) {
     super(router, portfolioFormService, coinService);
   }
 
   ngOnInit(): void {
-    this.route.params
-      .pipe(takeUntil(this.unsubscribe))
-      .subscribe(({ id }) => this.loadPortfolio(Number(id)));
+    this.route.params.pipe(takeUntil(this.unsubscribe)).subscribe(({ id }) => {
+      this.investmentForm =
+        this.portfolioFormService.getPortfolioInvestmentForm({
+          protfolioId: Number(id)
+        });
+      this.loadPortfolio(Number(id));
+    });
   }
 
   ngOnDestroy(): void {
@@ -49,17 +57,36 @@ export class PortfolioDetailsPageComponent
         },
         err => {
           this.loading = false;
-          this.router.navigate([`/error/404`]);
+          // this.router.navigate([`/error/404`]);
         }
       );
   }
 
   investNow(): void {
-    this.router.navigate(['/payment/connect']);
     this.submitted = true;
-    if (this.form.invalid) {
+    if (this.investmentForm.invalid) {
       return;
     }
-    console.log(`INVEST: `, this.form.value);
+    this.submitting = true;
+    this.portfolioService
+      .investPortfolio(this.investmentForm.value)
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe(
+        (res: any) => {
+          this.submitting = false;
+          this.submitted = false;
+          this.animationService.open(
+            `$${this.investmentForm?.value?.investmentAmount} has been invested successfully`
+          );
+          this.investmentForm.reset();
+          setTimeout(() => {
+            this.router.navigate([`/portfolio/dashboard`]);
+          }, 2000);
+        },
+        (error: any) => {
+          this.submitting = false;
+          this.animationService.open(error?.message, 'error');
+        }
+      );
   }
 }

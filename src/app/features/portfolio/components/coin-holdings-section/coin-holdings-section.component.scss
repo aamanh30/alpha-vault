@@ -1,0 +1,16 @@
+@import '../../../../../assets/scss/variables';
+
+:host::ng-deep .coin-holdings-table {
+  .mat-row {
+    cursor: pointer;
+    &:hover {
+      background-color: $cultured;
+    }
+    .coin-thumbnail {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      box-shadow: 1px 1px 5px $quick-silver;
+    }
+  }
+}

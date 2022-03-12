@@ -13,6 +13,8 @@ import { ChartsModule } from '../charts/charts.module';
 import { CoinSearchFormComponent } from './components/coin-search-form/coin-search-form.component';
 import { PortfolioDashboardPageComponent } from './pages/portfolio-dashboard-page/portfolio-dashboard-page.component';
 import { ReportGenerationFormComponent } from './components/report-generation-form/report-generation-form.component';
+import { PortfolioAdditionalDetailsComponent } from './components/portfolio-additional-details/portfolio-additional-details.component';
+import { PortfolioInvestmentFormComponent } from './components/portfolio-investment-form/portfolio-investment-form.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { ReportGenerationFormComponent } from './components/report-generation-fo
     PortfolioDetailsComponent,
     CoinSearchFormComponent,
     PortfolioDashboardPageComponent,
-    ReportGenerationFormComponent
+    ReportGenerationFormComponent,
+    PortfolioAdditionalDetailsComponent,
+    PortfolioInvestmentFormComponent
   ],
   imports: [
     CommonModule,

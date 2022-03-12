@@ -22,16 +22,28 @@
         [control]="form.get('name')"
       ></alpha-vault-error-messages>
     </div>
+
+    <div class="w-100 d-block" *ngIf="isAdmin">
+      <mat-form-field class="w-100" appearance="fill">
+        <textarea
+          type="text"
+          matInput
+          placeholder="Portfolio Description"
+          formControlName="description"
+          rows="10"
+        ></textarea>
+      </mat-form-field>
+      <alpha-vault-error-messages
+        *ngIf="submitted"
+        [label]="'Portfolio Description'"
+        [control]="form.get('description')"
+      ></alpha-vault-error-messages>
+    </div>
   </mat-card-content>
 
-  <mat-card-actions class="card-details-footer">
+  <mat-card-actions class="card-details-footer mx-0">
     <div class="row pb-4">
-      <div class="col">
-        Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry. Lorem Ipsum has been the industry's standard dummy text ever
-        since the 1500s, when an unknown printer took a galley of type and
-        scrambled it to make a type specimen book.
-      </div>
+      <div class="col">{{ content }}</div>
     </div>
   </mat-card-actions>
 </mat-card>

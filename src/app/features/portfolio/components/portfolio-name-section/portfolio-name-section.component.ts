@@ -9,5 +9,7 @@ import { Component, Input } from '@angular/core';
 export class PortfolioNameSectionComponent {
   @Input() form: FormGroup = new FormGroup({});
   @Input() submitted: boolean = false;
+  @Input() content: string | null = '';
+  @Input() isAdmin: boolean = false;
   constructor() {}
 }

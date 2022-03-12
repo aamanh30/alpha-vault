@@ -1,0 +1,10 @@
+@import '../../../../../assets/scss/variables';
+
+.portfolio-additional-details-wrapper {
+  @media screen and (max-width: $small) {
+    .buy-type-group {
+      flex-direction: column !important;
+      align-items: flex-start !important;
+    }
+  }
+}
