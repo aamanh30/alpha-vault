@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 
+import { environment } from '../../../../environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -15,6 +17,10 @@ export class UserService {
 
   getUser(): Observable<any> {
     return this._user.asObservable();
+  }
+
+  getAdminEmails(): Observable<string[]> {
+    return of(environment.adminEmails);
   }
 
   checkUser(): void {

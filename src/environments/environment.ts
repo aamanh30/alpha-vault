@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'http://3.85.149.129:8081/alpha_vault/'
+  baseUrl: 'http://3.85.149.129:8081/alpha_vault/',
+  adminEmails: [`architarya@gmail.com`, `vibhor@alphavault.io`]
 };
 /*
  * For easier debugging in development mode, you can import the following file
