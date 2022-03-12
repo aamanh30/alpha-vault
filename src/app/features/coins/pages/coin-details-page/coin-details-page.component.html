@@ -1,41 +1,15 @@
-<!-- <mat-card class="coin-details-card">
-  <mat-card-content>
-    <section>
-      <alpha-vault-coin-performance></alpha-vault-coin-performance>
-    </section>
-
-    <section>
-      <alpha-vault-coin-info></alpha-vault-coin-info>
-    </section>
-
-    <section>
-      <a
-        class="primary-button"
-        [routerLink]="['/home']"
-        routerLinkActive="active-link"
-      >
-        <button class="btn btn-primary btn-alpha-vault">INVEST NOW</button>
-      </a>
-    </section>
-  </mat-card-content>
-</mat-card> -->
-
-<ng-container *ngIf="loading">
+<section *ngIf="loading" class="d-flex justify-content-center">
   <alpha-vault-spinner></alpha-vault-spinner>
-</ng-container>
+</section>
 
-<ng-container *ngIf="!loading">
-  <article>
-    <section class="my-4">
-      <alpha-vault-card-details [heading]="coin.title">
-        <alpha-vault-portfolio-value
-          class="icon-content"
-        ></alpha-vault-portfolio-value>
+<section class="my-4" *ngIf="!loading">
+  <alpha-vault-card-details [heading]="coin.name">
+    <alpha-vault-portfolio-value
+      class="icon-content"
+    ></alpha-vault-portfolio-value>
 
-        <ng-container class="additional-content">
-          <alpha-vault-coin-details [coin]="coin"></alpha-vault-coin-details>
-        </ng-container>
-      </alpha-vault-card-details>
-    </section>
-  </article>
-</ng-container>
+    <ng-container class="additional-content">
+      <alpha-vault-coin-details [coin]="coin"></alpha-vault-coin-details>
+    </ng-container>
+  </alpha-vault-card-details>
+</section>

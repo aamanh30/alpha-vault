@@ -5,6 +5,7 @@ import { Observable, of } from 'rxjs';
 import { environment } from './../../../../../environments/environment';
 import { HttpService } from './../../../../core/services/http/http.service';
 import { coins } from './../../config';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -12,25 +13,16 @@ import { coins } from './../../config';
 export class CoinService extends HttpService {
   constructor(protected http: HttpClient) {
     super(http);
+    this.slug = 'common';
   }
 
-  getCoinDetails(coinId: number): Observable<any> {
-    const url = `${environment.baseUrl}/coin-service/${coinId}`;
-    const coin: any = coins.find(({ id }) => coinId === id);
-
-    return of(coin);
-    // return this.get(url);
+  getCoinDetails(id: number): Observable<any> {
+    const url = `${environment.baseUrl}${this.slug}/crypto-coin/${id}`;
+    return this.get(url);
   }
 
-  searchCoinDetails(coinTitle: string): Observable<any> {
-    const url = `${environment.baseUrl}/coin-service`;
-    let params = new HttpParams();
-    params = params.set('search', coinTitle);
-
-    const coinsList = coins.filter(({ title }: any) =>
-      title.match(new RegExp(coinTitle, 'ig'))
-    );
-    return of(coinsList);
-    // return this.get(url);
+  searchCoinDetails(coinName: string): Observable<any> {
+    const url = `${environment.baseUrl}${this.slug}/find-crypto-coin-list/${coinName}`;
+    return this.get(url).pipe(map(({ data }) => data));
   }
 }

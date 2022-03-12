@@ -22,7 +22,7 @@ export class CoinDetailsPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.route.params
       .pipe(takeUntil(this.unsubscribe))
-      .subscribe(({ id }) => this.loadCoin(Number(id)));
+      .subscribe(({ id }) => this.loadCoin(id));
   }
 
   ngOnDestroy(): void {
@@ -36,9 +36,9 @@ export class CoinDetailsPageComponent implements OnInit, OnDestroy {
       .getCoinDetails(id)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
-        coin => {
+        ({ data }) => {
           this.loading = false;
-          this.coin = coin;
+          this.coin = data;
         },
         err => {
           this.loading = false;
