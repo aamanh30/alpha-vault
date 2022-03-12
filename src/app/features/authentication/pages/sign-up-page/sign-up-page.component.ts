@@ -17,7 +17,6 @@ import { AnimationService } from '../../../../shared/services/animation/animatio
 })
 export class SignUpPageComponent extends PageBase implements OnInit, OnDestroy {
   form: FormGroup = new FormGroup({});
-  unsubscribe: Subject<any> = new Subject<any>();
   signUpDetails: any = signUpConfig;
   constructor(
     private router: Router,

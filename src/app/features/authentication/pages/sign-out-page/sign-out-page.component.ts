@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
+import { PageBase } from '../../../../core/base';
 import { UserService } from '../../../../core/services/user/user.service';
 
 @Component({
@@ -10,9 +11,9 @@ import { UserService } from '../../../../core/services/user/user.service';
   templateUrl: './sign-out-page.component.html',
   styleUrls: ['./sign-out-page.component.scss']
 })
-export class SignOutPageComponent implements OnDestroy {
-  unsubscribe = new Subject();
+export class SignOutPageComponent extends PageBase implements OnDestroy {
   constructor(private userService: UserService, private router: Router) {
+    super();
     this.clearDetails();
   }
 
