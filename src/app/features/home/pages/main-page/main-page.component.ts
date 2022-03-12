@@ -15,9 +15,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
   submitted: boolean = false;
   unsubscribe: Subject<any> = new Subject<any>();
   createYouOwnPortfolioDetails: any = null;
-  categories: any[] = [];
   portfolios: any[] = [];
-  filter: any = null;
   constructor(
     private homeService: HomeService,
     private portfolioService: PortfolioService
@@ -36,28 +34,21 @@ export class MainPageComponent implements OnInit, OnDestroy {
     this.loading = true;
     const yourPortfolioDetails$ = this.homeService.getHomeMainDetails();
     const portfolios$ = this.portfolioService.getPortfolios();
-    const categories$ = this.portfolioService.getPortfolioCategories();
-    combineLatest([yourPortfolioDetails$, portfolios$, categories$])
+    combineLatest([yourPortfolioDetails$, portfolios$])
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
-        ([
-          { createYouOwnPortfolioDetails },
-          { portfolios },
-          { categories }
-        ]: any) => {
+        ([{ createYouOwnPortfolioDetails }, { portfolios }]: any) => {
           setTimeout(() => {
             this.loading = false;
             this.createYouOwnPortfolioDetails = createYouOwnPortfolioDetails;
             this.portfolios = portfolios;
-            this.categories = categories;
-            console.log(portfolios);
+            //console.log(portfolios);
           }, 1000);
         },
         (err: any) => {
           this.loading = false;
           this.createYouOwnPortfolioDetails = null;
           this.portfolios = [];
-          this.categories = [];
         }
       );
   }

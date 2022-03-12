@@ -7,7 +7,7 @@
     <alpha-vault-card-details
       class="how-it-works-card"
       [heading]="howItWorksDetails?.title"
-      [content]="howItWorksDetails?.content"
+      [content]="howItWorksDetails?.content | contentExcerpt: contentLimit"
     >
       <mat-icon
         class="icon-content"
@@ -20,13 +20,11 @@
         class="additional-content"
       ></alpha-vault-video-player>
 
-      <a
-        class="primary-button"
-        [routerLink]="['/auth/sign-in']"
-        routerLinkActive="active-link"
-      >
-        <button class="btn btn-primary btn-alpha-vault">LEARN MORE</button>
-      </a>
+      <div class="primary-button">
+        <button class="btn btn-primary btn-alpha-vault" (click)="onLearnMore()">
+          LEARN MORE
+        </button>
+      </div>
     </alpha-vault-card-details>
   </section>
 

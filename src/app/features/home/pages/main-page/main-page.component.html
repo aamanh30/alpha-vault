@@ -3,17 +3,10 @@
 </section>
 
 <ng-container *ngIf="!loading">
-  <section *ngIf="categories" class="my-4">
-    <alpha-vault-category-filters
-      [categories]="categories"
-      (categoryFilterEmitter)="filter = $event"
-    ></alpha-vault-category-filters>
-  </section>
-
   <section *ngIf="portfolios" class="my-4">
     <div
       class="portfolio-details-wrapper row"
-      *ngFor="let portfolio of portfolios | portfolioFilter: filter"
+      *ngFor="let portfolio of portfolios"
     >
       <div class="col my-4">
         <alpha-vault-card-details
@@ -66,17 +59,8 @@
       </div>
     </div>
 
-    <div
-      class="row py-4 bg-white"
-      *ngIf="!(portfolios | portfolioFilter: filter).length"
-    >
-      <div class="col" *ngIf="filter">
-        <p class="text-center">
-          No portfolios found matching filter -
-          <span class="font-weight-bold">{{ filter.label }}</span>
-        </p>
-      </div>
-      <div class="col" *ngIf="!filter">
+    <div class="row py-4 bg-white" *ngIf="!portfolios.length">
+      <div class="col">
         <p class="h3 text-center">No portfolios found</p>
       </div>
     </div>

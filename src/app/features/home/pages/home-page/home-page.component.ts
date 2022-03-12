@@ -17,6 +17,7 @@ export class HomePageComponent implements OnInit, OnDestroy {
   howItWorksDetails: any = null;
   createPortfolioDetails: any = null;
   avxDetails: any = null;
+  contentLimit: number = 30;
 
   constructor(
     private homeService: HomeService,
@@ -59,5 +60,13 @@ export class HomePageComponent implements OnInit, OnDestroy {
           this.avxDetails = null;
         }
       );
+  }
+
+  onLearnMore(): void {
+    const { length } = this.howItWorksDetails?.content?.split(' ');
+    if (this.contentLimit === length) {
+      return;
+    }
+    this.contentLimit = length;
   }
 }
