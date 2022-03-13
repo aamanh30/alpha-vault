@@ -11,7 +11,8 @@ import {
   alphaVaultBucketHoldingsDetails,
   avxHoldingsDetails,
   portfolioPerformanceDetails,
-  portfolioAllocationDetails
+  portfolioAllocationDetails,
+  getPortfolioThumbnail
 } from './../../configs';
 import { UserService } from '../../../../core/services/user/user.service';
 import { map, mergeMap, switchMap } from 'rxjs/operators';
@@ -45,17 +46,23 @@ export class PortfolioService extends HttpService {
             portfolio.totalCreatedPrice === portfolio.totalCurrentPrice
               ? null
               : portfolio.totalCreatedPrice < portfolio.totalCurrentPrice,
-          content: portfolio.description,
-          coinHoldings: (portfolio?.protfolioCoin || []).map(
-            (coinHolding: any) => ({
+          content: portfolio.shortDesc || portfolio.description,
+          coinHoldings: (portfolio?.protfolioCoin || [])
+            .sort(
+              (
+                { percentage: percentageA }: any,
+                { percentage: percentageB }: any
+              ) => (percentageA > percentageB ? -1 : 1)
+            )
+            .slice(0, 3)
+            .map((coinHolding: any) => ({
               ...coinHolding,
               id: coinHolding?.coinId,
-              icon: coinHolding?.coin?.thumbnail,
+              icon: getPortfolioThumbnail(coinHolding?.coin),
               title: coinHolding?.coin?.name,
               percentage: coinHolding?.percentage,
               abbr: coinHolding?.coin?.symbol
-            })
-          )
+            }))
         }));
         return { portfolios };
       })

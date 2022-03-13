@@ -4,6 +4,7 @@ import {
   holdTermTypes,
   buyTypes
 } from '../models';
+import { environment } from '../../../../environments/environment';
 
 export const portfolios = [
   {
@@ -208,7 +209,7 @@ export const transformPortfolioDetails = (data: any) => {
     isTrending: data.totalCreatedPrice < data.totalCurrentPrice,
     coinHoldings: data.protfolioCoin.map((holding: any) => ({
       id: holding.coinId,
-      thumbnail: holding.coin.thumbnail,
+      thumbnail: getPortfolioThumbnail(holding?.coin),
       name: holding.coin.name,
       percentage: holding.percentage,
       abbr: holding.coin.symbol
@@ -216,4 +217,16 @@ export const transformPortfolioDetails = (data: any) => {
   };
 
   return portfolio;
+};
+
+export const getPortfolioThumbnail = (coin: any): string => {
+  let thumbnail = coin?.thumbnail;
+  if (coin?.name) {
+    thumbnail = `${environment.baseUrl}crypto-coin-image/${coin?.name
+      .split(' ')
+      .join('-')
+      .toLowerCase()}`;
+  }
+
+  return thumbnail;
 };

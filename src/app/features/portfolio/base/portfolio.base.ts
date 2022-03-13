@@ -1,10 +1,11 @@
-import { CoinService } from './../../coins/services/coin/coin.service';
-import { distinctUntilChanged, debounceTime, takeUntil } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
 import { FormArray, FormGroup } from '@angular/forms';
-import { PortfolioFormService } from '../services/portfolio-form/portfolio-form.service';
+import { distinctUntilChanged, debounceTime, takeUntil } from 'rxjs/operators';
+
 import { PageBase } from '../../../core/base';
+import { CoinService } from './../../coins/services/coin/coin.service';
+import { getPortfolioThumbnail } from '../configs';
+import { PortfolioFormService } from '../services/portfolio-form/portfolio-form.service';
 
 export class PortfolioBase extends PageBase {
   coins$: any;
@@ -48,7 +49,7 @@ export class PortfolioBase extends PageBase {
       coinId: coin?.id,
       createdPrice: coin?.tickers?.usd_price,
       currentPrice: coin?.currentPrice,
-      thumbnail: coin?.thumbnail,
+      thumbnail: getPortfolioThumbnail(coin),
       id: null,
       percentage: null,
       protfolioId: null,

@@ -13,7 +13,7 @@ export const reportGenerationDetails = {
 
 export const alphaVaultBucketHoldingsDetails = {
   id: null,
-  title: `Alpha Vault Bucket Holdings`,
+  title: `Alpha Vault Buckets`,
   type: null,
   percentage: null,
   isTrending: null,
@@ -49,7 +49,7 @@ export const alphaVaultBucketHoldingsDetails = {
 
 export const bucketHoldingsDetails = {
   id: null,
-  title: `Custom Bucket Holdings`,
+  title: `Custom Buckets`,
   type: null,
   percentage: null,
   isTrending: null,
@@ -98,17 +98,17 @@ export const avxHoldingsDetails = {
   portfolios: [
     {
       id: 7001,
-      title: `AVX Wallet`,
+      title: `AVX Token`,
       percentage: null,
       isTrending: null,
-      amount: 400000
+      amount: 40000
     },
     {
       id: 7002,
-      title: `Stalked AVX`,
+      title: `USD Value`,
       percentage: null,
       isTrending: null,
-      amount: 1400000
+      amount: `$40000`
     }
   ]
 };
