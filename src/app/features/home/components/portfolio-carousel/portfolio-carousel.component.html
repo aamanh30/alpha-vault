@@ -5,6 +5,7 @@
   >
     <ng-container *ngFor="let portfolio of portfolios; let i = index">
       <alpha-vault-card-details
+        role="button"
         [heading]="portfolio?.title"
         [subHeading]="true"
         [content]="portfolio?.content"
@@ -13,6 +14,7 @@
           width: 'calc(100%/ ' + portfolios.length + ' - 1rem)',
           'margin-right': '1rem'
         }"
+        (click)="openPortfolio.emit(portfolio.id)"
       >
         <ng-container class="sub-heading-content mt-0"
           >{{ portfolio?.type }}
@@ -24,11 +26,7 @@
           [isTrending]="portfolio?.isTrending"
         ></alpha-vault-portfolio-value>
 
-        <a
-          class="primary-button"
-          [routerLink]="['/portfolio/details/' + portfolio?.id]"
-          routerLinkActive="active-link"
-        >
+        <a class="primary-button" routerLinkActive="active-link">
           <button class="btn btn-primary btn-alpha-vault">INVEST NOW</button>
         </a>
       </alpha-vault-card-details>

@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 import { combineLatest, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -21,7 +22,8 @@ export class HomePageComponent implements OnInit, OnDestroy {
 
   constructor(
     private homeService: HomeService,
-    private portfolioService: PortfolioService
+    private portfolioService: PortfolioService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -68,5 +70,9 @@ export class HomePageComponent implements OnInit, OnDestroy {
       return;
     }
     this.contentLimit = length;
+  }
+
+  openPortfolio(id: number): void {
+    this.router.navigate([`/portfolio/details/${id}`]);
   }
 }

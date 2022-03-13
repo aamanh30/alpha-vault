@@ -1,4 +1,10 @@
-import { Component, Input, AfterViewInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  AfterViewInit,
+  Output,
+  EventEmitter
+} from '@angular/core';
 
 @Component({
   selector: 'alpha-vault-portfolio-carousel',
@@ -7,6 +13,7 @@ import { Component, Input, AfterViewInit } from '@angular/core';
 })
 export class PortfolioCarouselComponent implements AfterViewInit {
   @Input() portfolios: any[] = [];
+  @Output() openPortfolio: EventEmitter<number> = new EventEmitter<number>();
   constructor() {}
 
   ngAfterViewInit(): void {

@@ -14,7 +14,11 @@ export class PortfolioFormService {
       id: [portfolio?.id || null],
       name: [
         portfolio?.name || null,
-        [Validators.required, Validators.minLength(3), Validators.maxLength(30)]
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(100)
+        ]
       ],
       description: [portfolio?.description || null],
       type: [portfolio?.type || null],
