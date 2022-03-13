@@ -55,7 +55,6 @@ export class PortfolioDashboardPageComponent
       .subscribe(
         ([config, investments, customPortfolios, alphaVaultPortfolios]) => {
           this.loading = false;
-          this.portfolioDashboardConfig = config;
           this.customPortfolios$ = this.formatPortfolios(
             customPortfolios,
             investments
@@ -65,6 +64,11 @@ export class PortfolioDashboardPageComponent
           );
           this.alphaVaultPortfolios$ = this.formatPortfolios(
             alphaVaultPortfolios,
+            investments
+          );
+          this.portfolioDashboardConfig = this.portfolioPerformanceDetails(
+            config,
+            [...alphaVaultPortfolios, ...customPortfolios],
             investments
           );
         },
@@ -86,6 +90,37 @@ export class PortfolioDashboardPageComponent
     });
 
     return of(portfolios);
+  }
+
+  portfolioPerformanceDetails(
+    config: any,
+    portfolios: any[],
+    investments: Map<string, any>
+  ): any {
+    let createdPrice = 0,
+      currentPrice = 0;
+    portfolios.forEach(({ totalCreatedPrice, totalCurrentPrice }) => {
+      createdPrice += totalCreatedPrice;
+      currentPrice += totalCurrentPrice;
+    });
+    const percentage =
+      currentPrice && createdPrice
+        ? (((currentPrice - createdPrice) / createdPrice) * 100).toFixed(2)
+        : null;
+    const amount = Array.from(investments.values()).reduce(
+      (total, current) => (total += current.investmentAmount),
+      0
+    );
+    return {
+      ...config,
+      portfolioPerformanceDetails: {
+        ...config.portfolioPerformanceDetails,
+        percentage,
+        amount,
+        isTrending:
+          createdPrice === currentPrice ? null : createdPrice < currentPrice
+      }
+    };
   }
 
   getPortfolioValue(cell: any): null | string {

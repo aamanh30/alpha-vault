@@ -96,7 +96,7 @@
 
           <ng-container matColumnDef="amount">
             <mat-cell *matCellDef="let cell" class="justify-content-end">
-              {{ cell.amount | currency }}
+              {{ cell.amount }}
             </mat-cell>
           </ng-container>
 
@@ -167,53 +167,60 @@
     </section>
   </ng-container>
 
-  <section
-    *ngIf="portfolioDashboardConfig?.bucketHoldingsDetails"
-    class="my-4 bucket-holdings-wrapper"
+  <ng-container
+    *ngIf="
+      portfolioDashboardConfig?.bucketHoldingsDetails &&
+      (customPortfolios$ | async) as customPortfolios
+    "
   >
-    <alpha-vault-card-details
-      [heading]="portfolioDashboardConfig?.bucketHoldingsDetails?.title"
+    <section
+      class="my-4 bucket-holdings-wrapper"
+      *ngIf="customPortfolios && customPortfolios.length"
     >
-      <ng-container class="additional-content">
-        <mat-table [dataSource]="(customPortfolios$ | async) || []">
-          <ng-container matColumnDef="name">
-            <mat-cell *matCellDef="let cell" class="ws-nowrap">
-              {{ cell.name }}
-            </mat-cell>
-          </ng-container>
+      <alpha-vault-card-details
+        [heading]="portfolioDashboardConfig?.bucketHoldingsDetails?.title"
+      >
+        <ng-container class="additional-content">
+          <mat-table [dataSource]="customPortfolios || []">
+            <ng-container matColumnDef="name">
+              <mat-cell *matCellDef="let cell" class="ws-nowrap">
+                {{ cell.name }}
+              </mat-cell>
+            </ng-container>
 
-          <ng-container matColumnDef="totalCreatedPrice">
-            <mat-cell *matCellDef="let cell" class="justify-content-end">
-              <alpha-vault-portfolio-value
-                [portfolioValue]="getPortfolioValue(cell)"
-                [isTrending]="
-                  cell.totalCurrentPrice === cell.totalCreatedPrice
-                    ? null
-                    : cell.totalCurrentPrice > cell.totalCreatedPrice
-                "
-              >
-              </alpha-vault-portfolio-value>
-            </mat-cell>
-          </ng-container>
+            <ng-container matColumnDef="totalCreatedPrice">
+              <mat-cell *matCellDef="let cell" class="justify-content-end">
+                <alpha-vault-portfolio-value
+                  [portfolioValue]="getPortfolioValue(cell)"
+                  [isTrending]="
+                    cell.totalCurrentPrice === cell.totalCreatedPrice
+                      ? null
+                      : cell.totalCurrentPrice > cell.totalCreatedPrice
+                  "
+                >
+                </alpha-vault-portfolio-value>
+              </mat-cell>
+            </ng-container>
 
-          <ng-container matColumnDef="investmentAmount">
-            <mat-cell *matCellDef="let cell" class="justify-content-end">
-              {{ cell.investmentAmount | currency }}
-            </mat-cell>
-          </ng-container>
+            <ng-container matColumnDef="investmentAmount">
+              <mat-cell *matCellDef="let cell" class="justify-content-end">
+                {{ cell.investmentAmount | currency }}
+              </mat-cell>
+            </ng-container>
 
-          <mat-row
-            class="border-0"
-            *matRowDef="
-              let row;
-              columns: portfolioDashboardConfig?.bucketHoldingsDetails.columns
-            "
-            (click)="openPortfolioDetails(row)"
-          ></mat-row>
-        </mat-table>
-      </ng-container>
-    </alpha-vault-card-details>
-  </section>
+            <mat-row
+              class="border-0"
+              *matRowDef="
+                let row;
+                columns: portfolioDashboardConfig?.bucketHoldingsDetails.columns
+              "
+              (click)="openPortfolioDetails(row)"
+            ></mat-row>
+          </mat-table>
+        </ng-container>
+      </alpha-vault-card-details>
+    </section>
+  </ng-container>
 
   <section
     *ngIf="portfolioDashboardConfig?.reportGenerationDetails"
