@@ -6,75 +6,78 @@ import { Router } from '@angular/router';
 import { environment } from './../../../../../environments/environment';
 import { HttpService } from './../../../../core/services/http/http.service';
 import {
-  portfolios,
-  coinHoldingsConfig,
-  categories,
   reportGenerationDetails,
   bucketHoldingsDetails,
+  alphaVaultBucketHoldingsDetails,
   avxHoldingsDetails,
   portfolioPerformanceDetails,
-  portfolioAllocationDetails,
-  transformPortfolioDetails
+  portfolioAllocationDetails
 } from './../../configs';
 import { UserService } from '../../../../core/services/user/user.service';
-import { concatMap, map, mergeMap, switchMap } from 'rxjs/operators';
+import { map, mergeMap, switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PortfolioService extends HttpService {
-  constructor(
-    protected http: HttpClient,
-    private userService: UserService,
-    private router: Router
-  ) {
+  constructor(protected http: HttpClient, private userService: UserService) {
     super(http);
     this.slug = `common`;
   }
 
   getPortfolios(): Observable<any> {
-    const url = `${environment.baseUrl}/portfolio-service`;
-    // return this.get(url);
-    const portfolioList = portfolios.map((portfolio: any) => {
-      const { coinHoldings } =
-        coinHoldingsConfig.find(({ id }) => portfolio.id === id) || {};
-      portfolio = {
-        ...portfolio,
-        coinHoldings: coinHoldings || []
-      };
-      return portfolio;
-    });
-    return of({ portfolios: portfolioList });
-  }
-
-  getPortfolioDetails(id: number): Observable<any> {
-    const url = `${environment.baseUrl}${this.slug}/protfolio-details-coin/${id}`;
+    const url = `${environment.baseUrl}${this.slug}/protfolio-details-list-all-admin`;
     return this.get(url).pipe(
       map(({ data }) => {
-        if (!data.id || data.id !== id) {
-          return this.router.navigate(['/error/404']);
-        }
-
-        return transformPortfolioDetails(data);
+        const portfolios = data.map((portfolio: any) => ({
+          ...portfolio,
+          title: portfolio.name,
+          type: portfolio.strategyType,
+          percentage:
+            portfolio.totalCreatedPrice && portfolio.totalCurrentPrice
+              ? (
+                  ((portfolio.totalCurrentPrice - portfolio.totalCreatedPrice) /
+                    portfolio.totalCreatedPrice) *
+                  100
+                ).toFixed(2)
+              : null,
+          isTrending:
+            portfolio.totalCreatedPrice === portfolio.totalCurrentPrice
+              ? null
+              : portfolio.totalCreatedPrice < portfolio.totalCurrentPrice,
+          content: portfolio.description,
+          coinHoldings: (portfolio?.protfolioCoin || []).map(
+            (coinHolding: any) => ({
+              ...coinHolding,
+              id: coinHolding?.coinId,
+              icon: coinHolding?.coin?.thumbnail,
+              title: coinHolding?.coin?.name,
+              percentage: coinHolding?.percentage,
+              abbr: coinHolding?.coin?.symbol
+            })
+          )
+        }));
+        return { portfolios };
       })
     );
   }
 
-  getPortfolioCategories(): Observable<any> {
-    const url = `${environment.baseUrl}/portfolio-service/categories`;
-    return of({ categories });
+  getPortfolioDetails(id: number): Observable<any> {
+    const url = `${environment.baseUrl}${this.slug}/protfolio-details-coin/${id}`;
+    return this.get(url).pipe(map(({ data }) => data));
   }
 
   getPortfolioDashboardDetails(): Observable<any> {
-    const url = `${environment.baseUrl}/portfolio-service/dashboard`;
-    // return this.get(url);
     const bucketHoldings = {
       ...bucketHoldingsDetails,
-      columns: bucketHoldingsDetails.portfolios.map((portfolio: any) => [
-        'name',
-        'totalCreatedPrice',
-        'investmentAmount'
-      ])[0]
+      columns: ['name', 'totalCreatedPrice', 'investmentAmount']
+    };
+
+    const alphaHoldings = {
+      ...alphaVaultBucketHoldingsDetails,
+      columns: alphaVaultBucketHoldingsDetails.portfolios.map(
+        (portfolio: any) => ['name', 'totalCreatedPrice', 'investmentAmount']
+      )[0]
     };
 
     const avxHoldings = {
@@ -89,6 +92,7 @@ export class PortfolioService extends HttpService {
     return of({
       reportGenerationDetails,
       bucketHoldingsDetails: bucketHoldings,
+      alphaHoldingsDetails: alphaHoldings,
       avxHoldingsDetails: avxHoldings,
       portfolioPerformanceDetails,
       portfolioAllocationDetails
@@ -148,15 +152,6 @@ export class PortfolioService extends HttpService {
     );
   }
 
-  getUserPortfolios(): Observable<any> {
-    return this.userService.getUser().pipe(
-      switchMap(({ email }) => {
-        const url = `${environment.baseUrl}${this.slug}/protfolio-list/${email}`;
-        return this.get(url).pipe(map(({ data }) => data));
-      })
-    );
-  }
-
   getPortfolioList(): Observable<any> {
     return this.userService.getUser().pipe(
       switchMap(({ email }) => {
@@ -167,6 +162,13 @@ export class PortfolioService extends HttpService {
           )
         );
       })
+    );
+  }
+
+  getAlphaVaultPortfolios(): Observable<any> {
+    const url = `${environment.baseUrl}${this.slug}/protfolio-details-list-all`;
+    return this.get(url).pipe(
+      map(({ data }) => data.filter((portfolio: any) => portfolio.isAdmin))
     );
   }
 

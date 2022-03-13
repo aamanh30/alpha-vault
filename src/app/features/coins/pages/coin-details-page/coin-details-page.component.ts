@@ -1,8 +1,10 @@
-import { CoinService } from './../../services/coin/coin.service';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+
+import { CoinService } from './../../services/coin/coin.service';
+import { AnimationService } from '../../../../shared/services/animation/animation.service';
 
 @Component({
   selector: 'alpha-vault-coin-details-page',
@@ -16,7 +18,8 @@ export class CoinDetailsPageComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private coinService: CoinService
+    private coinService: CoinService,
+    private animationService: AnimationService
   ) {}
 
   ngOnInit(): void {
@@ -37,6 +40,14 @@ export class CoinDetailsPageComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
         ({ data }) => {
+          if (!data) {
+            this.animationService.open(
+              `Coin details for ${id} not found`,
+              'error'
+            );
+            this.router.navigate([`/error/404`]);
+            return;
+          }
           this.loading = false;
           this.coin = data;
         },

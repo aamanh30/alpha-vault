@@ -1,16 +1,19 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subject, combineLatest } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
+import { PageBase } from '../../../../core/base';
 import { HomeService } from './../../services/home/home.service';
 import { PortfolioService } from './../../../portfolio/services/portfolio/portfolio.service';
+import { AnimationService } from '../../../../shared/services/animation/animation.service';
 
 @Component({
   selector: 'alpha-vault-main-page',
   templateUrl: './main-page.component.html',
   styleUrls: ['./main-page.component.scss']
 })
-export class MainPageComponent implements OnInit, OnDestroy {
+export class MainPageComponent extends PageBase implements OnInit, OnDestroy {
   loading: boolean = false;
   submitted: boolean = false;
   unsubscribe: Subject<any> = new Subject<any>();
@@ -18,8 +21,12 @@ export class MainPageComponent implements OnInit, OnDestroy {
   portfolios: any[] = [];
   constructor(
     private homeService: HomeService,
-    private portfolioService: PortfolioService
-  ) {}
+    private portfolioService: PortfolioService,
+    private animationService: AnimationService,
+    private router: Router
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
     this.loadContent();
@@ -42,14 +49,18 @@ export class MainPageComponent implements OnInit, OnDestroy {
             this.loading = false;
             this.createYouOwnPortfolioDetails = createYouOwnPortfolioDetails;
             this.portfolios = portfolios;
-            //console.log(portfolios);
           }, 1000);
         },
         (err: any) => {
           this.loading = false;
           this.createYouOwnPortfolioDetails = null;
           this.portfolios = [];
+          this.animationService.open(err.message, 'error');
         }
       );
+  }
+
+  openPortfolio(id: number): void {
+    this.router.navigate([`/portfolio/details/${id}`]);
   }
 }

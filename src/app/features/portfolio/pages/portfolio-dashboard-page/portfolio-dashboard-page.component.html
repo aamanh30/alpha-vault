@@ -72,6 +72,101 @@
     </alpha-vault-card-details>
   </section>
 
+  <section *ngIf="portfolioDashboardConfig?.avxHoldingsDetails" class="my-4">
+    <alpha-vault-card-details
+      [heading]="portfolioDashboardConfig?.avxHoldingsDetails?.title"
+    >
+      <alpha-vault-portfolio-value
+        class="icon-content"
+        [portfolioValue]="
+          portfolioDashboardConfig?.avxHoldingsDetails?.percentage
+        "
+        [isTrending]="portfolioDashboardConfig?.avxHoldingsDetails?.isTrending"
+      ></alpha-vault-portfolio-value>
+
+      <ng-container class="additional-content">
+        <mat-table
+          [dataSource]="portfolioDashboardConfig?.avxHoldingsDetails.portfolios"
+        >
+          <ng-container matColumnDef="title">
+            <mat-cell *matCellDef="let cell" class="ws-nowrap">
+              {{ cell.title }}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="amount">
+            <mat-cell *matCellDef="let cell" class="justify-content-end">
+              {{ cell.amount | currency }}
+            </mat-cell>
+          </ng-container>
+
+          <mat-row
+            class="border-0"
+            *matRowDef="
+              let row;
+              columns: portfolioDashboardConfig?.avxHoldingsDetails.columns
+            "
+          ></mat-row>
+        </mat-table>
+      </ng-container>
+    </alpha-vault-card-details>
+  </section>
+
+  <ng-container
+    *ngIf="
+      portfolioDashboardConfig?.alphaHoldingsDetails &&
+      (alphaVaultPortfolios$ | async) as alphaVaultPortfolios
+    "
+  >
+    <section
+      *ngIf="alphaVaultPortfolios && alphaVaultPortfolios.length"
+      class="my-4 bucket-holdings-wrapper"
+    >
+      <alpha-vault-card-details
+        [heading]="portfolioDashboardConfig?.alphaHoldingsDetails?.title"
+      >
+        <ng-container class="additional-content">
+          <mat-table [dataSource]="alphaVaultPortfolios || []">
+            <ng-container matColumnDef="name">
+              <mat-cell *matCellDef="let cell" class="ws-nowrap">
+                {{ cell.name }}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="totalCreatedPrice">
+              <mat-cell *matCellDef="let cell" class="justify-content-end">
+                <alpha-vault-portfolio-value
+                  [portfolioValue]="getPortfolioValue(cell)"
+                  [isTrending]="
+                    cell.totalCurrentPrice === cell.totalCreatedPrice
+                      ? null
+                      : cell.totalCurrentPrice > cell.totalCreatedPrice
+                  "
+                >
+                </alpha-vault-portfolio-value>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="investmentAmount">
+              <mat-cell *matCellDef="let cell" class="justify-content-end">
+                {{ cell.investmentAmount | currency }}
+              </mat-cell>
+            </ng-container>
+
+            <mat-row
+              class="border-0"
+              *matRowDef="
+                let row;
+                columns: portfolioDashboardConfig?.alphaHoldingsDetails.columns
+              "
+              (click)="openPortfolioDetails(row)"
+            ></mat-row>
+          </mat-table>
+        </ng-container>
+      </alpha-vault-card-details>
+    </section>
+  </ng-container>
+
   <section
     *ngIf="portfolioDashboardConfig?.bucketHoldingsDetails"
     class="my-4 bucket-holdings-wrapper"
@@ -80,7 +175,7 @@
       [heading]="portfolioDashboardConfig?.bucketHoldingsDetails?.title"
     >
       <ng-container class="additional-content">
-        <mat-table [dataSource]="(portfolios$ | async) || []">
+        <mat-table [dataSource]="(customPortfolios$ | async) || []">
           <ng-container matColumnDef="name">
             <mat-cell *matCellDef="let cell" class="ws-nowrap">
               {{ cell.name }}
@@ -90,12 +185,7 @@
           <ng-container matColumnDef="totalCreatedPrice">
             <mat-cell *matCellDef="let cell" class="justify-content-end">
               <alpha-vault-portfolio-value
-                [portfolioValue]="
-                  (
-                    (cell.totalCurrentPrice - cell.totalCreatedPrice) /
-                    100
-                  ).toFixed(2)
-                "
+                [portfolioValue]="getPortfolioValue(cell)"
                 [isTrending]="
                   cell.totalCurrentPrice === cell.totalCreatedPrice
                     ? null

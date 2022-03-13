@@ -22,7 +22,8 @@ export class PortfolioDashboardPageComponent
   form: FormGroup = new FormGroup({});
   portfolioDashboardConfig: any = null;
   categories: any[] = [];
-  portfolios$: Observable<any[]> | undefined;
+  customPortfolios$: Observable<any[]> | undefined;
+  alphaVaultPortfolios$: Observable<any[]> | undefined;
   constructor(
     private router: Router,
     private portfolioService: PortfolioService,
@@ -46,25 +47,32 @@ export class PortfolioDashboardPageComponent
     this.loading = true;
     combineLatest([
       this.portfolioService.getPortfolioDashboardDetails(),
+      this.portfolioService.getPortfolioInvestments(),
       this.portfolioService.getPortfolioList(),
-      this.portfolioService.getPortfolioInvestments()
+      this.portfolioService.getAlphaVaultPortfolios()
     ])
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
-        ([config, portfolios, investments]) => {
+        ([config, investments, customPortfolios, alphaVaultPortfolios]) => {
           this.loading = false;
           this.portfolioDashboardConfig = config;
-          this.portfolios$ = this.formatPortfolios(portfolios, investments);
+          this.customPortfolios$ = this.formatPortfolios(
+            customPortfolios,
+            investments
+          );
+          alphaVaultPortfolios = alphaVaultPortfolios.filter(({ id }: any) =>
+            investments.get(`${id}`)
+          );
+          this.alphaVaultPortfolios$ = this.formatPortfolios(
+            alphaVaultPortfolios,
+            investments
+          );
         },
         (error: any) => {
           this.loading = false;
           this.animationService.open(error?.message, 'error');
         }
       );
-  }
-
-  openPortfolioDetails({ id }: any): void {
-    this.router.navigate([`portfolio/details/${id}`]);
   }
 
   formatPortfolios(
@@ -78,5 +86,18 @@ export class PortfolioDashboardPageComponent
     });
 
     return of(portfolios);
+  }
+
+  getPortfolioValue(cell: any): null | string {
+    const value =
+      ((cell.totalCurrentPrice - cell.totalCreatedPrice) /
+        cell.totalCreatedPrice) *
+      100;
+
+    return isNaN(value) ? null : value.toFixed(2);
+  }
+
+  openPortfolioDetails({ id }: any): void {
+    this.router.navigate([`portfolio/details/${id}`]);
   }
 }

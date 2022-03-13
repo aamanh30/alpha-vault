@@ -11,9 +11,45 @@ export const reportGenerationDetails = {
   categories: []
 };
 
+export const alphaVaultBucketHoldingsDetails = {
+  id: null,
+  title: `Alpha Vault Bucket Holdings`,
+  type: null,
+  percentage: null,
+  isTrending: null,
+  content: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.`,
+  annualFees: null,
+  topHoldings: null,
+  marketSegment: null,
+  categories: [],
+  portfolios: [
+    {
+      id: 1002,
+      title: `Metaverse Bucket`,
+      percentage: 25,
+      isTrending: true,
+      amount: 400000
+    },
+    {
+      id: 1001,
+      title: `Defi Bucket`,
+      percentage: 2,
+      isTrending: true,
+      amount: 200000
+    },
+    {
+      id: 5001,
+      title: `Custom Portfolio`,
+      percentage: 2,
+      isTrending: true,
+      amount: 200000
+    }
+  ]
+};
+
 export const bucketHoldingsDetails = {
   id: null,
-  title: `Bucket Holdings`,
+  title: `Custom Bucket Holdings`,
   type: null,
   percentage: null,
   isTrending: null,

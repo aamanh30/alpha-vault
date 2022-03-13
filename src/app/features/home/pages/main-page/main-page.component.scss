@@ -5,6 +5,12 @@
       .nav-link {
         border: 1px solid $cadmium-violet;
         border-radius: 30px;
+        .coin-icon {
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          box-shadow: 1px 1px 5px $quick-silver;
+        }
       }
 
       @media screen and (max-width: $small) {

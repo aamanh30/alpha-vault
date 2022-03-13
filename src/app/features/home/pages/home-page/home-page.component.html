@@ -5,7 +5,7 @@
 <ng-container *ngIf="!loading">
   <section class="my-4">
     <alpha-vault-card-details
-      class="how-it-works-card"
+      class="home-card-section"
       [heading]="howItWorksDetails?.title"
       [content]="howItWorksDetails?.content | contentExcerpt: contentLimit"
     >
@@ -30,7 +30,7 @@
 
   <section class="my-4">
     <alpha-vault-portfolio-carousel
-      class="how-it-works-card"
+      class="home-card-section"
       [portfolios]="portfolios"
     ></alpha-vault-portfolio-carousel>
   </section>

@@ -8,7 +8,7 @@
       class="portfolio-details-wrapper row"
       *ngFor="let portfolio of portfolios"
     >
-      <div class="col my-4">
+      <div class="col my-4" role="button" (click)="openPortfolio(portfolio.id)">
         <alpha-vault-card-details
           [heading]="portfolio.title"
           [subHeading]="true"
@@ -37,22 +37,16 @@
                 class="nav-item"
                 *ngFor="let coinHolding of portfolio.coinHoldings"
               >
-                <a
-                  class="nav-link text-dark mx-1"
-                  [routerLink]="['/coins/coin-details/' + coinHolding?.id]"
+                <a class="nav-link text-dark mx-1"
                   >{{ coinHolding.percentage / 100 | percent: '2.2' }}
                   {{ coinHolding.abbr }}
-                  <img class="img-fluid" [src]="coinHolding.icon"
+                  <img class="coin-icon img-fluid" [src]="coinHolding.icon"
                 /></a>
               </li>
             </ul>
           </ng-container>
 
-          <a
-            class="primary-button"
-            [routerLink]="['/portfolio/details/' + portfolio?.id]"
-            routerLinkActive="active-link"
-          >
+          <a class="primary-button" routerLinkActive="active-link">
             <button class="btn btn-primary btn-alpha-vault">INVEST NOW</button>
           </a>
         </alpha-vault-card-details>

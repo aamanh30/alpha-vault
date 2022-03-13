@@ -10,7 +10,7 @@ export const totalValueValidator = (): ValidatorFn => {
     return totalHoldings === 100
       ? null
       : {
-          custom: `Coin holdings is ${totalHoldings} should be 100`
+          custom: `Coin holdings is ${totalHoldings}% should be 100%`
         };
   };
 };

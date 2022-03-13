@@ -8,6 +8,7 @@ import { PortfolioService } from '../../services/portfolio/portfolio.service';
 import { PortfolioFormService } from '../../services/portfolio-form/portfolio-form.service';
 import { CoinService } from './../../../coins/services/coin/coin.service';
 import { AnimationService } from '../../../../shared/services/animation/animation.service';
+import { transformPortfolioDetails } from '../../configs';
 
 @Component({
   selector: 'alpha-vault-portfolio-details-page',
@@ -52,12 +53,22 @@ export class PortfolioDetailsPageComponent
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
         portfolio => {
+          if (!portfolio || portfolio.id !== id) {
+            this.animationService.open(
+              `Portfolio details for ${id} not found`,
+              'error'
+            );
+            this.router.navigate([`/error/404`]);
+            return;
+          }
           this.loading = false;
+          portfolio = transformPortfolioDetails(portfolio);
           this.initForm(portfolio);
         },
         err => {
           this.loading = false;
-          // this.router.navigate([`/error/404`]);
+          this.animationService.open(err.message, 'error');
+          this.router.navigate([`/error/404`]);
         }
       );
   }
