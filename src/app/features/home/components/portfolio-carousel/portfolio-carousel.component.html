@@ -20,12 +20,6 @@
           >{{ portfolio?.type }}
         </ng-container>
 
-        <alpha-vault-portfolio-value
-          class="icon-content"
-          [portfolioValue]="portfolio?.percentage"
-          [isTrending]="portfolio?.isTrending"
-        ></alpha-vault-portfolio-value>
-
         <a class="primary-button" routerLinkActive="active-link">
           <button class="btn btn-primary btn-alpha-vault">INVEST NOW</button>
         </a>
