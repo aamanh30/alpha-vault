@@ -17,7 +17,7 @@ import { map, mergeMap } from 'rxjs/operators';
 export class AuthenticatedGuard implements CanActivate, CanActivateChild {
   constructor(private userService: UserService, private router: Router) {}
   canActivate(
-    route: ActivatedRouteSnapshot,
+    _: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ):
     | Observable<boolean | UrlTree>
