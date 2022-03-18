@@ -7,6 +7,8 @@ import { SignInPageComponent } from './pages/sign-in-page/sign-in-page.component
 import { SignOutPageComponent } from './pages/sign-out-page/sign-out-page.component';
 import { SignUpPageComponent } from './pages/sign-up-page/sign-up-page.component';
 import { ForgotPasswordPageComponent } from './pages/forgot-password-page/forgot-password-page.component';
+import { AuthenticatedGuard } from '../../core/guards/authenticated/authenticated.guard';
+import { UnAuthenticatedGuard } from '../../core/guards/un-authenticated/un-authenticated.guard';
 
 const routes: Routes = [
   {
@@ -15,10 +17,12 @@ const routes: Routes = [
     children: [
       {
         path: 'sign-in',
+        canActivate: [UnAuthenticatedGuard],
         component: SignInPageComponent
       },
       {
         path: 'sign-up',
+        canActivate: [UnAuthenticatedGuard],
         component: SignUpPageComponent
       },
       {
@@ -27,10 +31,12 @@ const routes: Routes = [
       },
       {
         path: 'forgot-password',
+        canActivate: [UnAuthenticatedGuard],
         component: ForgotPasswordPageComponent
       },
       {
         path: 'account-preferences',
+        canActivate: [AuthenticatedGuard],
         component: AccountPreferencesPageComponent
       },
       {

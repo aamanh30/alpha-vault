@@ -28,7 +28,7 @@ export const accountDetailsFormConfig = {
 
 export const signInConfig = {
   title: `Login`,
-  type: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.`,
+  type: null,
   percentage: null,
   isTrending: null,
   content: null
@@ -39,12 +39,12 @@ export const connectWalletConfig = {
   type: null,
   percentage: null,
   isTrending: null,
-  content: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.`
+  content: `Please choose from one of the wallets to transfer your Cryptos to our platform.`
 };
 
 export const signUpConfig = {
   title: `Register`,
-  type: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.`,
+  type: null,
   percentage: null,
   isTrending: null,
   content: null
@@ -52,7 +52,7 @@ export const signUpConfig = {
 
 export const forgotPasswordConfig = {
   title: `Forgot Password`,
-  type: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.`,
+  type: null,
   percentage: null,
   isTrending: null,
   content: null
