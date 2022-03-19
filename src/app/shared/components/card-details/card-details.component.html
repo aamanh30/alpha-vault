@@ -3,7 +3,7 @@
     <mat-card-title
       class="heading d-flex align-items-center justify-content-between font-weight-bold"
     >
-      <span class="heading-content">
+      <span class="heading-content" (click)="headingClickEmitter.emit()">
         <ng-content select=".heading-icon-content"></ng-content> {{ heading }}
       </span>
       <span class="icon-wrapper">

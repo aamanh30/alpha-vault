@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'alpha-vault-card-details',
@@ -9,6 +9,7 @@ export class CardDetailsComponent {
   @Input() heading: string = '';
   @Input() subHeading: boolean = false;
   @Input() content: string = '';
+  @Output() headingClickEmitter = new EventEmitter();
 
   constructor() {}
 }
