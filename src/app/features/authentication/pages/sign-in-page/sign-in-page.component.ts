@@ -62,7 +62,7 @@ export class SignInPageComponent extends PageBase implements OnInit, OnDestroy {
         },
         ({ error }) => {
           this.submitting = false;
-          this.animationService.open(error.message, 'error');
+          this.animationService.open(error?.message, 'error');
         }
       );
   }
