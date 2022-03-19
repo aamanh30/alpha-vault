@@ -1,6 +1,16 @@
-<alpha-vault-wallet-balance
-  [walletInfo]="walletBalance$ | async"
-></alpha-vault-wallet-balance>
+<ng-container
+  *ngIf="walletBalance$ | async as walletBalance; else loadingWallet"
+>
+  <alpha-vault-wallet-balance
+    [walletInfo]="walletBalance"
+  ></alpha-vault-wallet-balance>
+</ng-container>
+
+<ng-template #loadingWallet>
+  <section class="d-flex justify-content-center">
+    <alpha-vault-spinner></alpha-vault-spinner>
+  </section>
+</ng-template>
 
 <alpha-vault-connect-payment-card [title]="'Connect Wallet'">
   <ng-container class="icon-content">
