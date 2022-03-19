@@ -1,0 +1,74 @@
+<mat-card class="wallet-form-wrapper card-wrapper" [formGroup]="form">
+  <mat-card-title-group class="card-details-header mb-4">
+    <mat-card-title class="heading font-weight-bold">
+      Connect A Wallet
+    </mat-card-title>
+  </mat-card-title-group>
+
+  <mat-card-content class="card-details-body card-content">
+    <div class="w-100 d-block">
+      <mat-form-field class="w-100" appearance="fill">
+        <input
+          type="text"
+          matInput
+          placeholder="Search Wallet"
+          formControlName="searchTerm"
+        />
+      </mat-form-field>
+      <alpha-vault-error-messages
+        *ngIf="submitted"
+        [label]="'Search Wallet'"
+        [control]="form.get('searchTerm')"
+      ></alpha-vault-error-messages>
+    </div>
+  </mat-card-content>
+
+  <mat-card-actions class="card-details-footer mx-0">
+    <div class="row">
+      <div class="col">
+        <h3 class="h3 font-weight-bold">Select A Wallet</h3>
+      </div>
+    </div>
+
+    <div class="row pb-4">
+      <div
+        class="col-lg-4 col-md-6 col-12 my-1"
+        *ngFor="
+          let wallet of (wallets
+            | filterWallet: form?.controls?.searchTerm?.value) || []
+        "
+      >
+        <button
+          class="w-100 btn btn-primary btn-alpha-vault"
+          type="button"
+          [ngClass]="{
+            'btn-secondary': form?.value?.selectedWallet === wallet?.value
+          }"
+          (click)="selectWalletEmitter.emit(wallet)"
+        >
+          {{ wallet.label }}
+        </button>
+      </div>
+
+      <div class="row mx-0" *ngIf="submitted">
+        <div class="col">
+          <alpha-vault-error-messages
+            [label]="'Wallet'"
+            [control]="form.get('selectedWallet')"
+          ></alpha-vault-error-messages>
+        </div>
+      </div>
+
+      <div
+        class="col-12 my-1"
+        *ngIf="
+          !(wallets | filterWallet: form?.controls?.searchTerm?.value).length
+        "
+      >
+        <p class="text-center">
+          No wallets matching "{{ form?.controls?.searchTerm?.value }}" found
+        </p>
+      </div>
+    </div>
+  </mat-card-actions>
+</mat-card>

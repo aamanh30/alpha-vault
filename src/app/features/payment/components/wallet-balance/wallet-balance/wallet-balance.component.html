@@ -1,0 +1,14 @@
+<section *ngIf="walletInfo" class="wallet-info-wrapper">
+  <div class="my-3 text-left">
+    <h3 class="h6 font-weight-bold">{{ walletInfo.heading }}</h3>
+  </div>
+  <div class="my-3 text-center mt-5">
+    <p class="sub-heading">{{ walletInfo.subHeading }}</p>
+  </div>
+  <div class="my-1 text-center">
+    <p class="h4 font-weight-bold">
+      {{ walletInfo.amount | currency }}
+    </p>
+    <p class="my-2">{{ walletInfo.currency }}</p>
+  </div>
+</section>

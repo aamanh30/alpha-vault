@@ -1,0 +1,18 @@
+@import '../../../../../../assets/scss/variables';
+
+:host::ng-deep .wallet-info-wrapper {
+  .text-left {
+    .h3 {
+      font-size: 32px;
+    }
+  }
+  .sub-heading {
+    display: inline;
+    padding: 5px 10px;
+    border-radius: 20px;
+    background-color: $bright-turquoise;
+  }
+  .font-weight-bold {
+    font-weight: bold;
+  }
+}

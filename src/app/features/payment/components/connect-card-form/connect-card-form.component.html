@@ -1,0 +1,86 @@
+<div class="row auth-form-wrapper">
+  <div class="col text-left">
+    <form [formGroup]="form">
+      <div class="row">
+        <mat-form-field class="col w-100" appearance="fill">
+          <mat-icon matPrefix>person</mat-icon>
+          <input
+            type="text"
+            matInput
+            placeholder="Holder Name"
+            formControlName="name"
+          />
+          <mat-error *ngIf="submitted && form.controls?.name?.errors">
+            <alpha-vault-error-messages
+              [label]="'Holder Name'"
+              [control]="form.controls?.name"
+            ></alpha-vault-error-messages>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <mat-form-field class="col-md-6 col-12" appearance="fill">
+          <mat-icon matPrefix>credit_card</mat-icon>
+          <input
+            type="number"
+            matInput
+            placeholder="Enter Your Card Number"
+            formControlName="cardNumber"
+          />
+          <mat-error *ngIf="submitted && form.controls?.cardNumber?.errors">
+            <alpha-vault-error-messages
+              [label]="'Card Number'"
+              [control]="form.controls?.cardNumber"
+            ></alpha-vault-error-messages>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="col-md-6 col-12" appearance="fill">
+          <input
+            type="number"
+            matInput
+            placeholder="CVV"
+            formControlName="cvv"
+          />
+          <mat-error *ngIf="submitted && form.controls?.cvv?.errors">
+            <alpha-vault-error-messages
+              [label]="'CVV'"
+              [control]="form.controls?.cvv"
+            ></alpha-vault-error-messages>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <mat-form-field class="col w-100" appearance="fill">
+          <input
+            matInput
+            [matDatepicker]="dp"
+            formControlName="expDate"
+            (click)="dp.open()"
+          />
+          <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+          <mat-datepicker
+            #dp
+            startView="multi-year"
+            (monthSelected)="onExpDateSelected($event, dp)"
+          >
+          </mat-datepicker>
+          <mat-error *ngIf="submitted && form.controls?.expDate?.errors">
+            <alpha-vault-error-messages
+              [label]="'Expiry Date'"
+              [control]="form.controls?.expDate"
+            ></alpha-vault-error-messages>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <mat-checkbox class="col w-100" formControlName="saveCardDetails"
+          >Save My Card Details</mat-checkbox
+        >
+      </div>
+    </form>
+  </div>
+</div>

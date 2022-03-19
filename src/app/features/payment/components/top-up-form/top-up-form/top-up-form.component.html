@@ -1,0 +1,24 @@
+<mat-card class="top-up-form-wrapper" [formGroup]="form">
+  <mat-card-title-group class="card-details-header mb-4">
+    <mat-card-title class="heading font-weight-bold">
+      Top Up Wallet
+    </mat-card-title>
+  </mat-card-title-group>
+
+  <mat-card-content class="card-details-body card-content">
+    <mat-form-field class="w-100 d-block" appearance="fill">
+      <mat-icon matPrefix>$</mat-icon>
+      <input
+        type="number"
+        matInput
+        placeholder="Enter Amount"
+        formControlName="amount"
+      />
+    </mat-form-field>
+    <alpha-vault-error-messages
+      *ngIf="submitted"
+      [label]="'Amount'"
+      [control]="form.get('amount')"
+    ></alpha-vault-error-messages>
+  </mat-card-content>
+</mat-card>
