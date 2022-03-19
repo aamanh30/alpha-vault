@@ -1,0 +1,42 @@
+<section class="connect-wallet-wrapper my-4">
+  <alpha-vault-card-details
+    [heading]="'&lt;'"
+    (headingClickEmitter)="navigateBack()"
+  >
+    <div class="icon-content">
+      <ul class="list-inline">
+        <li class="list-inline-item">
+          <a
+            class="link-round"
+            [routerLink]="['/payment/connect']"
+            routerLinkActive="active-link"
+            >&nbsp;</a
+          >
+        </li>
+        <li class="list-inline-item">
+          <a
+            class="link-round"
+            [ngClass]="{
+              'active-link':
+                router.url === '/payment/wallet' ||
+                router.url === '/payment/card'
+            }"
+            >&nbsp;</a
+          >
+        </li>
+        <li class="list-inline-item">
+          <a
+            class="link-round"
+            [ngClass]="{
+              'active-link': router.url === '/payment/top-up'
+            }"
+            >&nbsp;</a
+          >
+        </li>
+      </ul>
+    </div>
+    <ng-container class="additional-content">
+      <router-outlet></router-outlet>
+    </ng-container>
+  </alpha-vault-card-details>
+</section>

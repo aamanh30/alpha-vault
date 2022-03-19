@@ -1,0 +1,47 @@
+<alpha-vault-wallet-balance
+  [walletInfo]="walletBalance$ | async"
+></alpha-vault-wallet-balance>
+
+<alpha-vault-connect-payment-card [title]="'Connect Wallet'">
+  <ng-container class="icon-content">
+    <mat-icon
+      class="icon-content payment-card-icon"
+      aria-hidden="false"
+      [attr.aria-label]="'Connect Wallet'"
+      >account_balance_wallet</mat-icon
+    >
+  </ng-container>
+
+  <ng-container class="button-content">
+    <a
+      class="primary-button"
+      [routerLink]="['/payment/wallet']"
+      routerLinkActive="active-link"
+    >
+      <button class="btn btn-primary btn-alpha-vault">CONNECT WALLET</button>
+    </a>
+  </ng-container>
+</alpha-vault-connect-payment-card>
+
+<hr class="card-separator my-4" />
+
+<alpha-vault-connect-payment-card [title]="'Bank or Card'">
+  <ng-container class="icon-content">
+    <mat-icon
+      class="icon-content payment-card-icon"
+      aria-hidden="false"
+      [attr.aria-label]="'Bank or Card'"
+      >credit_card</mat-icon
+    >
+  </ng-container>
+
+  <ng-container class="button-content">
+    <a
+      class="primary-button"
+      [routerLink]="['/payment/card']"
+      routerLinkActive="active-link"
+    >
+      <button class="btn btn-primary btn-alpha-vault">PAYMENT GATEWAY</button>
+    </a>
+  </ng-container>
+</alpha-vault-connect-payment-card>

@@ -1,0 +1,30 @@
+<section class="mb-4">
+  <alpha-vault-connect-wallet-form
+    *ngIf="isWallet && form"
+    class="additional-content"
+    [form]="form"
+    [wallets]="(wallets$ | async) || []"
+    [submitted]="submitted"
+    (selectWalletEmitter)="onWalletSelect($event)"
+  ></alpha-vault-connect-wallet-form>
+
+  <alpha-vault-connect-card-form
+    *ngIf="!isWallet && form"
+    class="additional-content"
+    [form]="form"
+    [submitted]="submitted"
+    (dateEmitter)="onExpDateSelected($event)"
+  ></alpha-vault-connect-card-form>
+</section>
+
+<section class="mb-4">
+  <div class="footer-content col-xs-12">
+    <div class="row my-4 mx-0">
+      <div class="col">
+        <button class="btn btn-primary btn-alpha-vault" (click)="onSubmit()">
+          CONTINUE
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

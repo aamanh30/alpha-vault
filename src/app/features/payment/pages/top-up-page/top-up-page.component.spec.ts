@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ConnectWalletPageComponent } from './connect-wallet-page.component';
+import { TopUpPageComponent } from './top-up-page.component';
 
-describe('ConnectWalletPageComponent', () => {
-  let component: ConnectWalletPageComponent;
-  let fixture: ComponentFixture<ConnectWalletPageComponent>;
+describe('TopUpPageComponent', () => {
+  let component: TopUpPageComponent;
+  let fixture: ComponentFixture<TopUpPageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ConnectWalletPageComponent ]
+      declarations: [ TopUpPageComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ConnectWalletPageComponent);
+    fixture = TestBed.createComponent(TopUpPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
