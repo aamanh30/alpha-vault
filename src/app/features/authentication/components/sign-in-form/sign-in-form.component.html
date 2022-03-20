@@ -3,7 +3,7 @@
     <form [formGroup]="form">
       <div class="w-100 d-block">
         <mat-form-field class="w-100" appearance="fill">
-          <mat-icon matPrefix>email</mat-icon>
+          <mat-icon matPrefix aria-hidden="false">email</mat-icon>
           <input
             type="text"
             matInput
@@ -21,7 +21,7 @@
 
       <div class="w-100 d-block">
         <mat-form-field class="w-100" appearance="fill">
-          <mat-icon matPrefix>lock</mat-icon>
+          <mat-icon matPrefix aria-hidden="false">lock</mat-icon>
           <input
             matInput
             type="password"
@@ -33,6 +33,7 @@
             alphaVaultToggleInput
             [type]="inputTypes.password"
             [toggleType]="inputTypes.text"
+            aria-hidden="false"
             >visibility</mat-icon
           >
           <mat-error *ngIf="submitted && form.controls?.password?.errors">
