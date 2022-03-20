@@ -13,6 +13,12 @@
           [heading]="portfolio.title"
           [subHeading]="true"
         >
+          <alpha-vault-portfolio-value
+            class="icon-content"
+            [portfolioValue]="portfolio?.percentage"
+            [isTrending]="portfolio?.isTrending"
+          ></alpha-vault-portfolio-value>
+
           <ng-container class="sub-heading-content mt-0">
             <span class="{{ portfolio?.type | lowercase }}">{{
               portfolio?.type
@@ -20,7 +26,7 @@
           </ng-container>
 
           <ng-container class="additional-content">
-            <p class="">{{ portfolio.content }}</p>
+            <p class="portfolio-description">{{ portfolio.content }}</p>
             <a
               class="text-dark font-weight-bold"
               [routerLink]="['/portfolio/details/' + portfolio?.id]"

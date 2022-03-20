@@ -34,18 +34,22 @@ export class PortfolioService extends HttpService {
           ...portfolio,
           title: portfolio.name,
           type: portfolio.strategyType,
-          percentage:
-            portfolio.totalCreatedPrice && portfolio.totalCurrentPrice
-              ? (
-                  ((portfolio.totalCurrentPrice - portfolio.totalCreatedPrice) /
-                    portfolio.totalCreatedPrice) *
-                  100
-                ).toFixed(2)
-              : null,
-          isTrending:
-            portfolio.totalCreatedPrice === portfolio.totalCurrentPrice
-              ? null
-              : portfolio.totalCreatedPrice < portfolio.totalCurrentPrice,
+          percentage: portfolio?.differentPercentage,
+          isTrending: !portfolio?.differentPercentage
+            ? null
+            : portfolio?.differentPercentage > 0,
+          // percentage:
+          //   portfolio.totalCreatedPrice && portfolio.totalCurrentPrice
+          //     ? (
+          //         ((portfolio.totalCurrentPrice - portfolio.totalCreatedPrice) /
+          //           portfolio.totalCreatedPrice) *
+          //         100
+          //       ).toFixed(2)
+          //     : null,
+          // isTrending:
+          //   portfolio.totalCreatedPrice === portfolio.totalCurrentPrice
+          //     ? null
+          //     : portfolio.totalCreatedPrice < portfolio.totalCurrentPrice,
           content: portfolio.shortDesc || portfolio.description,
           coinHoldings: (portfolio?.protfolioCoin || [])
             .sort(

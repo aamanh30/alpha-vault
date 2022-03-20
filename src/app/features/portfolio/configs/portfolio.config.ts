@@ -17,7 +17,10 @@ export const transformPortfolioDetails = (data: any) => {
   const portfolio = {
     ...data,
     type: data.strategyType,
-    isTrending: data.totalCreatedPrice < data.totalCurrentPrice,
+    percentage: data?.differentPercentage,
+    isTrending: !data?.differentPercentage
+      ? null
+      : data?.differentPercentage > 0,
     coinHoldings: data.protfolioCoin.map((holding: any) => ({
       id: holding.id,
       thumbnail: getPortfolioThumbnail(holding?.coin),
@@ -39,7 +42,7 @@ export const getPortfolioThumbnail = (coin: any): string => {
     thumbnail = `${environment.baseIp}images/${coin?.id
       .split(' ')
       .join('-')
-      .toLowerCase()}-32.png`;
+      .toLowerCase()}-128.png`;
   }
 
   return thumbnail;

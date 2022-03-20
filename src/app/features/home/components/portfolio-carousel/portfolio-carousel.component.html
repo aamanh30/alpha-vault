@@ -15,6 +15,12 @@
         }"
         (click)="openPortfolio.emit(portfolio.id)"
       >
+        <alpha-vault-portfolio-value
+          class="icon-content"
+          [portfolioValue]="portfolio?.percentage"
+          [isTrending]="portfolio?.isTrending"
+        ></alpha-vault-portfolio-value>
+
         <ng-container class="sub-heading-content mt-0">
           <span class="{{ portfolio?.type | lowercase }}">{{
             portfolio?.type
