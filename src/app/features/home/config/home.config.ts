@@ -7,11 +7,12 @@ export const howItWorksDetails = {
 };
 
 export const createPortfolioDetails = {
-  title: `Create Your Portfolio Now`,
+  title: `Create Your Bucket Now`,
   type: null,
   percentage: null,
   isTrending: null,
-  content: `Create your own bucket using our simple template.`
+  content: `Create your own bucket using our simple template.`,
+  description: `Users can make their own buckets with an easy template. Just choose the coins you want to invest in and the % of allocation. Simply select a trading algorithm from slow, medium or fast to execute your orders and manage it on your own from one place. No more jumping from one exchange to another. This bucket is suitable for investors who know what they are doing. High Risk Variable Return`
 };
 
 export const avxDetails = {
@@ -20,12 +21,4 @@ export const avxDetails = {
   percentage: 92.61,
   isTrending: true,
   content: `Buy and stake AVX tokens to get additional rewards, discounts and access to Alpha Exclusive bucket`
-};
-
-export const createYouOwnPortfolioDetails = {
-  title: `Create Your Own Portfolio`,
-  type: null,
-  percentage: null,
-  isTrending: null,
-  content: `Users can make their own buckets with an easy template. Just choose the coins you want to invest in and the % of allocation. Simply select a trading algorithm from slow, medium or fast to execute your orders and manage it on your own from one place. No more jumping from one exchange to another. This bucket is suitable for investors who know what they are doing. High Risk Variable Return`
 };

@@ -34,7 +34,9 @@ export class CreatePortfolioPageComponent
     super(router, portfolioFormService, coinService);
     this.content$ = this.homeService
       .getHomeDetails()
-      .pipe(map(({ createPortfolioDetails: { content } }) => content));
+      .pipe(
+        map(({ createPortfolioDetails: { description: content } }) => content)
+      );
     this.isAdmin$ = this.portfolioService.getPortfolioUserAdmin();
   }
 

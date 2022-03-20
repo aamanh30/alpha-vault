@@ -3,12 +3,12 @@
 </section>
 
 <ng-container *ngIf="!loading">
-  <section *ngIf="portfolios" class="my-4">
+  <section *ngIf="portfolios" class="my-1">
     <div
       class="portfolio-details-wrapper row"
       *ngFor="let portfolio of portfolios"
     >
-      <div class="col my-4" role="button" (click)="openPortfolio(portfolio.id)">
+      <div class="col my-2" role="button" (click)="openPortfolio(portfolio.id)">
         <alpha-vault-card-details
           [heading]="portfolio.title"
           [subHeading]="true"
@@ -50,15 +50,15 @@
     </div>
   </section>
 
-  <section *ngIf="createYouOwnPortfolioDetails" class="my-4">
+  <section *ngIf="createPortfolioDetails" class="my-2">
     <alpha-vault-card-details
-      [heading]="createYouOwnPortfolioDetails?.title"
-      [content]="createYouOwnPortfolioDetails?.content"
+      [heading]="createPortfolioDetails?.title"
+      [content]="createPortfolioDetails?.content"
     >
       <mat-icon
         class="icon-content"
         aria-hidden="false"
-        [attr.aria-label]="createYouOwnPortfolioDetails?.title"
+        [attr.aria-label]="createPortfolioDetails?.title"
         >pie_chart</mat-icon
       >
 
@@ -68,6 +68,40 @@
         routerLinkActive="active-link"
       >
         <button class="btn btn-primary btn-alpha-vault">CREATE NOW</button>
+      </a>
+    </alpha-vault-card-details>
+  </section>
+
+  <section class="my-4">
+    <alpha-vault-card-details
+      [heading]="avxDetails?.title"
+      [subHeading]="true"
+      [content]="avxDetails?.content"
+    >
+      <ng-container class="sub-heading-content mt-0"
+        >{{ avxDetails?.type }}
+      </ng-container>
+
+      <alpha-vault-portfolio-value
+        class="icon-content"
+        [portfolioValue]="avxDetails?.percentage"
+        [isTrending]="avxDetails?.isTrending"
+      ></alpha-vault-portfolio-value>
+
+      <a
+        class="primary-button"
+        [routerLink]="['/payment/connect']"
+        routerLinkActive="active-link"
+      >
+        <button class="btn btn-primary btn-alpha-vault">STAKE NOW</button>
+      </a>
+
+      <a
+        class="secondary-button"
+        [routerLink]="['/payment/connect']"
+        routerLinkActive="active-link"
+      >
+        <button class="btn btn-secondary btn-alpha-vault">BUY NOW</button>
       </a>
     </alpha-vault-card-details>
   </section>

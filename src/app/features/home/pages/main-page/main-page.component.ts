@@ -17,7 +17,8 @@ export class MainPageComponent extends PageBase implements OnInit, OnDestroy {
   loading: boolean = false;
   submitted: boolean = false;
   unsubscribe: Subject<any> = new Subject<any>();
-  createYouOwnPortfolioDetails: any = null;
+  createPortfolioDetails: any = null;
+  avxDetails: any = null;
   portfolios: any[] = [];
   constructor(
     private homeService: HomeService,
@@ -44,16 +45,18 @@ export class MainPageComponent extends PageBase implements OnInit, OnDestroy {
     combineLatest([yourPortfolioDetails$, portfolios$])
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
-        ([{ createYouOwnPortfolioDetails }, { portfolios }]: any) => {
+        ([{ createPortfolioDetails, avxDetails }, { portfolios }]: any) => {
           setTimeout(() => {
             this.loading = false;
-            this.createYouOwnPortfolioDetails = createYouOwnPortfolioDetails;
+            this.createPortfolioDetails = createPortfolioDetails;
+            this.avxDetails = avxDetails;
             this.portfolios = portfolios;
           }, 1000);
         },
         ({ error }: any) => {
           this.loading = false;
-          this.createYouOwnPortfolioDetails = null;
+          this.createPortfolioDetails = null;
+          this.avxDetails = null;
           this.portfolios = [];
           this.animationService.open(error?.message, 'error');
         }

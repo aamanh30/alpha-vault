@@ -9,10 +9,42 @@
       .portfolio-carousel-item {
         .card-details-body {
           &.card-content {
-            height: 70px;
+            .portfolio-description {
+              // height: 60px;
+            }
           }
         }
       }
+    }
+  }
+  .nav-item {
+    .nav-link {
+      border: 1px solid $cadmium-violet;
+      border-radius: 30px;
+      .coin-icon {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        box-shadow: 1px 1px 5px $quick-silver;
+      }
+    }
+
+    @media screen and (max-width: $small) {
+      .nav-link {
+        padding: 4px 4px;
+        font-size: 8px;
+        .img-fluid {
+          width: 16px;
+          height: 16px;
+        }
+      }
+    }
+  }
+  @media screen and (max-width: $small) {
+    .nav-item {
+      max-width: 100px;
+      white-space: nowrap;
+      overflow: hidden;
     }
   }
 }

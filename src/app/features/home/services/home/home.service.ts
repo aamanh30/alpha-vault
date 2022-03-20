@@ -4,8 +4,7 @@ import { Observable, of } from 'rxjs';
 import {
   howItWorksDetails,
   createPortfolioDetails,
-  avxDetails,
-  createYouOwnPortfolioDetails
+  avxDetails
 } from './../../config';
 import { environment } from './../../../../../environments/environment';
 
@@ -29,7 +28,8 @@ export class HomeService {
     const url = `${environment.baseUrl}/home-service/main-details`;
     // return this.get(url);
     return of({
-      createYouOwnPortfolioDetails
+      createPortfolioDetails,
+      avxDetails
     });
   }
 }
