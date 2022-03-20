@@ -7,6 +7,7 @@ import { Component, Input } from '@angular/core';
 })
 export class VideoPlayerComponent {
   @Input() src: string = 'assets/videos/how-it-works.mp4';
+  @Input() poster: string = 'assets/backgrounds/background-poster.png';
   @Input() controls = true;
-  constructor() { }
+  constructor() {}
 }
