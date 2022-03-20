@@ -3,16 +3,18 @@
     {{ label | titlecase }} is required
   </span>
   <span class="d-block mb-0 text-danger" *ngIf="control?.errors?.min">
-    {{ label | titlecase }} is too low
+    {{ label | titlecase }} cannot be less than {{ control?.errors?.min?.min }}
   </span>
   <span class="d-block mb-0 text-danger" *ngIf="control?.errors?.max">
-    {{ label | titlecase }} is too high
+    {{ label | titlecase }} cannot be more than {{ control?.errors?.max?.max }}
   </span>
   <span class="d-block mb-0 text-danger" *ngIf="control?.errors?.minlength">
-    {{ label | titlecase }} is too short
+    {{ label | titlecase }} cannot be less than
+    {{ control?.errors?.minlength?.requiredLength }} characters
   </span>
   <span class="d-block mb-0 text-danger" *ngIf="control?.errors?.maxlength">
-    {{ label | titlecase }} is too long
+    {{ label | titlecase }} cannot be more than
+    {{ control?.errors?.maxlength?.requiredLength }} characters
   </span>
   <span class="d-block mb-0 text-danger" *ngIf="control?.errors?.pattern">
     {{ label | titlecase }} is invalid
