@@ -57,10 +57,20 @@
 
         <div class="col-md-4 col-12">
           <button
+            *ngIf="!(isAdmin$ | async)"
             type="button"
             [disabled]="submitting"
             class="btn btn-primary btn-alpha-vault"
             (click)="showInvestmentConfirm()"
+          >
+            INVEST NOW
+          </button>
+          <button
+            *ngIf="isAdmin$ | async"
+            type="button"
+            [disabled]="submitting"
+            class="btn btn-primary btn-alpha-vault"
+            (click)="investNow()"
           >
             INVEST NOW
           </button>
