@@ -76,6 +76,23 @@ body {
     z-index: 2;
     background-color: rgba(256, 256, 256, 0.9);
   }
+  .aggressive {
+    display: inline;
+    padding: 4px 8px;
+    border-radius: 16px;
+    color: $white;
+    background-color: $light-coral;
+  }
+  .conservative {
+    display: inline;
+    padding: 4px 8px;
+    border-radius: 16px;
+    color: $white;
+    background-color: $bright-turquoise;
+  }
+  .text-pink {
+    color: $bright-pink;
+  }
 
   @media screen and (max-width: $small) {
     .btn-alpha-vault {

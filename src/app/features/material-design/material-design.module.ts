@@ -16,6 +16,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatListModule } from '@angular/material/list';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [],
@@ -36,7 +37,8 @@ import { MatMenuModule } from '@angular/material/menu';
     MatAutocompleteModule,
     MatListModule,
     MatSnackBarModule,
-    MatMenuModule
+    MatMenuModule,
+    MatCheckboxModule
   ],
   exports: [
     ReactiveFormsModule,
@@ -54,7 +56,8 @@ import { MatMenuModule } from '@angular/material/menu';
     MatAutocompleteModule,
     MatListModule,
     MatSnackBarModule,
-    MatMenuModule
+    MatMenuModule,
+    MatCheckboxModule
   ]
 })
 export class MaterialDesignModule {}

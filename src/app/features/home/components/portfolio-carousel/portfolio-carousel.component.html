@@ -16,8 +16,10 @@
         }"
         (click)="openPortfolio.emit(portfolio.id)"
       >
-        <ng-container class="sub-heading-content mt-0"
-          >{{ portfolio?.type }}
+        <ng-container class="sub-heading-content mt-0">
+          <span class="{{ portfolio?.type | lowercase }}">{{
+            portfolio?.type
+          }}</span>
         </ng-container>
 
         <a class="primary-button" routerLinkActive="active-link">

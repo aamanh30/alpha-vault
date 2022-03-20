@@ -4,11 +4,15 @@
   video {
     border-radius: 20px;
   }
-  .sub-heading {
-    display: inline;
-    padding: 4px 8px;
-    border-radius: 16px;
-    color: $white;
-    background-color: $light-coral;
+  .portfolio-carousel-wrapper {
+    .portfolio-carousel {
+      .portfolio-carousel-item {
+        .card-details-body {
+          &.card-content {
+            height: 70px;
+          }
+        }
+      }
+    }
   }
 }

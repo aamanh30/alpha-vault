@@ -64,11 +64,15 @@ export class PaymentService extends HttpService {
       switchMap(({ data }) => of(data && data.amount)),
       concatMap(amount => {
         if (amount !== null && amount !== undefined) {
+          this.userService.updateWalletBalance(amount);
           return of(true);
         }
         url = `${environment.baseUrl}${this.slug}/saveUpdate`;
         return this.post(url, { email, amount: 0 }).pipe(
-          map(({ data }: any) => true)
+          map(({ data }: any) => {
+            this.userService.updateWalletBalance((data && data.amount) || 0);
+            return true;
+          })
         );
       })
     );

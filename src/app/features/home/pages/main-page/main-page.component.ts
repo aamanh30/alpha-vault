@@ -51,11 +51,11 @@ export class MainPageComponent extends PageBase implements OnInit, OnDestroy {
             this.portfolios = portfolios;
           }, 1000);
         },
-        (err: any) => {
+        ({ error }: any) => {
           this.loading = false;
           this.createYouOwnPortfolioDetails = null;
           this.portfolios = [];
-          this.animationService.open(err.message, 'error');
+          this.animationService.open(error?.message, 'error');
         }
       );
   }

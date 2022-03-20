@@ -13,8 +13,10 @@
           [heading]="portfolio.title"
           [subHeading]="true"
         >
-          <ng-container class="sub-heading-content mt-0"
-            >{{ portfolio?.type }}
+          <ng-container class="sub-heading-content mt-0">
+            <span class="{{ portfolio?.type | lowercase }}">{{
+              portfolio?.type
+            }}</span>
           </ng-container>
 
           <ng-container class="additional-content">

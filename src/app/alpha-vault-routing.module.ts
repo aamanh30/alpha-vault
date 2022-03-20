@@ -30,6 +30,7 @@ const routes: Routes = [
       },
       {
         path: 'payment',
+        canActivate: [AuthenticatedGuard],
         loadChildren: () =>
           import('./features/payment/payment.module').then(m => m.PaymentModule)
       },
