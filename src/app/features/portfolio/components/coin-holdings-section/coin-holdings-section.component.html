@@ -70,7 +70,7 @@
   <ng-container
     *ngIf="getCoinHoldingsTotal(coinHoldings?.value || []) as coinTotal"
   >
-    <div class="row mx-0 my-3">
+    <div class="row mx-0 mt-3">
       <div class="col">
         <span class="d-inline py-1 px-2 text-success coin-rem-total">
           {{ (100 - coinTotal) / 100 | percent: '2.2' }} left

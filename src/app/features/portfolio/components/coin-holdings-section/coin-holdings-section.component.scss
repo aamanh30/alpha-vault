@@ -1,6 +1,8 @@
 @import '../../../../../assets/scss/variables';
 
 :host::ng-deep .coin-holdings-table {
+  max-height: 250px;
+  overflow: hidden auto;
   .mat-row {
     cursor: pointer;
     &:hover {
