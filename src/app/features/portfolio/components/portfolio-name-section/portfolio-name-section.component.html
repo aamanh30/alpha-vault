@@ -6,9 +6,9 @@
   </mat-card-title-group>
 
   <mat-card-content class="card-details-body card-content">
-    <div class="w-100 d-block">
-      <mat-form-field class="w-100" appearance="fill">
-        <mat-icon matPrefix>pie_chart</mat-icon>
+    <div class="w-100 d-block mb-3">
+      <mat-form-field class="w-100 name-control-wrapper" appearance="fill">
+        <mat-icon aria-hidden="false" matPrefix>pie_chart</mat-icon>
         <input
           type="text"
           matInput
@@ -25,7 +25,46 @@
 
     <div class="w-100 d-block" *ngIf="isAdmin">
       <mat-form-field class="w-100" appearance="fill">
+        <mat-label>Portfolio Color</mat-label>
+        <input
+          id="portfolio-color"
+          type="color"
+          matInput
+          placeholder="Portfolio Color"
+          formControlName="color"
+        />
+      </mat-form-field>
+      <alpha-vault-error-messages
+        *ngIf="submitted"
+        [label]="'Portfolio Color'"
+        [control]="form.get('color')"
+      ></alpha-vault-error-messages>
+    </div>
+
+    <div class="w-100 d-block" *ngIf="isAdmin">
+      <label for="short-description">Short Description</label>
+      <mat-form-field class="w-100" appearance="fill">
         <textarea
+          id="short-description"
+          type="text"
+          matInput
+          placeholder="Portfolio Short Description"
+          formControlName="shortDesc"
+          rows="2"
+        ></textarea>
+      </mat-form-field>
+      <alpha-vault-error-messages
+        *ngIf="submitted"
+        [label]="'Portfolio Short Description'"
+        [control]="form.get('shortDesc')"
+      ></alpha-vault-error-messages>
+    </div>
+
+    <div class="w-100 d-block" *ngIf="isAdmin">
+      <label for="description">Portfolio Description</label>
+      <mat-form-field class="w-100" appearance="fill">
+        <textarea
+          id="description"
           type="text"
           matInput
           placeholder="Portfolio Description"

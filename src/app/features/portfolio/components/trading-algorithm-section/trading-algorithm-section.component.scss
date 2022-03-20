@@ -1,0 +1,18 @@
+@import '../../../../../assets/scss/variables';
+
+.trading-algorithms-wrapper {
+  .algorithm-item {
+    border-radius: 20px;
+    &.selected-algorithm {
+      border: 1px solid $cadmium-violet !important;
+    }
+    .algorithm-icon {
+      width: 64px;
+      font-size: 64px;
+      height: 64px;
+    }
+    .algorithm-default-btn {
+      padding: 0px 8px;
+    }
+  }
+}

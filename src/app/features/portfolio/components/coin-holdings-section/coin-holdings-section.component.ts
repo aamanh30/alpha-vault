@@ -34,4 +34,16 @@ export class CoinHoldingsSectionComponent implements OnChanges {
 
     return columns || [];
   }
+
+  getCoinHoldingsTotal(holdings: any[]): number | null {
+    let total = 0;
+    if (holdings && holdings.length) {
+      total = holdings.reduce(
+        (total: number, { percentage }: any) => (total += percentage),
+        0
+      );
+    }
+
+    return total;
+  }
 }

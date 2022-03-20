@@ -53,6 +53,10 @@
         >
           <mat-icon aria-hidden="false">cancel</mat-icon>
         </span>
+
+        <span *ngIf="readonly" class="ml-1 cursor-pointer text-pink">
+          <mat-icon aria-hidden="false">chevron_right</mat-icon>
+        </span>
       </mat-cell>
     </ng-container>
 
@@ -62,4 +66,21 @@
       (click)="rowClickedEmitter.emit(row)"
     ></mat-row>
   </mat-table>
+
+  <ng-container
+    *ngIf="getCoinHoldingsTotal(coinHoldings?.value || []) as coinTotal"
+  >
+    <div class="row mx-0 my-3">
+      <div class="col">
+        <span class="d-inline py-1 px-2 text-success coin-rem-total">
+          {{ (100 - coinTotal) / 100 | percent: '2.2' }} left
+        </span>
+      </div>
+      <div class="col">
+        <p class="text-right font-weight-bold">
+          Total: {{ coinTotal / 100 | percent: '2.2' }}
+        </p>
+      </div>
+    </div>
+  </ng-container>
 </ng-template>

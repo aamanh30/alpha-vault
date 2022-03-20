@@ -14,3 +14,10 @@
     }
   }
 }
+
+:host::ng-deep .row {
+  .coin-rem-total {
+    border-radius: 10px;
+    background: rgba($bright-turquoise, 0.4);
+  }
+}

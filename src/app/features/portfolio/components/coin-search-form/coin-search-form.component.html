@@ -2,7 +2,7 @@
   <div class="row m-0" formGroupName="searchCoin">
     <div class="col-md-8 col-6">
       <mat-form-field class="w-100" appearance="fill">
-        <mat-icon matPrefix>search</mat-icon>
+        <mat-icon aria-hidden="false" matPrefix>search</mat-icon>
         <input
           type="text"
           placeholder="Search and Add Coin"
@@ -15,6 +15,7 @@
         <mat-icon
           *ngIf="form.value?.searchCoin?.coinId"
           matSuffix
+          aria-hidden="false"
           mat-icon-button
           aria-label="Clear"
           (click)="resetSearch()"
@@ -46,14 +47,14 @@
 
     <div class="col-md-4 col-6">
       <mat-form-field class="w-100 coin-value-wrapper" appearance="fill">
-        <mat-icon matPrefix>animation</mat-icon>
+        <mat-icon aria-hidden="false" matPrefix>animation</mat-icon>
         <input
           type="number"
           matInput
           placeholder="Coin"
           formControlName="percentage"
         />
-        <mat-icon matSuffix>%</mat-icon>
+        <mat-icon aria-hidden="false" matSuffix>%</mat-icon>
         <mat-error *ngIf="submitted && form.controls?.percentage?.errors">
           <alpha-vault-error-messages
             [label]="'Percentage'"

@@ -1,0 +1,90 @@
+<div class="trading-algorithms-wrapper" [formGroup]="form">
+  <alpha-vault-card-details [heading]="algorithmInfo?.heading">
+    <ng-container class="icon-content">
+      <mat-icon
+        aria-hidden="false"
+        (click)="investmentCancelEmitter.emit(false)"
+        >close</mat-icon
+      >
+    </ng-container>
+
+    <ng-container class="additional-content">
+      <mat-radio-group
+        class="w-100"
+        [attr.aria-label]="algorithmInfo?.heading"
+        formControlName="tradingAlgorithm"
+      >
+        <div
+          class="row align-items-center border mx-0 mb-3 algorithm-item p-md-4 p-2"
+          *ngFor="
+            let algorithm of algorithmInfo?.algorithms || [];
+            let i = first
+          "
+          [ngClass]="{
+            'mt-3': i,
+            'selected-algorithm':
+              form?.value?.tradingAlgorithm === algorithm?.value
+          }"
+        >
+          <div class="col-md-4 col-12 text-center">
+            <mat-icon
+              aria-hidden="false"
+              class="algorithm-icon mb-md-1 mb-4"
+              [ngStyle]="{ color: algorithm?.color }"
+              >watch_later</mat-icon
+            >
+          </div>
+
+          <div class="col-md-8 col-12">
+            <div class="row mx-0">
+              <div class="col-10">
+                <h4 class="font-weight-bold">
+                  {{ algorithm.label | titlecase }}
+                  <span
+                    *ngIf="algorithm?.isDefault"
+                    type="button"
+                    class="ml-3 btn-primary btn-alpha-vault algorithm-default-btn"
+                  >
+                    Default
+                  </span>
+                </h4>
+              </div>
+              <div class="col-2">
+                <mat-radio-button class="mr-4" [value]="algorithm?.value"
+                  >&nbsp;</mat-radio-button
+                >
+              </div>
+            </div>
+            <div class="row mx-0">
+              <div class="col-12">
+                <p>
+                  {{ algorithm?.content }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-radio-group>
+    </ng-container>
+
+    <a class="primary-button" routerLinkActive="active-link">
+      <button
+        type="button"
+        class="btn btn-primary btn-alpha-vault"
+        (click)="investmentConfirmEmitter.emit()"
+      >
+        CONFIRM
+      </button>
+    </a>
+
+    <a class="secondary-button" routerLinkActive="active-link">
+      <button
+        type="button"
+        class="btn btn-secondary btn-alpha-vault"
+        (click)="investmentCancelEmitter.emit(false)"
+      >
+        BACK
+      </button>
+    </a>
+  </alpha-vault-card-details>
+</div>

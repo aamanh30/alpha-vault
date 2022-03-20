@@ -1,1 +1,7 @@
-
+:host::ng-deep .portfolio-name-wrapper {
+  .name-control-wrapper {
+    .mat-form-field-wrapper {
+      padding-bottom: 5px;
+    }
+  }
+}
