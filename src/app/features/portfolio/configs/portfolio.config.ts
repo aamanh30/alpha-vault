@@ -35,11 +35,11 @@ export const transformPortfolioDetails = (data: any) => {
 
 export const getPortfolioThumbnail = (coin: any): string => {
   let thumbnail = coin?.thumbnail;
-  if (coin?.name) {
-    thumbnail = `${environment.baseUrl}crypto-coin-image/${coin?.name
+  if (coin?.id) {
+    thumbnail = `${environment.baseIp}images/${coin?.id
       .split(' ')
       .join('-')
-      .toLowerCase()}`;
+      .toLowerCase()}-32.png`;
   }
 
   return thumbnail;
