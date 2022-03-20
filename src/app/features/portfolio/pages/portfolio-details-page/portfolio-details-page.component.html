@@ -3,7 +3,11 @@
 </section>
 
 <ng-container *ngIf="!loading">
-  <article [formGroup]="form">
+  <article
+    *ngIf="!isInvestmentConfirm"
+    class="portfolio-details-wrapper"
+    [formGroup]="form"
+  >
     <section class="my-4">
       <alpha-vault-card-details [heading]="form.value.name">
         <alpha-vault-portfolio-value
@@ -22,6 +26,15 @@
 
     <section class="my-4" formArrayName="coinHoldings">
       <alpha-vault-card-details [heading]="'Coin Holdings'">
+        <ng-container class="icon-content" *ngIf="form?.value?.isEditable">
+          <a
+            [routerLink]="['/portfolio/edit/', form?.value?.id]"
+            routerLinkActive="active-link"
+            title="Edit Portfolio"
+          >
+            <mat-icon aria-hidden="false" class="edit-icon">edit</mat-icon>
+          </a>
+        </ng-container>
         <ng-container class="additional-content">
           <alpha-vault-coin-holdings-section
             [readonly]="true"
@@ -47,12 +60,31 @@
             type="button"
             [disabled]="submitting"
             class="btn btn-primary btn-alpha-vault"
-            (click)="investNow()"
+            (click)="showInvestmentConfirm()"
           >
             INVEST NOW
           </button>
         </div>
       </div>
+    </section>
+  </article>
+
+  <article *ngIf="isInvestmentConfirm" class="portfolio-details-wrapper">
+    <section
+      *ngIf="!(portfolioAlgorithmDetails$ | async)"
+      class="d-flex justify-content-center"
+    >
+      <alpha-vault-spinner></alpha-vault-spinner>
+    </section>
+    <section
+      *ngIf="portfolioAlgorithmDetails$ | async as portfolioAlgorithmDetails"
+    >
+      <alpha-vault-trading-algorithm-section
+        [form]="form"
+        [algorithmInfo]="portfolioAlgorithmDetails"
+        (investmentConfirmEmitter)="investNow()"
+        (investmentCancelEmitter)="isInvestmentConfirm = $event"
+      ></alpha-vault-trading-algorithm-section>
     </section>
   </article>
 </ng-container>

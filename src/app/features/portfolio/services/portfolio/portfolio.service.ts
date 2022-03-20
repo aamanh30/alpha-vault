@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { forkJoin, Observable, of } from 'rxjs';
-import { Router } from '@angular/router';
+import { map, mergeMap, switchMap } from 'rxjs/operators';
 
 import { environment } from './../../../../../environments/environment';
 import { HttpService } from './../../../../core/services/http/http.service';
@@ -12,10 +12,10 @@ import {
   avxHoldingsDetails,
   portfolioPerformanceDetails,
   portfolioAllocationDetails,
-  getPortfolioThumbnail
+  getPortfolioThumbnail,
+  tradingAlgorithmsConfig
 } from './../../configs';
 import { UserService } from '../../../../core/services/user/user.service';
-import { map, mergeMap, switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -71,7 +71,22 @@ export class PortfolioService extends HttpService {
 
   getPortfolioDetails(id: number): Observable<any> {
     const url = `${environment.baseUrl}${this.slug}/protfolio-details-coin/${id}`;
-    return this.get(url).pipe(map(({ data }) => data));
+    return this.userService.getUser().pipe(
+      mergeMap(({ email }) =>
+        this.get(url).pipe(
+          map(({ data }) => ({
+            ...data,
+            isEditable: [...environment.adminEmails, data.userEmail].includes(
+              email
+            )
+          }))
+        )
+      )
+    );
+  }
+
+  getPortfolioAlgorithmDetails(): Observable<any> {
+    return of({ data: tradingAlgorithmsConfig }).pipe(map(({ data }) => data));
   }
 
   getPortfolioDashboardDetails(): Observable<any> {
@@ -198,15 +213,22 @@ export class PortfolioService extends HttpService {
     investmentAmount,
     createdon
   }: any): Observable<any> {
+    let url = `${environment.baseUrl}${this.slug}/user-protfolio`;
     return this.userService.getUser().pipe(
-      mergeMap(({ email }) => {
-        const url = `${environment.baseUrl}${this.slug}/user-protfolio`;
+      switchMap(({ email }) => {
         return this.post(url, {
           id,
           protfolioId,
           userEmail: userEmail || email,
           investmentAmount,
           createdon
+        });
+      }),
+      mergeMap(({ data }: any) => {
+        url = `${environment.baseUrl}wallet/investment`;
+        return this.post(url, {
+          email: data.userEmail,
+          amount: data.investmentAmount
         });
       })
     );

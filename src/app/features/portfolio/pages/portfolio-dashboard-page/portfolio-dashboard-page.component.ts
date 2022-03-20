@@ -72,7 +72,7 @@ export class PortfolioDashboardPageComponent
             investments
           );
         },
-        (error: any) => {
+        ({ error }: any) => {
           this.loading = false;
           this.animationService.open(error?.message, 'error');
         }
@@ -109,7 +109,7 @@ export class PortfolioDashboardPageComponent
         : null;
     const amount = Array.from(investments.values()).reduce(
       (total, current) => (total += current.investmentAmount),
-      0
+      config.avxHoldingsDetails?.portfolios[0]?.amount || 0
     );
     return {
       ...config,

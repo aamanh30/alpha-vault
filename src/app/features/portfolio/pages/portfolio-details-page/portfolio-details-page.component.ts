@@ -2,6 +2,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnDestroy } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 import { PortfolioBase } from './../../base/portfolio.base';
 import { PortfolioService } from '../../services/portfolio/portfolio.service';
@@ -20,6 +21,8 @@ export class PortfolioDetailsPageComponent
   implements OnDestroy
 {
   investmentForm: FormGroup = new FormGroup({});
+  isInvestmentConfirm: boolean = false;
+  portfolioAlgorithmDetails$: Observable<any> | null = null;
   constructor(
     protected router: Router,
     protected portfolioFormService: PortfolioFormService,
@@ -38,6 +41,8 @@ export class PortfolioDetailsPageComponent
           protfolioId: Number(id)
         });
       this.loadPortfolio(Number(id));
+      this.portfolioAlgorithmDetails$ =
+        this.portfolioService.getPortfolioAlgorithmDetails();
     });
   }
 
@@ -65,12 +70,20 @@ export class PortfolioDetailsPageComponent
           portfolio = transformPortfolioDetails(portfolio);
           this.initForm(portfolio);
         },
-        err => {
+        ({ error }) => {
           this.loading = false;
-          this.animationService.open(err.message, 'error');
+          this.animationService.open(error?.message, 'error');
           this.router.navigate([`/error/404`]);
         }
       );
+  }
+
+  showInvestmentConfirm(): void {
+    this.submitted = true;
+    if (this.investmentForm.invalid) {
+      return;
+    }
+    this.isInvestmentConfirm = true;
   }
 
   investNow(): void {
@@ -94,7 +107,7 @@ export class PortfolioDetailsPageComponent
             this.router.navigate([`/portfolio/dashboard`]);
           }, 2000);
         },
-        (error: any) => {
+        ({ error }: any) => {
           this.submitting = false;
           this.animationService.open(error?.message, 'error');
         }

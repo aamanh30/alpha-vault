@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { CreatePortfolioPageComponent } from './pages/create-portfolio-page/create-portfolio-page.component';
+import { EditPortfolioPageComponent } from './pages/edit-portfolio-page/edit-portfolio-page.component';
 import { PortfolioDashboardPageComponent } from './pages/portfolio-dashboard-page/portfolio-dashboard-page.component';
 import { PortfolioDetailsPageComponent } from './pages/portfolio-details-page/portfolio-details-page.component';
 
@@ -20,6 +21,15 @@ const routes: Routes = [
       {
         path: ':id',
         component: PortfolioDetailsPageComponent
+      }
+    ]
+  },
+  {
+    path: 'edit',
+    children: [
+      {
+        path: ':id',
+        component: EditPortfolioPageComponent
       }
     ]
   },

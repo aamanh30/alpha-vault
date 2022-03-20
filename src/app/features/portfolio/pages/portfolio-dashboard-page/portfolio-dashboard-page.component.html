@@ -30,7 +30,14 @@
                 | currency
             }}
           </p>
-          <p class="m-0">USD</p>
+          <p class="my-2">USD</p>
+          <a
+            class="secondary-button"
+            [routerLink]="['/payment/connect']"
+            routerLinkActive="active-link"
+          >
+            <button class="btn btn-primary btn-alpha-vault">ADD FUNDS</button>
+          </a>
         </div>
       </ng-container>
     </alpha-vault-card-details>
@@ -89,7 +96,7 @@
           [dataSource]="portfolioDashboardConfig?.avxHoldingsDetails.portfolios"
         >
           <ng-container matColumnDef="title">
-            <mat-cell *matCellDef="let cell" class="ws-nowrap">
+            <mat-cell *matCellDef="let cell" class="ws-nowrap px-0">
               {{ cell.title }}
             </mat-cell>
           </ng-container>
@@ -128,7 +135,7 @@
         <ng-container class="additional-content">
           <mat-table [dataSource]="alphaVaultPortfolios || []">
             <ng-container matColumnDef="name">
-              <mat-cell *matCellDef="let cell" class="ws-nowrap">
+              <mat-cell *matCellDef="let cell" class="ws-nowrap px-0">
                 {{ cell.name }}
               </mat-cell>
             </ng-container>
@@ -148,8 +155,11 @@
             </ng-container>
 
             <ng-container matColumnDef="investmentAmount">
-              <mat-cell *matCellDef="let cell" class="justify-content-end">
+              <mat-cell *matCellDef="let cell" class="justify-content-end px-0">
                 {{ cell.investmentAmount | currency }}
+                <span class="ml-1 cursor-pointer text-pink">
+                  <mat-icon aria-hidden="false">chevron_right</mat-icon>
+                </span>
               </mat-cell>
             </ng-container>
 
@@ -183,7 +193,7 @@
         <ng-container class="additional-content">
           <mat-table [dataSource]="customPortfolios || []">
             <ng-container matColumnDef="name">
-              <mat-cell *matCellDef="let cell" class="ws-nowrap">
+              <mat-cell *matCellDef="let cell" class="ws-nowrap px-0">
                 {{ cell.name }}
               </mat-cell>
             </ng-container>
@@ -203,8 +213,11 @@
             </ng-container>
 
             <ng-container matColumnDef="investmentAmount">
-              <mat-cell *matCellDef="let cell" class="justify-content-end">
+              <mat-cell *matCellDef="let cell" class="justify-content-end px-0">
                 {{ cell.investmentAmount | currency }}
+                <span class="ml-1 cursor-pointer text-pink">
+                  <mat-icon aria-hidden="false">chevron_right</mat-icon>
+                </span>
               </mat-cell>
             </ng-container>
 

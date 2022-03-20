@@ -1,13 +1,22 @@
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  FormArray,
+  ValidatorFn,
+  AbstractControl
+} from '@angular/forms';
 import { Injectable } from '@angular/core';
 
 import { totalValueValidator } from '../../configs';
+import { UserService } from '../../../../core/services/user/user.service';
+import { tradingAlgorithmTypes } from '../../models';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PortfolioFormService {
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private userService: UserService) {}
 
   getPortfolioForm(portfolio = <any>{}): FormGroup {
     const portfolioGroup = this.fb.group({
@@ -33,7 +42,13 @@ export class PortfolioFormService {
       rebalancing: [portfolio?.rebalancing || null, [Validators.required]],
       holdTerm: [portfolio?.holdTerm || null, [Validators.required]],
       buyType: [portfolio?.buyType || null, [Validators.required]],
-      coinHoldings: this.getCoinHoldingFormArray(portfolio.coinHoldings || [])
+      coinHoldings: this.getCoinHoldingFormArray(portfolio.coinHoldings || []),
+      color: [portfolio?.color || '#000000'],
+      shortDesc: [portfolio?.shortDesc || null],
+      isEditable: [portfolio?.isEditable || false],
+      tradingAlgorithm: [
+        portfolio?.tradingAlgorithm || tradingAlgorithmTypes.medium
+      ]
     });
     portfolioGroup.markAllAsTouched();
 
@@ -60,6 +75,7 @@ export class PortfolioFormService {
       coinId: [holding?.coinId || null],
       name: [holding?.name || null],
       percentage: [holding.percentage || null],
+      oldPercentage: [holding.percentage || null],
       createdPrice: [holding?.createdPrice || null],
       currentPrice: [holding?.currentPrice || null]
     });
@@ -102,6 +118,7 @@ export class PortfolioFormService {
   }
 
   getPortfolioInvestmentForm(investment: any = {}): FormGroup {
+    const balance = this.userService.getWalletBalanceValue();
     const portfolioInvestmentGroup = this.fb.group({
       id: [investment?.id || null],
       protfolioId: [investment?.protfolioId || null],
@@ -109,7 +126,7 @@ export class PortfolioFormService {
       createdon: [investment?.createdon || new Date().toISOString()],
       investmentAmount: [
         investment?.investmentAmount || null,
-        [Validators.required, Validators.min(1), Validators.max(999999)]
+        [Validators.required, Validators.min(1), Validators.max(balance)]
       ]
     });
     portfolioInvestmentGroup.markAllAsTouched();

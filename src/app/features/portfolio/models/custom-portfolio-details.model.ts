@@ -18,3 +18,9 @@ export enum buyTypes {
   buyAndHold = 'Buy and Hold',
   marketDriven = 'Market Driven'
 }
+
+export enum tradingAlgorithmTypes {
+  slow = 'Slow',
+  medium = 'Medium',
+  fast = 'Fast'
+}

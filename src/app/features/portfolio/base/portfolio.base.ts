@@ -71,7 +71,7 @@ export class PortfolioBase extends PageBase {
     this.form.controls?.searchCoin?.updateValueAndValidity();
   }
 
-  coinSelected({ id }: any): void {
+  coinSelected({ coinId: id }: any): void {
     this.router.navigate([`/coins/coin-details/${id}`]);
   }
 

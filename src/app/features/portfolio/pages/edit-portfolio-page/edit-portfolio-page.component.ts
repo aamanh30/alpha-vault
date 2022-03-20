@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { map, takeUntil } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
@@ -8,15 +8,18 @@ import { PortfolioBase } from './../../base/portfolio.base';
 import { CoinService } from './../../../coins/services/coin/coin.service';
 import { PortfolioService } from '../../services/portfolio/portfolio.service';
 import { HomeService } from '../../../home/services/home/home.service';
-import { customPortfolioAdditionalDetailsConfig } from '../../configs';
+import {
+  customPortfolioAdditionalDetailsConfig,
+  transformPortfolioDetails
+} from '../../configs';
 import { AnimationService } from '../../../../shared/services/animation/animation.service';
 
 @Component({
-  selector: 'alpha-vault-create-portfolio-page',
-  templateUrl: './create-portfolio-page.component.html',
-  styleUrls: ['./create-portfolio-page.component.scss']
+  selector: 'alpha-vault-edit-portfolio-page',
+  templateUrl: './edit-portfolio-page.component.html',
+  styleUrls: ['./edit-portfolio-page.component.scss']
 })
-export class CreatePortfolioPageComponent
+export class EditPortfolioPageComponent
   extends PortfolioBase
   implements OnInit, OnDestroy
 {
@@ -25,6 +28,7 @@ export class CreatePortfolioPageComponent
   config: any = customPortfolioAdditionalDetailsConfig;
   constructor(
     protected router: Router,
+    private route: ActivatedRoute,
     protected portfolioFormService: PortfolioFormService,
     protected coinService: CoinService,
     protected portfolioService: PortfolioService,
@@ -40,11 +44,49 @@ export class CreatePortfolioPageComponent
 
   ngOnInit(): void {
     this.initForm();
+    this.route.params.pipe(takeUntil(this.unsubscribe)).subscribe(({ id }) => {
+      this.loadPortfolio(Number(id));
+    });
   }
 
   ngOnDestroy(): void {
     this.unsubscribe.next();
     this.unsubscribe.complete();
+  }
+
+  loadPortfolio(id: number): void {
+    this.loading = true;
+    this.portfolioService
+      .getPortfolioDetails(id)
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe(
+        portfolio => {
+          if (!portfolio || portfolio.id !== id) {
+            this.animationService.open(
+              `Portfolio details for ${id} not found`,
+              'error'
+            );
+            this.router.navigate([`/error/404`]);
+            return;
+          }
+          if (!portfolio || !portfolio.isEditable) {
+            this.animationService.open(
+              `You don't have permission to edit portfolio details for ${id}`,
+              'error'
+            );
+            this.router.navigate([`/error/403`]);
+            return;
+          }
+          this.loading = false;
+          portfolio = transformPortfolioDetails(portfolio);
+          this.initForm(portfolio);
+        },
+        ({ error }) => {
+          this.loading = false;
+          this.animationService.open(error?.message, 'error');
+          this.router.navigate([`/error/404`]);
+        }
+      );
   }
 
   saveDraft(): void {

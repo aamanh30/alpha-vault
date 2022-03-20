@@ -15,6 +15,8 @@ import { PortfolioDashboardPageComponent } from './pages/portfolio-dashboard-pag
 import { ReportGenerationFormComponent } from './components/report-generation-form/report-generation-form.component';
 import { PortfolioAdditionalDetailsComponent } from './components/portfolio-additional-details/portfolio-additional-details.component';
 import { PortfolioInvestmentFormComponent } from './components/portfolio-investment-form/portfolio-investment-form.component';
+import { EditPortfolioPageComponent } from './pages/edit-portfolio-page/edit-portfolio-page.component';
+import { TradingAlgorithmSectionComponent } from './components/trading-algorithm-section/trading-algorithm-section.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { PortfolioInvestmentFormComponent } from './components/portfolio-investm
     PortfolioDashboardPageComponent,
     ReportGenerationFormComponent,
     PortfolioAdditionalDetailsComponent,
-    PortfolioInvestmentFormComponent
+    PortfolioInvestmentFormComponent,
+    EditPortfolioPageComponent,
+    TradingAlgorithmSectionComponent
   ],
   imports: [
     CommonModule,
