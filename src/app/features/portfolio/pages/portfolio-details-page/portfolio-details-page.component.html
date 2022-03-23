@@ -53,11 +53,24 @@
             [submitted]="submitted"
           >
           </alpha-vault-portfolio-investment-form>
+          <p
+            *ngIf="investmentForm.controls?.investmentAmount?.errors?.max"
+            class="text-danger"
+          >
+            Wallet balance low! To invest
+            {{ investmentForm.value.investmentAmount | currency }}
+            <a
+              class="ml-3 p-2 btn-primary btn-alpha-vault algorithm-default-btn"
+              [routerLink]="['/payment/connect']"
+              routerLinkActive="active-link"
+              >TOP UP NOW</a
+            >
+          </p>
         </div>
 
         <div class="col-md-4 col-12">
           <button
-            *ngIf="!(isAdmin$ | async)"
+            *ngIf="form?.value?.isEditable"
             type="button"
             [disabled]="submitting"
             class="btn btn-primary btn-alpha-vault"
@@ -66,7 +79,7 @@
             INVEST NOW
           </button>
           <button
-            *ngIf="isAdmin$ | async"
+            *ngIf="!form?.value?.isEditable"
             type="button"
             [disabled]="submitting"
             class="btn btn-primary btn-alpha-vault"
