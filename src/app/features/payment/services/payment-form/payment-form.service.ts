@@ -39,10 +39,10 @@ export class PaymentFormService {
     return form;
   }
 
-  getInvestmentForm(data = <any>{}): FormGroup {
+  getTopUpForm(data = <any>{}): FormGroup {
     const form = this.fb.group({
       email: [data?.email || null],
-      amount: [data?.amount || null, [Validators.required, Validators.min(0)]]
+      amount: [data?.amount || null, [Validators.required, Validators.min(1)]]
     });
     form.markAllAsTouched();
 

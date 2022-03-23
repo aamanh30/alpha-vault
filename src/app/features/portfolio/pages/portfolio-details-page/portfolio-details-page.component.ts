@@ -23,7 +23,6 @@ export class PortfolioDetailsPageComponent
   investmentForm: FormGroup = new FormGroup({});
   isInvestmentConfirm: boolean = false;
   portfolioAlgorithmDetails$: Observable<any> | null = null;
-  isAdmin$: Observable<boolean>;
   constructor(
     protected router: Router,
     protected portfolioFormService: PortfolioFormService,
@@ -33,7 +32,6 @@ export class PortfolioDetailsPageComponent
     private animationService: AnimationService
   ) {
     super(router, portfolioFormService, coinService);
-    this.isAdmin$ = this.portfolioService.getPortfolioUserAdmin();
   }
 
   ngOnInit(): void {

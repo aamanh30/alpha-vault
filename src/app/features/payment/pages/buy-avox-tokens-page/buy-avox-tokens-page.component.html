@@ -1,0 +1,25 @@
+<section class="mb-4">
+  <alpha-vault-top-up-form
+    [heading]="'Buy AVX'"
+    [submitted]="submitted"
+    [form]="form"
+  ></alpha-vault-top-up-form>
+  <div class="footer-content col-xs-12">
+    <div class="row mx-0 my-4">
+      <div class="col text-left">
+        <a
+          class="primary-button"
+          [routerLink]="['/payment/connect']"
+          routerLinkActive="active-link"
+        >
+          <button class="btn btn-primary btn-alpha-vault">BACK</button>
+        </a>
+      </div>
+      <div class="col text-right">
+        <button class="btn btn-primary btn-alpha-vault" (click)="onBuyAVX()">
+          BUY
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

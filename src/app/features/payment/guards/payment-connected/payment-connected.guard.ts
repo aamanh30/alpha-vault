@@ -9,7 +9,6 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { TopUpPageComponent } from '../../pages/top-up-page/top-up-page.component';
 import { PaymentService } from '../../services/payment/payment.service';
 
 @Injectable({
@@ -43,7 +42,6 @@ export class PaymentConnectedGuard implements CanActivate, CanDeactivate<any> {
     | boolean
     | UrlTree {
     this.paymentService.updatePaymentDetails(null);
-    console.log(`Hello`);
     return true;
   }
 }

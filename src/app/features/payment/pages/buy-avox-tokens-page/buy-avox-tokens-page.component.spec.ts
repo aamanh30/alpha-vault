@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TopUpPageComponent } from './top-up-page.component';
+import { BuyAvoxTokensPageComponent } from './buy-avox-tokens-page.component';
 
-describe('TopUpPageComponent', () => {
-  let component: TopUpPageComponent;
-  let fixture: ComponentFixture<TopUpPageComponent>;
+describe('BuyAvoxTokensPageComponent', () => {
+  let component: BuyAvoxTokensPageComponent;
+  let fixture: ComponentFixture<BuyAvoxTokensPageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TopUpPageComponent ]
+      declarations: [ BuyAvoxTokensPageComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TopUpPageComponent);
+    fixture = TestBed.createComponent(BuyAvoxTokensPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

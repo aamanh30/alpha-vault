@@ -1,4 +1,7 @@
-<section class="connect-wallet-wrapper my-4">
+<section
+  class="connect-wallet-wrapper my-4"
+  [ngClass]="{ 'payment-landing-wrapper': router.url === '/payment/connect' }"
+>
   <alpha-vault-card-details
     [heading]="'&lt;'"
     (headingClickEmitter)="navigateBack()"
@@ -28,7 +31,9 @@
           <a
             class="link-round"
             [ngClass]="{
-              'active-link': router.url === '/payment/top-up'
+              'active-link':
+                router.url === '/payment/top-up' ||
+                router.url === '/payment/buy-avx'
             }"
             >&nbsp;</a
           >

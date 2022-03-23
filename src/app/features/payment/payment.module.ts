@@ -13,8 +13,9 @@ import { FilterWalletPipe } from './pipes/filter-wallet/filter-wallet.pipe';
 import { WalletBalanceComponent } from './components/wallet-balance/wallet-balance/wallet-balance.component';
 import { TopUpFormComponent } from './components/top-up-form/top-up-form/top-up-form.component';
 import { PaymentConnectPageComponent } from './pages/payment-connect-page/payment-connect-page.component';
-import { TopUpPageComponent } from './pages/top-up-page/top-up-page.component';
 import { PaymentDashboardPageComponent } from './pages/payment-dashboard-page/payment-dashboard-page.component';
+import { WalletTopUpPageComponent } from './pages/wallet-top-up-page/wallet-top-up-page.component';
+import { BuyAvoxTokensPageComponent } from './pages/buy-avox-tokens-page/buy-avox-tokens-page.component';
 
 @NgModule({
   declarations: [
@@ -26,8 +27,9 @@ import { PaymentDashboardPageComponent } from './pages/payment-dashboard-page/pa
     FilterWalletPipe,
     WalletBalanceComponent,
     TopUpFormComponent,
-    TopUpPageComponent,
-    PaymentDashboardPageComponent
+    PaymentDashboardPageComponent,
+    WalletTopUpPageComponent,
+    BuyAvoxTokensPageComponent
   ],
   imports: [
     CommonModule,

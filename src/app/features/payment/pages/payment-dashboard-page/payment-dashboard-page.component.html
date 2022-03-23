@@ -4,6 +4,16 @@
   <alpha-vault-wallet-balance
     [walletInfo]="walletBalance"
   ></alpha-vault-wallet-balance>
+
+  <div class="my-3 text-center">
+    <a
+      class="primary-button"
+      routerLinkActive="active-link"
+      (click)="useFunds()"
+    >
+      <button class="btn btn-primary btn-alpha-vault">USE FUNDS</button>
+    </a>
+  </div>
 </ng-container>
 
 <ng-template #loadingWallet>
@@ -11,6 +21,8 @@
     <alpha-vault-spinner></alpha-vault-spinner>
   </section>
 </ng-template>
+
+<hr class="card-separator my-4" />
 
 <alpha-vault-connect-payment-card [title]="'Connect Wallet'">
   <ng-container class="icon-content">

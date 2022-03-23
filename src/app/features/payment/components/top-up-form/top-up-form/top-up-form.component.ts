@@ -10,5 +10,6 @@ export class TopUpFormComponent {
   @Input() submitted: boolean = false;
   @Input() form: FormGroup = new FormGroup({});
   @Input() selectedWallet: string | null = null;
+  @Input() heading: string | null = null;
   constructor() {}
 }

@@ -1,7 +1,7 @@
 <mat-card class="top-up-form-wrapper" [formGroup]="form">
   <mat-card-title-group class="card-details-header mb-4">
     <mat-card-title class="heading font-weight-bold">
-      Top Up Wallet
+      {{ heading }}
     </mat-card-title>
   </mat-card-title-group>
 
@@ -16,7 +16,7 @@
       />
     </mat-form-field>
     <alpha-vault-error-messages
-      *ngIf="submitted"
+      *ngIf="submitted && form?.controls?.amount"
       [label]="'Amount'"
       [control]="form.get('amount')"
     ></alpha-vault-error-messages>

@@ -51,6 +51,14 @@
   }
 }
 
+:host::ng-deep .payment-landing-wrapper {
+  .heading-content {
+    &:first-of-type {
+      visibility: hidden;
+    }
+  }
+}
+
 :host::ng-deep .mat-form-field {
   .mat-form-field-wrapper {
     .mat-form-field-flex {

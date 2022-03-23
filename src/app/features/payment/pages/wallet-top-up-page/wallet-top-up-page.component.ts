@@ -8,11 +8,11 @@ import { PaymentFormService } from '../../services/payment-form/payment-form.ser
 import { PaymentService } from '../../services/payment/payment.service';
 
 @Component({
-  selector: 'alpha-vault-top-up-page',
-  templateUrl: './top-up-page.component.html',
-  styleUrls: ['./top-up-page.component.scss']
+  selector: 'alpha-vault-wallet-top-up-page',
+  templateUrl: './wallet-top-up-page.component.html',
+  styleUrls: ['./wallet-top-up-page.component.scss']
 })
-export class TopUpPageComponent extends PageBase implements OnInit {
+export class WalletTopUpPageComponent extends PageBase implements OnInit {
   form: FormGroup = new FormGroup({});
   constructor(
     private router: Router,
@@ -24,7 +24,7 @@ export class TopUpPageComponent extends PageBase implements OnInit {
   }
 
   ngOnInit(): void {
-    this.form = this.paymentFormService.getInvestmentForm();
+    this.form = this.paymentFormService.getTopUpForm();
   }
 
   onTopUp(): void {
