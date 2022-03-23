@@ -38,18 +38,6 @@ export class PortfolioService extends HttpService {
           isTrending: !portfolio?.differentPercentage
             ? null
             : portfolio?.differentPercentage > 0,
-          // percentage:
-          //   portfolio.totalCreatedPrice && portfolio.totalCurrentPrice
-          //     ? (
-          //         ((portfolio.totalCurrentPrice - portfolio.totalCreatedPrice) /
-          //           portfolio.totalCreatedPrice) *
-          //         100
-          //       ).toFixed(2)
-          //     : null,
-          // isTrending:
-          //   portfolio.totalCreatedPrice === portfolio.totalCurrentPrice
-          //     ? null
-          //     : portfolio.totalCreatedPrice < portfolio.totalCurrentPrice,
           content: portfolio.shortDesc || portfolio.description,
           coinHoldings: (portfolio?.protfolioCoin || [])
             .sort(
@@ -143,7 +131,7 @@ export class PortfolioService extends HttpService {
   }
 
   createPortfolio({
-    id,
+    id: portfolioId,
     name,
     coinHoldings,
     strategyType,
@@ -155,7 +143,7 @@ export class PortfolioService extends HttpService {
       switchMap(({ email: userEmail, isAdmin = false }) => {
         const url = `${environment.baseUrl}${this.slug}/protfolio`;
         return this.post(url, {
-          id,
+          id: portfolioId,
           name,
           userEmail,
           isAdmin,
@@ -166,14 +154,16 @@ export class PortfolioService extends HttpService {
         });
       }),
       mergeMap(({ data: { id = null } }: any) => {
-        const coinUrl = `${environment.baseUrl}${this.slug}/protfolio-coin`;
-        return forkJoin(
-          coinHoldings.map((coinHolding: any, i: number) =>
-            this.post(coinUrl, { ...coinHolding, protfolioId: id }).pipe(
-              mergeMap(({ data }: any) => of(data))
-            )
-          )
-        );
+        const coinUrl = `${environment.baseUrl}${this.slug}/protfolio-coin-list`;
+        const protfolioCoinList = coinHoldings.map((coinHolding: any) => ({
+          ...coinHolding,
+          protfolioId: id
+        }));
+        return this.post(coinUrl, {
+          protfolioId: id,
+          isNew: !!!portfolioId,
+          protfolioCoinList
+        }).pipe(map(({ data }: any) => data));
       })
     );
   }
