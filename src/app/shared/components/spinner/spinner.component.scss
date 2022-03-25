@@ -1,0 +1,12 @@
+@import '../../../../assets/scss/variables';
+
+:host::ng-deep .mat-spinner {
+  circle {
+    stroke: $bright-turquoise;
+  }
+}
+:host::ng-deep .mat-progress-spinner {
+  circle {
+    stroke: $bright-turquoise;
+  }
+}
