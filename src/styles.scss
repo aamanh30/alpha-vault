@@ -27,6 +27,9 @@ body {
   background-position: center center;
   background-repeat: no-repeat;
   background-attachment: fixed;
+  .w-33 {
+    width: 33.33%;
+  }
   .btn-alpha-vault {
     padding: 12px 32px;
     border: 0px;
@@ -97,6 +100,13 @@ body {
   }
   .text-pink {
     color: $bright-pink;
+  }
+  .coin-holdings-details-column {
+    width: 33.33%;
+    display: inline-block;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   @media screen and (max-width: $small) {

@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
+import { takeUntil } from 'rxjs/operators';
 
+import { PageBase } from './core/base';
 import { UserService } from './core/services/user/user.service';
 
 @Component({
@@ -7,9 +10,27 @@ import { UserService } from './core/services/user/user.service';
   templateUrl: './alpha-vault.component.html',
   styleUrls: ['./alpha-vault.component.scss']
 })
-export class AlphaVaultComponent implements OnInit {
-  constructor(private userService: UserService) {}
+export class AlphaVaultComponent extends PageBase implements OnInit, OnDestroy {
+  constructor(private userService: UserService, private router: Router) {
+    super();
+  }
   ngOnInit(): void {
     this.userService.checkUser();
+    this.addRouterSubscription();
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe.next(null);
+    this.unsubscribe.complete();
+  }
+
+  addRouterSubscription(): void {
+    this.router.events.pipe(takeUntil(this.unsubscribe)).subscribe(event => {
+      if (!(event instanceof NavigationEnd)) {
+        return;
+      }
+
+      scrollTo({ top: 0, behavior: 'smooth' });
+    });
   }
 }
