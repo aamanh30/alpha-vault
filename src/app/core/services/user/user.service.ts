@@ -7,8 +7,8 @@ import { environment } from '../../../../environments/environment';
   providedIn: 'root'
 })
 export class UserService {
-  _user = new BehaviorSubject(null);
-  _walletBalance = new BehaviorSubject(0);
+  private _user = new BehaviorSubject(null);
+  private _walletBalance = new BehaviorSubject(0);
   constructor() {}
 
   updateUser(user: any): void {

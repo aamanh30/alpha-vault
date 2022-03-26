@@ -5,7 +5,7 @@
 <ng-container *ngIf="!loading">
   <section
     *ngIf="portfolioDashboardConfig?.portfolioPerformanceDetails"
-    class="my-4 portfolio-performance-wrapper"
+    class="mb-3 portfolio-performance-wrapper"
   >
     <alpha-vault-card-details
       [heading]="portfolioDashboardConfig?.portfolioPerformanceDetails?.title"
@@ -48,7 +48,7 @@
       portfolioDashboardConfig?.portfolioAllocationDetails &&
       !portfolioDashboardConfig?.portfolioAllocationDetails
     "
-    class="my-4 portfolio-allocation-wrapper"
+    class="mb-3 portfolio-allocation-wrapper"
   >
     <alpha-vault-card-details
       [heading]="portfolioDashboardConfig?.portfolioAllocationDetails?.title"
@@ -79,7 +79,7 @@
     </alpha-vault-card-details>
   </section>
 
-  <section *ngIf="portfolioDashboardConfig?.avxHoldingsDetails" class="my-4">
+  <section *ngIf="portfolioDashboardConfig?.avxHoldingsDetails" class="mb-3">
     <alpha-vault-card-details
       [heading]="portfolioDashboardConfig?.avxHoldingsDetails?.title"
     >
@@ -107,7 +107,7 @@
   >
     <section
       *ngIf="alphaVaultPortfolios && alphaVaultPortfolios.length"
-      class="my-4 bucket-holdings-wrapper"
+      class="mb-3 bucket-holdings-wrapper"
     >
       <alpha-vault-card-details
         [heading]="portfolioDashboardConfig?.alphaHoldingsDetails?.title"
@@ -164,7 +164,7 @@
     "
   >
     <section
-      class="my-4 bucket-holdings-wrapper"
+      class="mb-3 bucket-holdings-wrapper"
       *ngIf="customPortfolios && customPortfolios.length"
     >
       <alpha-vault-card-details
@@ -217,7 +217,7 @@
 
   <section
     *ngIf="portfolioDashboardConfig?.reportGenerationDetails"
-    class="my-4"
+    class="mb-3"
   >
     <alpha-vault-card-details
       [heading]="portfolioDashboardConfig?.reportGenerationDetails?.title"

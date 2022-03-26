@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UserService } from '../../../../core/services/user/user.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PaymentFormService {
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private userService: UserService) {}
 
   getWalletForm(): FormGroup {
     const form = this.fb.group({
@@ -42,7 +43,24 @@ export class PaymentFormService {
   getTopUpForm(data = <any>{}): FormGroup {
     const form = this.fb.group({
       email: [data?.email || null],
-      amount: [data?.amount || null, [Validators.required, Validators.min(1)]]
+      amount: [
+        data?.amount || null,
+        [Validators.required, Validators.min(1), Validators.max(999999)]
+      ]
+    });
+    form.markAllAsTouched();
+
+    return form;
+  }
+
+  getAVXTopUpForm(data = <any>{}): FormGroup {
+    const balance = this.userService.getWalletBalanceValue();
+    const form = this.fb.group({
+      email: [data?.email || null],
+      amount: [
+        data?.amount || null,
+        [Validators.required, Validators.min(1), Validators.max(balance)]
+      ]
     });
     form.markAllAsTouched();
 

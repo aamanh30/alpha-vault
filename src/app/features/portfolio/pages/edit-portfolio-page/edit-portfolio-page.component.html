@@ -68,7 +68,7 @@
               [coinHoldings]="form.controls.coinHoldings"
               [submitted]="submitted"
               [readonly]="false"
-              (navigateCoinEmitter)="coinNavigate($event)"
+              (navigateCoinEmitter)="coinSelected($event)"
               (removeCoinEmitter)="coinRemoved($event)"
               (coinPercentageChangeEmitter)="onCoinUpdated($event)"
             ></alpha-vault-coin-holdings-section>

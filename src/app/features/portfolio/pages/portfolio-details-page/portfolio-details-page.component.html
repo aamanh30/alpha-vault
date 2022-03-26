@@ -3,7 +3,7 @@
 </section>
 
 <ng-container *ngIf="!loading">
-  <article
+  <div
     *ngIf="!isInvestmentConfirm"
     class="portfolio-details-wrapper"
     [formGroup]="form"
@@ -45,55 +45,59 @@
       </alpha-vault-card-details>
     </section>
 
-    <section class="row mb-3 py-2 text-center bg-white">
-      <div class="col-md-8 col-12">
-        <alpha-vault-portfolio-investment-form
-          [form]="investmentForm"
-          [submitted]="submitted"
-        >
-        </alpha-vault-portfolio-investment-form>
+    <section class="mb-3 investment-form-wrapper">
+      <div class="row align-items-center justify-content-between">
+        <div class="col-md-8 col-6">
+          <alpha-vault-portfolio-investment-form
+            [form]="investmentForm"
+            [submitted]="submitted"
+          >
+          </alpha-vault-portfolio-investment-form>
+        </div>
 
-        <div
-          *ngIf="investmentForm.controls?.investmentAmount?.errors?.max"
-          class="d-block my-3"
-        >
-          <span class="text-danger warning-message">
+        <div class="col-md-4 col-6">
+          <button
+            *ngIf="form?.value?.isEditable"
+            type="button"
+            [disabled]="submitting"
+            class="btn btn-primary btn-alpha-vault"
+            (click)="showInvestmentConfirm()"
+          >
+            INVEST NOW
+          </button>
+          <button
+            *ngIf="!form?.value?.isEditable"
+            type="button"
+            [disabled]="submitting"
+            class="btn btn-primary btn-alpha-vault"
+            (click)="investNow()"
+          >
+            INVEST NOW
+          </button>
+        </div>
+      </div>
+
+      <div
+        class="row"
+        *ngIf="investmentForm.controls?.investmentAmount?.errors?.max"
+      >
+        <div class="col">
+          <p class="text-danger warning-message px-3">
             Wallet balance low! To invest
             {{ investmentForm.value.investmentAmount | currency }}
-          </span>
+          </p>
           <a
-            class="ml-md-3 p-2 btn-secondary btn-alpha-vault algorithm-default-btn"
+            class="ml-3 p-2 btn-secondary btn-alpha-vault algorithm-default-btn"
             [routerLink]="['/payment/connect']"
             routerLinkActive="active-link"
             >TOP UP NOW</a
           >
         </div>
       </div>
-
-      <div class="col-md-4 col-12">
-        <button
-          *ngIf="form?.value?.isEditable"
-          type="button"
-          [disabled]="submitting"
-          class="btn btn-primary btn-alpha-vault"
-          (click)="showInvestmentConfirm()"
-        >
-          INVEST NOW
-        </button>
-        <button
-          *ngIf="!form?.value?.isEditable"
-          type="button"
-          [disabled]="submitting"
-          class="btn btn-primary btn-alpha-vault"
-          (click)="investNow()"
-        >
-          INVEST NOW
-        </button>
-      </div>
     </section>
-  </article>
+  </div>
 
-  <article *ngIf="isInvestmentConfirm" class="portfolio-details-wrapper">
+  <div *ngIf="isInvestmentConfirm" class="portfolio-details-wrapper">
     <section
       *ngIf="!(portfolioAlgorithmDetails$ | async)"
       class="d-flex justify-content-center"
@@ -111,5 +115,5 @@
         (investmentCancelEmitter)="isInvestmentConfirm = $event"
       ></alpha-vault-trading-algorithm-section>
     </section>
-  </article>
+  </div>
 </ng-container>

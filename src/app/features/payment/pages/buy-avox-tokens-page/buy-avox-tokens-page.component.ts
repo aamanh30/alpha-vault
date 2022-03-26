@@ -5,7 +5,6 @@ import { takeUntil } from 'rxjs/operators';
 import { PageBase } from '../../../../core/base';
 import { AnimationService } from '../../../../shared/services/animation/animation.service';
 import { PaymentFormService } from '../../services/payment-form/payment-form.service';
-import { PaymentService } from '../../services/payment/payment.service';
 import { AvxService } from '../../../portfolio/services/avx/avx.service';
 
 @Component({
@@ -17,7 +16,6 @@ export class BuyAvoxTokensPageComponent extends PageBase implements OnInit {
   form: FormGroup = new FormGroup({});
   constructor(
     private router: Router,
-    private paymentService: PaymentService,
     private paymentFormService: PaymentFormService,
     private animationService: AnimationService,
     private avxService: AvxService
@@ -26,7 +24,7 @@ export class BuyAvoxTokensPageComponent extends PageBase implements OnInit {
   }
 
   ngOnInit(): void {
-    this.form = this.paymentFormService.getTopUpForm();
+    this.form = this.paymentFormService.getAVXTopUpForm();
   }
 
   onBuyAVX(): void {

@@ -38,7 +38,9 @@ export class EditPortfolioPageComponent
     super(router, portfolioFormService, coinService);
     this.content$ = this.homeService
       .getHomeDetails()
-      .pipe(map(({ createPortfolioDetails: { content } }) => content));
+      .pipe(
+        map(({ createPortfolioDetails: { description: content } }) => content)
+      );
     this.isAdmin$ = this.portfolioService.getPortfolioUserAdmin();
   }
 
@@ -137,10 +139,5 @@ export class EditPortfolioPageComponent
           this.animationService.open(error?.message, 'error');
         }
       );
-  }
-
-  coinNavigate(index: number): void {
-    const coin = this.form?.value?.coinHoldings?.[index];
-    this.coinSelected(coin);
   }
 }

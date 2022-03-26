@@ -4,10 +4,25 @@
   .edit-icon {
     color: $cadmium-violet;
   }
+  .investment-form-wrapper {
+    padding: 10px;
+    margin: 0px 0px;
+    background: $white;
+  }
   @media screen and (max-width: $small) {
     .warning-message {
       display: block;
       margin-bottom: 10px;
+    }
+  }
+}
+
+:host::ng-deep .investment-form-wrapper {
+  .investment-form {
+    .mat-form-field-wrapper {
+      .mat-form-field-outline {
+        color: $cadmium-violet;
+      }
     }
   }
 }

@@ -1,10 +1,7 @@
-<mat-card-content
-  class="card-details-body card-content m-0 mb-2"
-  [formGroup]="form"
->
+<mat-card-content class="card-details-body card-content m-0" [formGroup]="form">
   <div class="row m-0">
     <div class="col investment-form">
-      <mat-form-field class="w-100" appearance="fill">
+      <mat-form-field class="w-100" appearance="outline">
         <mat-icon aria-hidden="false" matPrefix>attach_money</mat-icon>
         <input
           type="number"
@@ -13,13 +10,12 @@
           matInput
           formControlName="investmentAmount"
         />
-        <mat-error *ngIf="submitted && form.controls?.investmentAmount?.errors">
-          <alpha-vault-error-messages
-            [label]="'Investment Amount'"
-            [control]="form.controls?.investmentAmount"
-          ></alpha-vault-error-messages>
-        </mat-error>
       </mat-form-field>
+      <alpha-vault-error-messages
+        *ngIf="submitted && form.controls?.investmentAmount?.errors"
+        [label]="'Investment Amount'"
+        [control]="form.controls?.investmentAmount"
+      ></alpha-vault-error-messages>
     </div>
   </div>
 </mat-card-content>
