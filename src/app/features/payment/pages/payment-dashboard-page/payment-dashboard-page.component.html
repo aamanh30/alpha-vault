@@ -1,69 +1,122 @@
 <ng-container
-  *ngIf="walletBalance$ | async as walletBalance; else loadingWallet"
->
-  <alpha-vault-wallet-balance
-    [walletInfo]="walletBalance"
-  ></alpha-vault-wallet-balance>
+  *ngIf="
+    (walletBalance$ | async) && (avxTokenBalance$ | async);
+    then paymentTemplate;
+    else loadingTemplate
+  "
+></ng-container>
 
-  <div class="my-3 text-center">
-    <a
-      class="primary-button"
-      routerLinkActive="active-link"
-      (click)="useFunds()"
-    >
-      <button class="btn btn-primary btn-alpha-vault">USE FUNDS</button>
-    </a>
-  </div>
-</ng-container>
-
-<ng-template #loadingWallet>
+<ng-template #loadingTemplate>
   <section class="d-flex justify-content-center">
     <alpha-vault-spinner></alpha-vault-spinner>
   </section>
 </ng-template>
 
-<hr class="card-separator my-4" />
+<ng-template #paymentTemplate>
+  <section
+    class="payment-card-section mb-3"
+    *ngIf="walletBalance$ | async as walletBalance"
+  >
+    <alpha-vault-card-details [heading]="walletBalance?.title">
+      <ng-container class="additional-content">
+        <section *ngIf="walletBalance" class="wallet-info-wrapper">
+          <div class="my-3 text-left">
+            <h3 class="h6 font-weight-bold">{{ walletBalance.heading }}</h3>
+          </div>
+          <div class="my-3 text-center">
+            <p class="sub-heading">{{ walletBalance.subHeading }}</p>
+          </div>
+          <div class="my-1 text-center">
+            <p class="h4 font-weight-bold">
+              {{ walletBalance.amount | currency }}
+            </p>
+          </div>
+        </section>
+      </ng-container>
+    </alpha-vault-card-details>
+  </section>
 
-<alpha-vault-connect-payment-card [title]="'Connect Wallet'">
-  <ng-container class="icon-content">
-    <mat-icon
-      class="icon-content payment-card-icon"
-      aria-hidden="false"
-      [attr.aria-label]="'Connect Wallet'"
-      >account_balance_wallet</mat-icon
-    >
-  </ng-container>
+  <section
+    class="payment-card-section mb-3"
+    *ngIf="avxTokenBalance$ | async as avxTokenBalance"
+  >
+    <alpha-vault-card-details [heading]="avxTokenBalance?.title">
+      <ng-container class="additional-content">
+        <alpha-vault-avx-holdings-table
+          [avxHoldingsDetails]="avxTokenBalance"
+        ></alpha-vault-avx-holdings-table>
+      </ng-container>
+      <a class="primary-button" routerLinkActive="active-link">
+        <button [disabled]="true" class="btn btn-primary btn-alpha-vault">
+          STAKE NOW
+        </button>
+      </a>
 
-  <ng-container class="button-content">
-    <a
-      class="primary-button"
-      [routerLink]="['/payment/wallet']"
-      routerLinkActive="active-link"
-    >
-      <button class="btn btn-primary btn-alpha-vault">CONNECT WALLET</button>
-    </a>
-  </ng-container>
-</alpha-vault-connect-payment-card>
+      <a
+        class="secondary-button"
+        [routerLink]="['/payment/buy-avx']"
+        routerLinkActive="active-link"
+      >
+        <button class="btn btn-secondary btn-alpha-vault">BUY NOW</button>
+      </a>
+    </alpha-vault-card-details>
+  </section>
 
-<hr class="card-separator my-4" />
+  <section class="payment-card-section mb-3">
+    <alpha-vault-card-details>
+      <ng-container class="additional-content">
+        <alpha-vault-connect-payment-card [title]="'Add Funds'">
+          <ng-container class="icon-content">
+            <mat-icon
+              class="icon-content payment-card-icon"
+              aria-hidden="false"
+              [attr.aria-label]="'Add Funds'"
+              >account_balance_wallet</mat-icon
+            >
+          </ng-container>
 
-<alpha-vault-connect-payment-card [title]="'Bank or Card'">
-  <ng-container class="icon-content">
-    <mat-icon
-      class="icon-content payment-card-icon"
-      aria-hidden="false"
-      [attr.aria-label]="'Bank or Card'"
-      >credit_card</mat-icon
-    >
-  </ng-container>
+          <ng-container class="button-content">
+            <a
+              class="primary-button"
+              [routerLink]="['/payment/wallet']"
+              routerLinkActive="active-link"
+            >
+              <button class="btn btn-primary btn-alpha-vault">
+                CONNECT WALLET
+              </button>
+            </a>
+          </ng-container>
+        </alpha-vault-connect-payment-card>
+      </ng-container>
+    </alpha-vault-card-details>
+  </section>
 
-  <ng-container class="button-content">
-    <a
-      class="primary-button"
-      [routerLink]="['/payment/card']"
-      routerLinkActive="active-link"
-    >
-      <button class="btn btn-primary btn-alpha-vault">PAYMENT GATEWAY</button>
-    </a>
-  </ng-container>
-</alpha-vault-connect-payment-card>
+  <section class="payment-card-section mb-3">
+    <alpha-vault-card-details>
+      <ng-container class="additional-content">
+        <alpha-vault-connect-payment-card [title]="'Bank or Card'">
+          <ng-container class="icon-content">
+            <mat-icon
+              class="icon-content payment-card-icon"
+              aria-hidden="false"
+              [attr.aria-label]="'Bank or Card'"
+              >credit_card</mat-icon
+            >
+          </ng-container>
+
+          <ng-container class="button-content">
+            <a
+              class="primary-button"
+              [routerLink]="['/payment/card']"
+              routerLinkActive="active-link"
+            >
+              <button class="btn btn-primary btn-alpha-vault">
+                PAYMENT GATEWAY
+              </button>
+            </a>
+          </ng-container>
+        </alpha-vault-connect-payment-card>
+      </ng-container>
+    </alpha-vault-card-details>
+  </section>
+</ng-template>

@@ -1,5 +1,5 @@
 export const walletInfo = {
-  heading: `Wallet`,
+  heading: null,
   subHeading: `Current Balance`,
   currency: `USD`,
   amount: null

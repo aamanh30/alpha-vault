@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 import { PageBase } from '../../../../core/base';
 import { PaymentService } from '../../services/payment/payment.service';
+import { AvxService } from '../../../portfolio/services/avx/avx.service';
 
 @Component({
   selector: 'alpha-vault-payment-dashboard-page',
@@ -12,12 +13,18 @@ import { PaymentService } from '../../services/payment/payment.service';
 })
 export class PaymentDashboardPageComponent extends PageBase implements OnInit {
   walletBalance$: Observable<any> | null = null;
-  constructor(private paymentService: PaymentService, private router: Router) {
+  avxTokenBalance$: Observable<any> | null = null;
+  constructor(
+    private router: Router,
+    private paymentService: PaymentService,
+    private avxService: AvxService
+  ) {
     super();
   }
 
   ngOnInit(): void {
     this.walletBalance$ = this.paymentService.getWalletBalance();
+    this.avxTokenBalance$ = this.avxService.getAVXTokenBalance();
   }
 
   useFunds(): void {

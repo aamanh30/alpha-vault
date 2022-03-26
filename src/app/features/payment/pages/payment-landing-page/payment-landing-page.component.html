@@ -3,7 +3,7 @@
   [ngClass]="{ 'payment-landing-wrapper': router.url === '/payment/connect' }"
 >
   <alpha-vault-card-details
-    [heading]="'&lt;'"
+    [heading]="router.url === '/payment/connect' ? '' : '&lt;'"
     (headingClickEmitter)="navigateBack()"
   >
     <div class="icon-content">
@@ -16,7 +16,7 @@
             >&nbsp;</a
           >
         </li>
-        <li class="list-inline-item">
+        <li class="list-inline-item" *ngIf="router.url !== '/payment/buy-avx'">
           <a
             class="link-round"
             [ngClass]="{

@@ -50,3 +50,21 @@
     }
   }
 }
+
+.wallet-info-wrapper {
+  .text-left {
+    .h3 {
+      font-size: 32px;
+    }
+  }
+  .sub-heading {
+    display: inline;
+    padding: 5px 10px;
+    border-radius: 20px;
+    color: $white;
+    background-color: $bright-pink;
+  }
+  .font-weight-bold {
+    font-weight: bold;
+  }
+}

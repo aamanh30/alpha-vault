@@ -1,17 +1,25 @@
 @import '../../../../../assets/scss/variables';
 
+:host::ng-deep .payment-card-section {
+  .card-wrapper {
+    background: $white !important;
+  }
+}
+
 :host::ng-deep .connect-wallet-wrapper {
-  .heading-content {
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 5px;
-    border-radius: 50%;
-    margin-top: -10px;
-    box-shadow: 1px 1px 5px $quick-silver;
-    cursor: pointer;
+  &:not(.payment-landing-wrapper) {
+    .heading-content {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 5px;
+      border-radius: 50%;
+      margin-top: -10px;
+      box-shadow: 1px 1px 5px $quick-silver;
+      cursor: pointer;
+    }
   }
   .icon-content {
     .list-inline {
@@ -52,10 +60,8 @@
 }
 
 :host::ng-deep .payment-landing-wrapper {
-  .heading-content {
-    &:first-of-type {
-      visibility: hidden;
-    }
+  .card-wrapper {
+    background: rgba($white, 0.5);
   }
 }
 

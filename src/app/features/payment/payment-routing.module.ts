@@ -33,8 +33,6 @@ const routes: Routes = [
       },
       {
         path: 'buy-avx',
-        canActivate: [PaymentConnectedGuard],
-        canDeactivate: [PaymentConnectedGuard],
         component: BuyAvoxTokensPageComponent
       }
     ]

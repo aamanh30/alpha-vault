@@ -6,6 +6,7 @@ import { PageBase } from '../../../../core/base';
 import { AnimationService } from '../../../../shared/services/animation/animation.service';
 import { PaymentFormService } from '../../services/payment-form/payment-form.service';
 import { PaymentService } from '../../services/payment/payment.service';
+import { AvxService } from '../../../portfolio/services/avx/avx.service';
 
 @Component({
   selector: 'alpha-vault-buy-avox-tokens-page',
@@ -18,7 +19,8 @@ export class BuyAvoxTokensPageComponent extends PageBase implements OnInit {
     private router: Router,
     private paymentService: PaymentService,
     private paymentFormService: PaymentFormService,
-    private animationService: AnimationService
+    private animationService: AnimationService,
+    private avxService: AvxService
   ) {
     super();
   }
@@ -33,8 +35,8 @@ export class BuyAvoxTokensPageComponent extends PageBase implements OnInit {
       return;
     }
     this.submitting = true;
-    this.paymentService
-      .topUpWallet(this.form.value)
+    this.avxService
+      .buyAVX(this.form.value)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
         res => {

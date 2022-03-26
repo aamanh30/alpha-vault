@@ -10,12 +10,12 @@ import { ConnectWalletFormComponent } from './components/connect-wallet-form/con
 import { ConnectCardFormComponent } from './components/connect-card-form/connect-card-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FilterWalletPipe } from './pipes/filter-wallet/filter-wallet.pipe';
-import { WalletBalanceComponent } from './components/wallet-balance/wallet-balance/wallet-balance.component';
 import { TopUpFormComponent } from './components/top-up-form/top-up-form/top-up-form.component';
 import { PaymentConnectPageComponent } from './pages/payment-connect-page/payment-connect-page.component';
 import { PaymentDashboardPageComponent } from './pages/payment-dashboard-page/payment-dashboard-page.component';
 import { WalletTopUpPageComponent } from './pages/wallet-top-up-page/wallet-top-up-page.component';
 import { BuyAvoxTokensPageComponent } from './pages/buy-avox-tokens-page/buy-avox-tokens-page.component';
+import { PortfolioModule } from '../portfolio/portfolio.module';
 
 @NgModule({
   declarations: [
@@ -25,7 +25,6 @@ import { BuyAvoxTokensPageComponent } from './pages/buy-avox-tokens-page/buy-avo
     ConnectWalletFormComponent,
     ConnectCardFormComponent,
     FilterWalletPipe,
-    WalletBalanceComponent,
     TopUpFormComponent,
     PaymentDashboardPageComponent,
     WalletTopUpPageComponent,
@@ -36,7 +35,8 @@ import { BuyAvoxTokensPageComponent } from './pages/buy-avox-tokens-page/buy-avo
     PaymentRoutingModule,
     ReactiveFormsModule,
     SharedModule,
-    MaterialDesignModule
+    MaterialDesignModule,
+    PortfolioModule
   ]
 })
 export class PaymentModule {}
