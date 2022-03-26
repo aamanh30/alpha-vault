@@ -54,7 +54,7 @@
             </ul>
             <div class="row my-2">
               <div class="col">
-                <button class="w-100 btn btn-primary btn-alpha-vault">
+                <button class="w-100 btn btn-secondary btn-alpha-vault">
                   INVEST NOW
                 </button>
               </div>
@@ -103,17 +103,15 @@
         [isTrending]="avxDetails?.isTrending"
       ></alpha-vault-portfolio-value>
 
-      <a
-        class="primary-button"
-        [routerLink]="['/payment/connect']"
-        routerLinkActive="active-link"
-      >
-        <button class="btn btn-primary btn-alpha-vault">STAKE NOW</button>
+      <a class="primary-button" routerLinkActive="active-link">
+        <button [disabled]="true" class="btn btn-primary btn-alpha-vault">
+          STAKE NOW
+        </button>
       </a>
 
       <a
         class="secondary-button"
-        [routerLink]="['/payment/connect']"
+        [routerLink]="['/payment/buy-avx']"
         routerLinkActive="active-link"
       >
         <button class="btn btn-secondary btn-alpha-vault">BUY NOW</button>
