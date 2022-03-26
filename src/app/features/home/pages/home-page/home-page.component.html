@@ -9,20 +9,13 @@
       [heading]="howItWorksDetails?.title"
       [content]="howItWorksDetails?.content | contentExcerpt: contentLimit"
     >
-      <mat-icon
-        class="icon-content"
-        aria-hidden="false"
-        [attr.aria-label]="howItWorksDetails?.title"
-        >question_mark</mat-icon
-      >
-
       <alpha-vault-video-player
         class="additional-content"
       ></alpha-vault-video-player>
 
       <div class="primary-button">
         <button class="btn btn-primary btn-alpha-vault" (click)="onLearnMore()">
-          LEARN MORE
+          {{ defaultContentLimit === contentLimit ? 'READ MORE' : 'READ LESS' }}
         </button>
       </div>
     </alpha-vault-card-details>
@@ -53,9 +46,7 @@
         [routerLink]="['/portfolio/create']"
         routerLinkActive="active-link"
       >
-        <button class="btn btn-primary btn-alpha-vault">
-          CREATE PORTFOLIO
-        </button>
+        <button class="btn btn-primary btn-alpha-vault">CREATE VAULT</button>
       </a>
     </alpha-vault-card-details>
   </section>

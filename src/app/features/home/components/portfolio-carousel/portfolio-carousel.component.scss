@@ -9,5 +9,12 @@
   }
   .portfolio-carousel {
     clear: both;
+    .portfolio-carousel-item {
+      .coin-holdings-wrapper {
+        .nav-item {
+          width: 33.33%;
+        }
+      }
+    }
   }
 }

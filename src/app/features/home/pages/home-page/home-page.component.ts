@@ -5,6 +5,7 @@ import { takeUntil } from 'rxjs/operators';
 
 import { HomeService } from '../../services/home/home.service';
 import { PortfolioService } from './../../../portfolio/services/portfolio/portfolio.service';
+import { EXCERPT_LIMIT } from '../../config';
 
 @Component({
   selector: 'alpha-vault-home-page',
@@ -18,7 +19,8 @@ export class HomePageComponent implements OnInit, OnDestroy {
   howItWorksDetails: any = null;
   createPortfolioDetails: any = null;
   avxDetails: any = null;
-  contentLimit: number = 30;
+  defaultContentLimit: number = EXCERPT_LIMIT;
+  contentLimit: number = EXCERPT_LIMIT;
 
   constructor(
     private homeService: HomeService,
@@ -66,10 +68,8 @@ export class HomePageComponent implements OnInit, OnDestroy {
 
   onLearnMore(): void {
     const { length } = this.howItWorksDetails?.content?.split(' ');
-    if (this.contentLimit === length) {
-      return;
-    }
-    this.contentLimit = length;
+    this.contentLimit =
+      this.contentLimit === length ? this.defaultContentLimit : length;
   }
 
   openPortfolio(id: number): void {

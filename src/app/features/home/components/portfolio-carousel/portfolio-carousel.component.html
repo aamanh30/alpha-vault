@@ -41,18 +41,27 @@
               class="nav-item"
               *ngFor="let coinHolding of portfolio.coinHoldings"
             >
-              <a class="nav-link text-dark mx-1"
-                >{{ coinHolding.percentage / 100 | percent: '2.2' }}
-                {{ coinHolding.abbr }}
-                <img class="coin-icon img-fluid" [src]="coinHolding.icon"
-              /></a>
+              <div class="nav-link text-dark mx-1 d-flex align-items-center">
+                <span class="coin-holdings-details-column">{{
+                  coinHolding.percentage / 100 | percent
+                }}</span>
+                <span class="coin-holdings-details-column">{{
+                  coinHolding.abbr
+                }}</span>
+                <span class="coin-holdings-details-column">
+                  <img class="coin-icon img-fluid" [src]="coinHolding.icon" />
+                </span>
+              </div>
             </li>
           </ul>
+          <div class="row my-2">
+            <div class="col">
+              <button class="w-100 btn btn-secondary btn-alpha-vault">
+                INVEST NOW
+              </button>
+            </div>
+          </div>
         </ng-container>
-
-        <a class="primary-button" routerLinkActive="active-link">
-          <button class="btn btn-primary btn-alpha-vault">INVEST NOW</button>
-        </a>
       </alpha-vault-card-details>
     </ng-container>
   </div>

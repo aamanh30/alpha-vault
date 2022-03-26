@@ -2,6 +2,8 @@
 .portfolio-details-wrapper {
   .coin-holdings-wrapper {
     .nav-item {
+      width: 33%;
+      margin: auto;
       .nav-link {
         border: 1px solid $cadmium-violet;
         border-radius: 30px;
@@ -17,7 +19,6 @@
         .nav-link {
           padding: 4px 4px;
           font-size: x-small;
-          margin-bottom: 10px;
           .img-fluid {
             width: 16px;
             height: 16px;
