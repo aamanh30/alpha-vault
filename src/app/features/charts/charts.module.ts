@@ -1,13 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { LineChartComponent } from './components/line-chart/line-chart.component';
-import { AreaChartComponent } from './components/area-chart/area-chart.component';
-import { DonutChartComponent } from './components/donut-chart/donut-chart.component';
+import { ChartComponent } from './components/chart/chart.component';
 
 @NgModule({
-  declarations: [LineChartComponent, AreaChartComponent, DonutChartComponent],
+  declarations: [ChartComponent],
   imports: [CommonModule],
-  exports: [LineChartComponent, AreaChartComponent, DonutChartComponent]
+  exports: [ChartComponent]
 })
 export class ChartsModule {}
