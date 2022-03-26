@@ -1,0 +1,18 @@
+<mat-table [dataSource]="avxHoldingsDetails.portfolios">
+  <ng-container matColumnDef="title">
+    <mat-cell *matCellDef="let cell" class="ws-nowrap px-0">
+      {{ cell.title }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="amount">
+    <mat-cell *matCellDef="let cell" class="justify-content-end">
+      {{ cell.amount }}
+    </mat-cell>
+  </ng-container>
+
+  <mat-row
+    class="border-0"
+    *matRowDef="let row; columns: avxHoldingsDetails.columns"
+  ></mat-row>
+</mat-table>

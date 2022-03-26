@@ -1,7 +1,7 @@
 <mat-card class="portfolio-name-wrapper card-wrapper" [formGroup]="form">
   <mat-card-title-group class="card-details-header mb-4">
     <mat-card-title class="heading font-weight-bold">
-      Custom Portfolio
+      Custom Vault
     </mat-card-title>
   </mat-card-title-group>
 
@@ -12,31 +12,31 @@
         <input
           type="text"
           matInput
-          placeholder="Portfolio Name"
+          placeholder="Vault Name"
           formControlName="name"
         />
       </mat-form-field>
       <alpha-vault-error-messages
         *ngIf="submitted"
-        [label]="'Portfolio Name'"
+        [label]="'Vault Name'"
         [control]="form.get('name')"
       ></alpha-vault-error-messages>
     </div>
 
     <div class="w-100 d-block" *ngIf="isAdmin">
       <mat-form-field class="w-100" appearance="fill">
-        <mat-label>Portfolio Color</mat-label>
+        <mat-label>Vault Color</mat-label>
         <input
           id="portfolio-color"
           type="color"
           matInput
-          placeholder="Portfolio Color"
+          placeholder="Vault Color"
           formControlName="color"
         />
       </mat-form-field>
       <alpha-vault-error-messages
         *ngIf="submitted"
-        [label]="'Portfolio Color'"
+        [label]="'Vault Color'"
         [control]="form.get('color')"
       ></alpha-vault-error-messages>
     </div>
@@ -48,33 +48,33 @@
           id="short-description"
           type="text"
           matInput
-          placeholder="Portfolio Short Description"
+          placeholder="Vault Short Description"
           formControlName="shortDesc"
           rows="2"
         ></textarea>
       </mat-form-field>
       <alpha-vault-error-messages
         *ngIf="submitted"
-        [label]="'Portfolio Short Description'"
+        [label]="'Vault Short Description'"
         [control]="form.get('shortDesc')"
       ></alpha-vault-error-messages>
     </div>
 
     <div class="w-100 d-block" *ngIf="isAdmin">
-      <label for="description">Portfolio Description</label>
+      <label for="description">Vault Description</label>
       <mat-form-field class="w-100" appearance="fill">
         <textarea
           id="description"
           type="text"
           matInput
-          placeholder="Portfolio Description"
+          placeholder="Vault Description"
           formControlName="description"
           rows="10"
         ></textarea>
       </mat-form-field>
       <alpha-vault-error-messages
         *ngIf="submitted"
-        [label]="'Portfolio Description'"
+        [label]="'Vault Description'"
         [control]="form.get('description')"
       ></alpha-vault-error-messages>
     </div>

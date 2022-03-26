@@ -4,4 +4,10 @@
   .edit-icon {
     color: $cadmium-violet;
   }
+  @media screen and (max-width: $small) {
+    .warning-message {
+      display: block;
+      margin-bottom: 10px;
+    }
+  }
 }

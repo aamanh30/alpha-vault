@@ -17,6 +17,7 @@ import { PortfolioAdditionalDetailsComponent } from './components/portfolio-addi
 import { PortfolioInvestmentFormComponent } from './components/portfolio-investment-form/portfolio-investment-form.component';
 import { EditPortfolioPageComponent } from './pages/edit-portfolio-page/edit-portfolio-page.component';
 import { TradingAlgorithmSectionComponent } from './components/trading-algorithm-section/trading-algorithm-section.component';
+import { AvxHoldingsTableComponent } from './components/avx-holdings-table/avx-holdings-table.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { TradingAlgorithmSectionComponent } from './components/trading-algorithm
     PortfolioAdditionalDetailsComponent,
     PortfolioInvestmentFormComponent,
     EditPortfolioPageComponent,
-    TradingAlgorithmSectionComponent
+    TradingAlgorithmSectionComponent,
+    AvxHoldingsTableComponent
   ],
   imports: [
     CommonModule,
@@ -39,6 +41,7 @@ import { TradingAlgorithmSectionComponent } from './components/trading-algorithm
     MaterialDesignModule,
     SharedModule,
     ChartsModule
-  ]
+  ],
+  exports: [AvxHoldingsTableComponent]
 })
 export class PortfolioModule {}

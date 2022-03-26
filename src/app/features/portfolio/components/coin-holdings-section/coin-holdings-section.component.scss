@@ -8,11 +8,20 @@
     &:hover {
       background-color: $cultured;
     }
-    .coin-thumbnail {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      box-shadow: 1px 1px 5px $quick-silver;
+    .mat-cell {
+      &:first-of-type {
+        max-width: 75px;
+        justify-content: center;
+      }
+      .coin-thumbnail {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        box-shadow: 1px 1px 5px $quick-silver;
+      }
+      .coin-percentage-input {
+        margin: 0px 5px;
+      }
     }
   }
 }

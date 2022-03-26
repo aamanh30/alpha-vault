@@ -8,7 +8,7 @@
     class="portfolio-details-wrapper"
     [formGroup]="form"
   >
-    <section class="my-4">
+    <section class="mb-3">
       <alpha-vault-card-details [heading]="form.value.name">
         <alpha-vault-portfolio-value
           class="icon-content"
@@ -24,7 +24,7 @@
       </alpha-vault-card-details>
     </section>
 
-    <section class="my-4" formArrayName="coinHoldings">
+    <section class="mb-3" formArrayName="coinHoldings">
       <alpha-vault-card-details [heading]="'Coin Holdings'">
         <ng-container class="icon-content" *ngIf="form?.value?.isEditable">
           <a
@@ -45,49 +45,50 @@
       </alpha-vault-card-details>
     </section>
 
-    <section class="pt-4 my-4 text-center bg-white">
-      <div class="row pb-2">
-        <div class="col-md-8 col-12">
-          <alpha-vault-portfolio-investment-form
-            [form]="investmentForm"
-            [submitted]="submitted"
-          >
-          </alpha-vault-portfolio-investment-form>
-          <p
-            *ngIf="investmentForm.controls?.investmentAmount?.errors?.max"
-            class="text-danger"
-          >
+    <section class="row mb-3 py-2 text-center bg-white">
+      <div class="col-md-8 col-12">
+        <alpha-vault-portfolio-investment-form
+          [form]="investmentForm"
+          [submitted]="submitted"
+        >
+        </alpha-vault-portfolio-investment-form>
+
+        <div
+          *ngIf="investmentForm.controls?.investmentAmount?.errors?.max"
+          class="d-block my-3"
+        >
+          <span class="text-danger warning-message">
             Wallet balance low! To invest
             {{ investmentForm.value.investmentAmount | currency }}
-            <a
-              class="ml-3 p-2 btn-primary btn-alpha-vault algorithm-default-btn"
-              [routerLink]="['/payment/connect']"
-              routerLinkActive="active-link"
-              >TOP UP NOW</a
-            >
-          </p>
+          </span>
+          <a
+            class="ml-md-3 p-2 btn-secondary btn-alpha-vault algorithm-default-btn"
+            [routerLink]="['/payment/connect']"
+            routerLinkActive="active-link"
+            >TOP UP NOW</a
+          >
         </div>
+      </div>
 
-        <div class="col-md-4 col-12">
-          <button
-            *ngIf="form?.value?.isEditable"
-            type="button"
-            [disabled]="submitting"
-            class="btn btn-primary btn-alpha-vault"
-            (click)="showInvestmentConfirm()"
-          >
-            INVEST NOW
-          </button>
-          <button
-            *ngIf="!form?.value?.isEditable"
-            type="button"
-            [disabled]="submitting"
-            class="btn btn-primary btn-alpha-vault"
-            (click)="investNow()"
-          >
-            INVEST NOW
-          </button>
-        </div>
+      <div class="col-md-4 col-12">
+        <button
+          *ngIf="form?.value?.isEditable"
+          type="button"
+          [disabled]="submitting"
+          class="btn btn-primary btn-alpha-vault"
+          (click)="showInvestmentConfirm()"
+        >
+          INVEST NOW
+        </button>
+        <button
+          *ngIf="!form?.value?.isEditable"
+          type="button"
+          [disabled]="submitting"
+          class="btn btn-primary btn-alpha-vault"
+          (click)="investNow()"
+        >
+          INVEST NOW
+        </button>
       </div>
     </section>
   </article>

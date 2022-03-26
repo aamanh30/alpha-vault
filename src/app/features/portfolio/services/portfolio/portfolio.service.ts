@@ -94,20 +94,10 @@ export class PortfolioService extends HttpService {
       )[0]
     };
 
-    const avxHoldings = {
-      ...avxHoldingsDetails,
-      columns: avxHoldingsDetails.portfolios.map((portfolio: any) =>
-        Object.keys(portfolio).filter(
-          key => key === 'title' || key === 'amount'
-        )
-      )[0]
-    };
-
     return of({
       reportGenerationDetails,
       bucketHoldingsDetails: bucketHoldings,
       alphaHoldingsDetails: alphaHoldings,
-      avxHoldingsDetails: avxHoldings,
       portfolioPerformanceDetails,
       portfolioAllocationDetails
     });

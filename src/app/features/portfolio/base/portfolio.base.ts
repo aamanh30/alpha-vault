@@ -81,4 +81,8 @@ export class PortfolioBase extends PageBase {
 
     this.form.setControl('coinHoldings', coinHoldings);
   }
+
+  onCoinUpdated(data: any): void {
+    this.portfolioFormService.updateCoinHoldingsGroup(this.form, data);
+  }
 }

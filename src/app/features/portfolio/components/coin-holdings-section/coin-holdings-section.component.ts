@@ -18,6 +18,8 @@ export class CoinHoldingsSectionComponent implements OnChanges {
   @Input() submitted: boolean = false;
   @Output() rowClickedEmitter = new EventEmitter();
   @Output() removeCoinEmitter = new EventEmitter();
+  @Output() navigateCoinEmitter = new EventEmitter();
+  @Output() coinPercentageChangeEmitter = new EventEmitter();
   columns: string[] = [];
   constructor() {}
 
@@ -26,10 +28,11 @@ export class CoinHoldingsSectionComponent implements OnChanges {
   }
 
   getColumnNames(): string[] {
+    const keys = this.readonly
+      ? ['oldPercentage', 'name', 'thumbnail']
+      : ['percentage', 'oldPercentage', 'name', 'thumbnail'];
     const [columns] = this.coinHoldings.value.map((coinHolding: any) =>
-      Object.keys(coinHolding).filter(key =>
-        ['percentage', 'name', 'thumbnail'].includes(key)
-      )
+      Object.keys(coinHolding).filter(key => keys.includes(key))
     );
 
     return columns || [];
@@ -45,5 +48,12 @@ export class CoinHoldingsSectionComponent implements OnChanges {
     }
 
     return total;
+  }
+
+  onCoinPercentageChange(index: number, event: Event): void {
+    this.coinPercentageChangeEmitter.emit({
+      index,
+      percentage: (<HTMLInputElement>event.target)?.valueAsNumber
+    });
   }
 }

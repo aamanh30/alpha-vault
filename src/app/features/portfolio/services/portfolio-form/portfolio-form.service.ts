@@ -56,9 +56,11 @@ export class PortfolioFormService {
   }
 
   getCoinHoldingFormArray(coinHoldings = []): FormArray {
-    let coinHoldingsArray: any[] | FormArray = coinHoldings.map(
-      (holding: any) => this.getCoinHoldingForm(holding)
-    );
+    let coinHoldingsArray: any[] | FormArray = coinHoldings
+      .sort((coinHoldingA: any, coinHoldingB: any) =>
+        coinHoldingA?.percentage < coinHoldingB?.percentage ? 1 : -1
+      )
+      .map((holding: any) => this.getCoinHoldingForm(holding));
     coinHoldingsArray = this.fb.array(coinHoldingsArray, [
       Validators.required,
       totalValueValidator()
@@ -132,5 +134,20 @@ export class PortfolioFormService {
     portfolioInvestmentGroup.markAllAsTouched();
 
     return portfolioInvestmentGroup;
+  }
+
+  updateCoinHoldingsGroup(
+    form: FormGroup,
+    {
+      index,
+      percentage
+    }: {
+      index: number;
+      percentage: number;
+    }
+  ) {
+    const group = (form.get('coinHoldings') as FormArray)?.at(index);
+    const { oldPercentage } = group.value;
+    group.patchValue({ percentage, oldPercentage });
   }
 }

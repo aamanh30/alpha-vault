@@ -124,7 +124,7 @@ export class EditPortfolioPageComponent
           this.submitting = false;
           this.submitted = false;
           this.animationService.open(
-            `Custom portfolio ${this.form?.value?.name} has been created successfully`
+            `Custom vault, ${this.form?.value?.name} has been updated successfully`
           );
           setTimeout(() => {
             this.router.navigate([
@@ -137,5 +137,10 @@ export class EditPortfolioPageComponent
           this.animationService.open(error?.message, 'error');
         }
       );
+  }
+
+  coinNavigate(index: number): void {
+    const coin = this.form?.value?.coinHoldings?.[index];
+    this.coinSelected(coin);
   }
 }

@@ -25,27 +25,53 @@
 <ng-template #coinHoldingsTable>
   <mat-table [dataSource]="coinHoldings.value" class="coin-holdings-table">
     <ng-container matColumnDef="thumbnail">
-      <mat-cell *matCellDef="let cell">
+      <mat-cell *matCellDef="let cell" class="pl-0">
         <img
           *ngIf="cell.thumbnail"
           class="coin-thumbnail"
           [src]="cell.thumbnail"
+          (click)="$event.stopPropagation(); navigateCoinEmitter.emit(cell)"
         />
       </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="name">
-      <mat-cell *matCellDef="let cell" class="ws-nowrap">
+      <mat-cell
+        *matCellDef="let cell"
+        class="ws-nowrap"
+        (click)="$event.stopPropagation(); navigateCoinEmitter.emit(cell)"
+      >
         {{ cell.name }}
       </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="percentage">
+    <ng-container *ngIf="!readonly" matColumnDef="percentage">
       <mat-cell
         *matCellDef="let cell; let i = index"
-        class="justify-content-end"
+        class="form-group pr-0 mb-0"
       >
-        {{ cell.percentage / 100 | percent: '2.2' }}
+        <input
+          type="number"
+          class="coin-percentage-input form-control"
+          placeholder="Percentage"
+          [value]="cell.percentage"
+          (change)="onCoinPercentageChange(i, $event)"
+        />
+        <span
+          class="ml-1 cursor-pointer text-pink"
+          (click)="$event.stopPropagation(); navigateCoinEmitter.emit(cell)"
+        >
+          <mat-icon aria-hidden="false">chevron_right</mat-icon>
+        </span>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="oldPercentage">
+      <mat-cell
+        *matCellDef="let cell; let i = index"
+        class="justify-content-end pr-0"
+      >
+        {{ cell.oldPercentage / 100 | percent: '2.2' }}
         <span
           *ngIf="!readonly"
           class="ml-1 cursor-pointer text-danger"
@@ -54,7 +80,11 @@
           <mat-icon aria-hidden="false">cancel</mat-icon>
         </span>
 
-        <span *ngIf="readonly" class="ml-1 cursor-pointer text-pink">
+        <span
+          *ngIf="readonly"
+          class="ml-1 cursor-pointer text-pink"
+          (click)="$event.stopPropagation(); navigateCoinEmitter.emit(cell)"
+        >
           <mat-icon aria-hidden="false">chevron_right</mat-icon>
         </span>
       </mat-cell>

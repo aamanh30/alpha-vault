@@ -92,29 +92,9 @@
       ></alpha-vault-portfolio-value>
 
       <ng-container class="additional-content">
-        <mat-table
-          [dataSource]="portfolioDashboardConfig?.avxHoldingsDetails.portfolios"
-        >
-          <ng-container matColumnDef="title">
-            <mat-cell *matCellDef="let cell" class="ws-nowrap px-0">
-              {{ cell.title }}
-            </mat-cell>
-          </ng-container>
-
-          <ng-container matColumnDef="amount">
-            <mat-cell *matCellDef="let cell" class="justify-content-end">
-              {{ cell.amount }}
-            </mat-cell>
-          </ng-container>
-
-          <mat-row
-            class="border-0"
-            *matRowDef="
-              let row;
-              columns: portfolioDashboardConfig?.avxHoldingsDetails.columns
-            "
-          ></mat-row>
-        </mat-table>
+        <alpha-vault-avx-holdings-table
+          [avxHoldingsDetails]="portfolioDashboardConfig?.avxHoldingsDetails"
+        ></alpha-vault-avx-holdings-table>
       </ng-container>
     </alpha-vault-card-details>
   </section>

@@ -1,5 +1,5 @@
 <section class="portfolio-page-wrapper" [formGroup]="form">
-  <div class="row mb-4">
+  <div class="row mb-3">
     <div class="col">
       <alpha-vault-portfolio-name-section
         [submitted]="submitted"
@@ -10,7 +10,7 @@
     </div>
   </div>
 
-  <div class="row mb-4">
+  <div class="row mb-3">
     <div class="col">
       <alpha-vault-portfolio-additional-details
         [submitted]="submitted"
@@ -20,7 +20,7 @@
     </div>
   </div>
 
-  <div class="row mb-4">
+  <div class="row mb-3">
     <div class="col">
       <mat-card class="portfolio-search-wrapper card-wrapper">
         <mat-card-title-group class="card-details-header mb-4">
@@ -59,17 +59,18 @@
     </div>
   </div>
 
-  <div class="row mb-4">
+  <div class="row mb-3">
     <div class="col">
-      <section class="my-4" formArrayName="coinHoldings">
+      <section formArrayName="coinHoldings">
         <alpha-vault-card-details [heading]="'Coin Holdings'">
           <ng-container class="additional-content">
             <alpha-vault-coin-holdings-section
               [coinHoldings]="form.controls.coinHoldings"
               [submitted]="submitted"
               [readonly]="false"
-              (rowClickedEmitter)="coinSelected($event)"
+              (navigateCoinEmitter)="coinNavigate($event)"
               (removeCoinEmitter)="coinRemoved($event)"
+              (coinPercentageChangeEmitter)="onCoinUpdated($event)"
             ></alpha-vault-coin-holdings-section>
           </ng-container>
         </alpha-vault-card-details>
@@ -77,7 +78,7 @@
     </div>
   </div>
 
-  <div class="row mb-4 py-4 bg-white">
+  <div class="row mb-3 py-4 bg-white">
     <div class="col-6 text-center">
       <a
         class="secondary-button"

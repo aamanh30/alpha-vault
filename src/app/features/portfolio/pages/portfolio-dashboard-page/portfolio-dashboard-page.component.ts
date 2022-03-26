@@ -8,6 +8,7 @@ import { PortfolioService } from '../../services/portfolio/portfolio.service';
 import { PortfolioFormService } from './../../services/portfolio-form/portfolio-form.service';
 import { AnimationService } from '../../../../shared/services/animation/animation.service';
 import { PageBase } from '../../../../core/base';
+import { AvxService } from '../../services/avx/avx.service';
 
 @Component({
   selector: 'alpha-vault-portfolio-dashboard-page',
@@ -28,7 +29,8 @@ export class PortfolioDashboardPageComponent
     private router: Router,
     private portfolioService: PortfolioService,
     private portfolioFormService: PortfolioFormService,
-    private animationService: AnimationService
+    private animationService: AnimationService,
+    private avxService: AvxService
   ) {
     super();
   }
@@ -49,12 +51,23 @@ export class PortfolioDashboardPageComponent
       this.portfolioService.getPortfolioDashboardDetails(),
       this.portfolioService.getPortfolioInvestments(),
       this.portfolioService.getPortfolioList(),
-      this.portfolioService.getAlphaVaultPortfolios()
+      this.portfolioService.getAlphaVaultPortfolios(),
+      this.avxService.getAVXTokenBalance()
     ])
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
-        ([config, investments, customPortfolios, alphaVaultPortfolios]) => {
+        ([
+          config,
+          investments,
+          customPortfolios,
+          alphaVaultPortfolios,
+          avxHoldingsDetails
+        ]) => {
           this.loading = false;
+          config = {
+            ...config,
+            avxHoldingsDetails
+          };
           this.customPortfolios$ = this.formatPortfolios(
             customPortfolios,
             investments
