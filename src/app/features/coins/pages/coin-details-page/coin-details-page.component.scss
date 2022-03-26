@@ -1,3 +1,7 @@
-.coin-details-card {
-  border-radius: 30px;
+:host::ng-deep .coin-details-page {
+  .icon-wrapper {
+    .font-weight-normal {
+      font-size: 1rem;
+    }
+  }
 }

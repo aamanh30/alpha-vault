@@ -2,11 +2,13 @@
   <alpha-vault-spinner></alpha-vault-spinner>
 </section>
 
-<section class="my-4" *ngIf="!loading">
+<section class="my-4 coin-details-page" *ngIf="!loading">
   <alpha-vault-card-details [heading]="coin.name">
-    <alpha-vault-portfolio-value
-      class="icon-content"
-    ></alpha-vault-portfolio-value>
+    <ng-container class="icon-content">
+      <span class="font-weight-normal">{{
+        coin?.tickers?.usd_price | currency
+      }}</span>
+    </ng-container>
 
     <ng-container class="additional-content">
       <alpha-vault-coin-details [coin]="coin"></alpha-vault-coin-details>
