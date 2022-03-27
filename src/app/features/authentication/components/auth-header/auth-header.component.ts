@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'alpha-vault-auth-header',
@@ -6,9 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./auth-header.component.scss']
 })
 export class AuthHeaderComponent {
+  @Output() navigateBack: EventEmitter<any> = new EventEmitter<any>();
   constructor() {}
-
-  navigateBack(): void {
-    history.back();
-  }
 }

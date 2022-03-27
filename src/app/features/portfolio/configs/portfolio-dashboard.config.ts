@@ -11,7 +11,9 @@ export const reportGenerationDetails = {
   categories: []
 };
 
-export const alphaVaultBucketHoldingsDetails = {
+export const columns = ['name', 'totalCreatedPrice', 'investmentAmount'];
+
+export const alphaHoldingsDetails = {
   id: null,
   title: `Alpha Vault Vaults`,
   type: null,
@@ -22,29 +24,8 @@ export const alphaVaultBucketHoldingsDetails = {
   topHoldings: null,
   marketSegment: null,
   categories: [],
-  portfolios: [
-    {
-      id: 1002,
-      title: `Metaverse Bucket`,
-      percentage: 25,
-      isTrending: true,
-      amount: 400000
-    },
-    {
-      id: 1001,
-      title: `Defi Bucket`,
-      percentage: 2,
-      isTrending: true,
-      amount: 200000
-    },
-    {
-      id: 5001,
-      title: `Custom Portfolio`,
-      percentage: 2,
-      isTrending: true,
-      amount: 200000
-    }
-  ]
+  portfolios: [],
+  columns
 };
 
 export const bucketHoldingsDetails = {
@@ -58,29 +39,8 @@ export const bucketHoldingsDetails = {
   topHoldings: null,
   marketSegment: null,
   categories: [],
-  portfolios: [
-    {
-      id: 1002,
-      title: `Metaverse Bucket`,
-      percentage: 25,
-      isTrending: true,
-      amount: 400000
-    },
-    {
-      id: 1001,
-      title: `Defi Bucket`,
-      percentage: 2,
-      isTrending: true,
-      amount: 200000
-    },
-    {
-      id: 5001,
-      title: `Custom Portfolio`,
-      percentage: 2,
-      isTrending: true,
-      amount: 200000
-    }
-  ]
+  portfolios: [],
+  columns
 };
 
 export const avxHoldingsDetails = {

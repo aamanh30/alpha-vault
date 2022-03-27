@@ -8,8 +8,7 @@ import { HttpService } from './../../../../core/services/http/http.service';
 import {
   reportGenerationDetails,
   bucketHoldingsDetails,
-  alphaVaultBucketHoldingsDetails,
-  avxHoldingsDetails,
+  alphaHoldingsDetails,
   portfolioPerformanceDetails,
   portfolioAllocationDetails,
   getPortfolioThumbnail,
@@ -82,22 +81,10 @@ export class PortfolioService extends HttpService {
   }
 
   getPortfolioDashboardDetails(): Observable<any> {
-    const bucketHoldings = {
-      ...bucketHoldingsDetails,
-      columns: ['name', 'totalCreatedPrice', 'investmentAmount']
-    };
-
-    const alphaHoldings = {
-      ...alphaVaultBucketHoldingsDetails,
-      columns: alphaVaultBucketHoldingsDetails.portfolios.map(
-        (portfolio: any) => ['name', 'totalCreatedPrice', 'investmentAmount']
-      )[0]
-    };
-
     return of({
       reportGenerationDetails,
-      bucketHoldingsDetails: bucketHoldings,
-      alphaHoldingsDetails: alphaHoldings,
+      bucketHoldingsDetails,
+      alphaHoldingsDetails,
       portfolioPerformanceDetails,
       portfolioAllocationDetails
     });

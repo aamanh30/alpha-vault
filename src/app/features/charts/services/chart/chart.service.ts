@@ -1,7 +1,7 @@
 import { ElementRef, Injectable } from '@angular/core';
 
 import { ChartTypes } from '../../models';
-import * as d3 from 'd3';
+declare const google: any;
 
 @Injectable({
   providedIn: 'root'
@@ -17,40 +17,59 @@ export class ChartService {
     if (!chartElement || !chartElement.nativeElement) {
       return;
     }
-    const canvas = d3.select(chartElement.nativeElement);
+    let renderFunction: Function;
     switch (type) {
-      case ChartTypes.area: {
-        this.renderAreaChart(data, canvas);
-        break;
-      }
-      case ChartTypes.bar: {
-        this.renderBarChart(data, canvas);
-        break;
-      }
       case ChartTypes.donut: {
-        this.renderDonutChart(data, canvas);
+        renderFunction = this.renderDonutChart(
+          data,
+          chartElement.nativeElement
+        );
         break;
       }
       case ChartTypes.line: {
-        this.renderLineChart(data, canvas);
+        renderFunction = this.renderLineChart(data, chartElement.nativeElement);
         break;
       }
-      case ChartTypes.pie: {
-        this.renderPieChart(data, canvas);
-        break;
-      }
+      default:
+        renderFunction = () => {};
     }
+
+    google.charts.load('current', { packages: ['corechart'] });
+    google.charts.setOnLoadCallback(renderFunction);
   }
 
-  renderAreaChart(data: any, canvas: any): void {}
+  renderDonutChart(data: any, chart: any): Function {
+    return () => {
+      const chartData = google.visualization.arrayToDataTable([
+        ['Label', 'Value'],
+        ...data.map((data: any) => [data.label, data.value])
+      ]);
 
-  renderBarChart(data: any, canvas: any): void {}
+      const options = {
+        pieHole: 0.8,
+        colors: ['#ff0084', '#843ea1', '#01e2dc']
+      };
 
-  renderDonutChart(data: any, canvas: any): void {
-    canvas.attr('height', '200px').classed('w-100 canvas item');
+      const donutChart = new google.visualization.PieChart(chart);
+      donutChart.draw(chartData, options);
+    };
   }
 
-  renderLineChart(data: any, canvas: any): void {}
+  renderLineChart(data: any, chart: any): Function {
+    return () => {
+      const chartData = google.visualization.arrayToDataTable([
+        ['Legend', 'Value'],
+        ...data.map((data: any) => [data.label, data.value])
+      ]);
 
-  renderPieChart(data: any, canvas: any): void {}
+      const options = {
+        curveType: 'function',
+        colors: ['#01e2dc'],
+        legend: { position: 'none' }
+      };
+
+      const lineChart = new google.visualization.LineChart(chart);
+      lineChart.draw(chartData, options);
+    };
+  }
 }

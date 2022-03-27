@@ -1,5 +1,25 @@
+@import '../../../../../assets/scss/variables';
+
 .chart-wrapper {
   .chart-canvas {
+    width: 100%;
     min-height: 300px;
+    &.loading-canvas {
+      display: contents;
+    }
+  }
+  @media screen and (max-width: $small) {
+    .chart-canvas {
+      height: 200px;
+      min-height: auto;
+    }
+  }
+}
+
+:host::ng-deep .chart-wrapper {
+  .chart-canvas {
+    text {
+      fill: $dark-gunmetal;
+    }
   }
 }

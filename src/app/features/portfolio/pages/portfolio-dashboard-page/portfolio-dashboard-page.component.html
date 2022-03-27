@@ -44,10 +44,7 @@
   </section>
 
   <section
-    *ngIf="
-      portfolioDashboardConfig?.portfolioAllocationDetails &&
-      !portfolioDashboardConfig?.portfolioAllocationDetails
-    "
+    *ngIf="portfolioDashboardConfig?.portfolioAllocationDetails"
     class="mb-3 portfolio-allocation-wrapper"
   >
     <alpha-vault-card-details
@@ -56,23 +53,12 @@
       <ng-container class="additional-content">
         <div class="row align-items-center">
           <div class="col">
-            <mat-list>
-              <mat-list-item
-                *ngFor="
-                  let allocation of portfolioDashboardConfig
-                    ?.portfolioAllocationDetails?.allocations
-                "
-              >
-                <div
-                  class="allocation-row d-flex justify-content-start align-items-center w-100"
-                >
-                  <span>{{
-                    allocation.percentage / 100 | percent: '2.2'
-                  }}</span>
-                  <span class="allocation-title">{{ allocation.title }}</span>
-                </div>
-              </mat-list-item>
-            </mat-list>
+            <alpha-vault-chart
+              [type]="chartTypes.donut"
+              [data]="
+                portfolioDashboardConfig?.portfolioAllocationDetails?.data
+              "
+            ></alpha-vault-chart>
           </div>
         </div>
       </ng-container>

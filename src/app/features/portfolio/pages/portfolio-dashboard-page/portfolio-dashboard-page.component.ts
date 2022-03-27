@@ -2,13 +2,14 @@ import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { combineLatest, Observable, of, Subject } from 'rxjs';
+import { combineLatest, Observable, of } from 'rxjs';
 
 import { PortfolioService } from '../../services/portfolio/portfolio.service';
 import { PortfolioFormService } from './../../services/portfolio-form/portfolio-form.service';
 import { AnimationService } from '../../../../shared/services/animation/animation.service';
 import { PageBase } from '../../../../core/base';
 import { AvxService } from '../../services/avx/avx.service';
+import { ChartTypes } from '../../../charts/models';
 
 @Component({
   selector: 'alpha-vault-portfolio-dashboard-page',
@@ -25,6 +26,7 @@ export class PortfolioDashboardPageComponent
   categories: any[] = [];
   customPortfolios$: Observable<any[]> | undefined;
   alphaVaultPortfolios$: Observable<any[]> | undefined;
+  chartTypes = ChartTypes;
   constructor(
     private router: Router,
     private portfolioService: PortfolioService,
@@ -64,10 +66,6 @@ export class PortfolioDashboardPageComponent
           avxHoldingsDetails
         ]) => {
           this.loading = false;
-          config = {
-            ...config,
-            avxHoldingsDetails
-          };
           this.customPortfolios$ = this.formatPortfolios(
             customPortfolios,
             investments
@@ -80,7 +78,10 @@ export class PortfolioDashboardPageComponent
             investments
           );
           this.portfolioDashboardConfig = this.portfolioPerformanceDetails(
-            config,
+            {
+              ...config,
+              avxHoldingsDetails
+            },
             [...alphaVaultPortfolios, ...customPortfolios],
             investments
           );
@@ -110,11 +111,23 @@ export class PortfolioDashboardPageComponent
     portfolios: any[],
     investments: Map<string, any>
   ): any {
+    const data: any = [
+      {
+        label: config?.avxHoldingsDetails?.title,
+        value: config?.avxHoldingsDetails?.amount
+      }
+    ];
     let createdPrice = 0,
       currentPrice = 0;
-    portfolios.forEach(({ totalCreatedPrice, totalCurrentPrice }) => {
+    portfolios.forEach(({ id, totalCreatedPrice, totalCurrentPrice, name }) => {
       createdPrice += totalCreatedPrice;
       currentPrice += totalCurrentPrice;
+      if (investments.has(`${id}`)) {
+        data.push({
+          label: name,
+          value: investments.get(`${id}`)?.investmentAmount
+        });
+      }
     });
     const percentage =
       currentPrice && createdPrice
@@ -132,6 +145,10 @@ export class PortfolioDashboardPageComponent
         amount,
         isTrending:
           createdPrice === currentPrice ? null : createdPrice < currentPrice
+      },
+      portfolioAllocationDetails: {
+        ...config.portfolioAllocationDetails,
+        data
       }
     };
   }

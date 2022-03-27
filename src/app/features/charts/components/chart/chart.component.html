@@ -1,5 +1,12 @@
 <div class="chart-wrapper row">
   <div class="col">
-    <canvas #chart class="w-100 chart-canvas"></canvas>
+    <div
+      *ngIf="loading"
+      class="d-flex justify-content-center align-items-center"
+    >
+      <alpha-vault-spinner></alpha-vault-spinner>
+    </div>
+
+    <div #chart class="chart-canvas" [ngClass]="{ invisible: loading }"></div>
   </div>
 </div>

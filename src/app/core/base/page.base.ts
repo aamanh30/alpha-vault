@@ -7,4 +7,8 @@ export class PageBase {
     public submitted: boolean = false,
     public submitting: boolean = false
   ) {}
+
+  navigateBack(): void {
+    history.back();
+  }
 }
