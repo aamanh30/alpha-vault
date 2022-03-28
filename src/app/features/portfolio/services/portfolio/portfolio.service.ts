@@ -114,7 +114,10 @@ export class PortfolioService extends HttpService {
     strategyType,
     rebalancing,
     holdTerm,
-    buyType
+    buyType,
+    description,
+    shortDesc,
+    color
   }: any): Observable<any> {
     return this.userService.getUser().pipe(
       switchMap(({ email: userEmail, isAdmin = false }) => {
@@ -127,7 +130,10 @@ export class PortfolioService extends HttpService {
           strategyType,
           rebalancing,
           holdTerm,
-          buyType
+          buyType,
+          description,
+          shortDesc,
+          color
         });
       }),
       mergeMap(({ data: { id = null } }: any) => {
