@@ -76,8 +76,10 @@ export class PortfolioFormService {
       thumbnail: [holding?.thumbnail || null],
       coinId: [holding?.coinId || null],
       name: [holding?.name || null],
-      percentage: [holding.percentage || null],
-      oldPercentage: [holding.percentage || null],
+      percentage: [holding?.percentage ? Math.floor(holding.percentage) : null],
+      oldPercentage: [
+        holding?.percentage ? Math.floor(holding.percentage) : null
+      ],
       createdPrice: [holding?.createdPrice || null],
       currentPrice: [holding?.currentPrice || null]
     });

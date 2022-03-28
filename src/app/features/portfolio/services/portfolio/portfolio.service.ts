@@ -33,7 +33,9 @@ export class PortfolioService extends HttpService {
           ...portfolio,
           title: portfolio.name,
           type: portfolio.strategyType,
-          percentage: portfolio?.differentPercentage,
+          percentage: isNaN(portfolio?.differentPercentage)
+            ? null
+            : portfolio?.differentPercentage.toFixed(2),
           isTrending: !portfolio?.differentPercentage
             ? null
             : portfolio?.differentPercentage > 0,
@@ -178,7 +180,7 @@ export class PortfolioService extends HttpService {
         switchMap(({ email }) =>
           this.userService
             .getAdminEmails()
-            .pipe(map(emails => emails.includes(email)))
+            .pipe(map(emails => emails.includes(email.toLowerCase())))
         )
       );
   }

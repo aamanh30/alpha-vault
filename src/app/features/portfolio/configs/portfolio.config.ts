@@ -17,7 +17,9 @@ export const transformPortfolioDetails = (data: any) => {
   const portfolio = {
     ...data,
     type: data.strategyType,
-    percentage: data?.differentPercentage,
+    percentage: isNaN(data?.differentPercentage)
+      ? null
+      : data.differentPercentage.toFixed(2),
     isTrending: !data?.differentPercentage
       ? null
       : data?.differentPercentage > 0,
