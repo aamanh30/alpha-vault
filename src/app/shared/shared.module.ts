@@ -7,7 +7,11 @@ import { VideoPlayerComponent } from './components/video-player/video-player.com
 import { CardDetailsComponent } from './components/card-details/card-details.component';
 import { PortfolioValueComponent } from './components/portfolio-value/portfolio-value.component';
 import { ErrorMessagesComponent } from './components/error-messages/error-messages.component';
-import { ToggleInputDirective, LoadingLayerDirective } from './directives';
+import {
+  ToggleInputDirective,
+  LoadingLayerDirective,
+  ImageErrorDirective
+} from './directives';
 import { ContentExcerptPipe } from './pipes';
 
 @NgModule({
@@ -20,7 +24,8 @@ import { ContentExcerptPipe } from './pipes';
     ToggleInputDirective,
     ErrorMessagesComponent,
     LoadingLayerDirective,
-    ContentExcerptPipe
+    ContentExcerptPipe,
+    ImageErrorDirective
   ],
   exports: [
     SpinnerComponent,
@@ -30,7 +35,8 @@ import { ContentExcerptPipe } from './pipes';
     ToggleInputDirective,
     ErrorMessagesComponent,
     LoadingLayerDirective,
-    ContentExcerptPipe
+    ContentExcerptPipe,
+    ImageErrorDirective
   ]
 })
 export class SharedModule {}
