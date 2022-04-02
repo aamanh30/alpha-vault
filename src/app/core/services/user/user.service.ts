@@ -9,6 +9,7 @@ import { environment } from '../../../../environments/environment';
 export class UserService {
   private _user = new BehaviorSubject(null);
   private _walletBalance = new BehaviorSubject(0);
+  private _avxBalance = new BehaviorSubject(0);
   constructor() {}
 
   updateUser(user: any): void {
@@ -26,6 +27,18 @@ export class UserService {
 
   updateWalletBalance(balance: number): void {
     this._walletBalance.next(balance);
+  }
+
+  getAVXBalance(): Observable<any> {
+    return this._avxBalance.asObservable();
+  }
+
+  getAVXBalanceValue(): number {
+    return this._avxBalance.getValue();
+  }
+
+  updateAVXBalance(balance: number): void {
+    this._avxBalance.next(balance);
   }
 
   getUser(): Observable<any> {
