@@ -1,0 +1,9 @@
+:host::ng-deep .stake-amount-form-wrapper {
+  padding: 0px 0px;
+  box-shadow: none;
+  mat-form-field {
+    .mat-form-field-wrapper {
+      padding-bottom: 0px;
+    }
+  }
+}

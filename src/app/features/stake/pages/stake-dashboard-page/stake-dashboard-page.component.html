@@ -1,0 +1,43 @@
+<ng-container
+  *ngIf="stakeAmount$ | async; then stakeAmountTemplate; else loadingTemplate"
+></ng-container>
+
+<ng-template #loadingTemplate>
+  <section class="d-flex justify-content-center">
+    <alpha-vault-spinner></alpha-vault-spinner>
+  </section>
+</ng-template>
+
+<ng-template #stakeAmountTemplate>
+  <section
+    class="stake-card-section mb-3"
+    *ngIf="stakeAmount$ | async as stakeAmount"
+  >
+    <alpha-vault-card-details [heading]="stakeAmount?.title">
+      <ng-container class="additional-content">
+        <div *ngIf="stakeAmount" class="stake-info-wrapper">
+          <div class="my-3 text-left">
+            <h3 class="h6 font-weight-bold">{{ stakeAmount.heading }}</h3>
+          </div>
+          <div class="my-3 text-center">
+            <p class="sub-heading">{{ stakeAmount.subHeading }}</p>
+          </div>
+          <div class="my-1 text-center">
+            <p class="h4 font-weight-bold">
+              {{ stakeAmount.amount | currency }}
+            </p>
+            <a
+              class="secondary-button"
+              [routerLink]="['/stake/stake-amount']"
+              routerLinkActive="active-link"
+            >
+              <button class="btn btn-primary btn-alpha-vault">
+                ADD STAKE AMOUNT
+              </button>
+            </a>
+          </div>
+        </div>
+      </ng-container>
+    </alpha-vault-card-details>
+  </section>
+</ng-template>

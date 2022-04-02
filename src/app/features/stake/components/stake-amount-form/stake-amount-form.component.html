@@ -1,0 +1,76 @@
+<mat-card class="stake-amount-form-wrapper" [formGroup]="form">
+  <mat-card-title-group class="card-details-header mb-2">
+    <mat-card-title class="heading font-weight-bold">
+      {{ heading }}
+    </mat-card-title>
+  </mat-card-title-group>
+
+  <mat-card-content class="card-details-body card-content">
+    <div class="row mb-3">
+      <div class="col">
+        <h3 class="h3 mb-0">Amount</h3>
+        <mat-form-field class="w-100 d-block" appearance="fill">
+          <mat-icon aria-hidden="false" matPrefix>$</mat-icon>
+          <input
+            type="number"
+            matInput
+            placeholder="Enter Staking Amount"
+            formControlName="stakingAmount"
+          />
+        </mat-form-field>
+
+        <alpha-vault-error-messages
+          *ngIf="submitted && form?.controls?.stakingAmount"
+          [label]="'Stake Amount'"
+          [control]="form.get('stakingAmount')"
+        ></alpha-vault-error-messages>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col">
+        <h3 class="h3 mb-0">Lock Period(in days)</h3>
+        <mat-form-field class="w-100 d-block" appearance="fill">
+          <input
+            type="number"
+            matInput
+            placeholder="Enter Lock Period(in days)"
+            formControlName="lockPeriod"
+          />
+        </mat-form-field>
+
+        <alpha-vault-error-messages
+          *ngIf="submitted && form?.controls?.lockPeriod"
+          [label]="'Lock Period'"
+          [control]="form.get('lockPeriod')"
+        ></alpha-vault-error-messages>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col">
+        <h3 class="h3 mb-0">Enter Start Date</h3>
+        <mat-form-field class="w-100 d-block" appearance="fill">
+          <input
+            matInput
+            [disabled]="true"
+            [min]="minDate"
+            [max]="maxDate"
+            [matDatepicker]="startDateDP"
+            formControlName="startDate"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="startDateDP"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #startDateDP disabled="false"></mat-datepicker>
+        </mat-form-field>
+        <alpha-vault-error-messages
+          *ngIf="submitted && form?.controls?.startDate"
+          [label]="'Start Date'"
+          [control]="form.get('startDate')"
+        ></alpha-vault-error-messages>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

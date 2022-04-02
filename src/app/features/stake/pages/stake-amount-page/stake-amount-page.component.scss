@@ -1,0 +1,64 @@
+@import '../../../../../assets/scss/variables';
+
+:host::ng-deep .stake-amount-wrapper {
+  .card-separator {
+    width: 50px;
+    border: 2px solid $quick-silver;
+  }
+  .card-details-body {
+    &.card-content {
+      & > .row {
+        width: 100%;
+        margin: 0px;
+      }
+      .col {
+        .payment-card-icon {
+          width: 64px;
+          font-size: 64px;
+          color: $cadmium-violet;
+        }
+      }
+    }
+  }
+}
+
+.stake-amount-wrapper {
+  .text-left {
+    .h3 {
+      font-size: 32px;
+    }
+  }
+  .sub-heading {
+    display: inline;
+    padding: 5px 10px;
+    border-radius: 20px;
+    color: $white;
+    background-color: $bright-pink;
+  }
+  .font-weight-bold {
+    font-weight: bold;
+  }
+}
+
+:host::ng-deep .mat-form-field {
+  .mat-form-field-wrapper {
+    .mat-form-field-flex {
+      background-color: $white;
+      border: 2px solid $cadmium-violet;
+      border-radius: 8px;
+      align-items: center;
+      .mat-form-field-prefix {
+        color: $cadmium-violet;
+      }
+      .mat-form-field-suffix {
+        color: $bright-turquoise;
+      }
+    }
+    .mat-form-field-underline {
+      display: none;
+      &::before {
+        height: 0px;
+      }
+    }
+  }
+}

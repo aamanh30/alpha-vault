@@ -1,0 +1,58 @@
+@import '../../../../../assets/scss/variables';
+
+:host::ng-deep .stake-card-section {
+  .icon-content {
+    .list-inline {
+      .list-inline-item {
+        .link-round {
+          display: block;
+          width: 16px;
+          height: 16px;
+          border-radius: 50%;
+          border: 2px solid $quick-silver;
+          &.active-link {
+            background-color: $bright-pink;
+            border: 2px solid $bright-pink;
+          }
+        }
+      }
+    }
+  }
+  .card-separator {
+    width: 50px;
+    border: 2px solid $quick-silver;
+  }
+  .card-details-body {
+    &.card-content {
+      & > .row {
+        width: 100%;
+        margin: 0px;
+      }
+      .col {
+        .payment-card-icon {
+          width: 64px;
+          font-size: 64px;
+          color: $cadmium-violet;
+        }
+      }
+    }
+  }
+}
+
+.stake-info-wrapper {
+  .text-left {
+    .h3 {
+      font-size: 32px;
+    }
+  }
+  .sub-heading {
+    display: inline;
+    padding: 5px 10px;
+    border-radius: 20px;
+    color: $white;
+    background-color: $bright-pink;
+  }
+  .font-weight-bold {
+    font-weight: bold;
+  }
+}
