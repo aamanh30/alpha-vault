@@ -35,6 +35,12 @@ const routes: Routes = [
           import('./features/payment/payment.module').then(m => m.PaymentModule)
       },
       {
+        path: 'stake',
+        canActivate: [AuthenticatedGuard],
+        loadChildren: () =>
+          import('./features/stake/stake.module').then(m => m.StakeModule)
+      },
+      {
         path: 'error',
         loadChildren: () =>
           import('./features/error/error.module').then(m => m.ErrorModule)

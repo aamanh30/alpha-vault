@@ -47,7 +47,10 @@
         ></alpha-vault-avx-holdings-table>
       </ng-container>
       <a class="primary-button" routerLinkActive="active-link">
-        <button [disabled]="true" class="btn btn-primary btn-alpha-vault">
+        <button
+          [routerLink]="['/stake/stake-dashboard']"
+          class="btn btn-primary btn-alpha-vault"
+        >
           STAKE NOW
         </button>
       </a>
