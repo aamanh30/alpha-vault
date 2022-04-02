@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AvxTokenGuard } from './guards/avx-token/avx-token.guard';
 import { StakeAmountPageComponent } from './pages/stake-amount-page/stake-amount-page.component';
 import { StakeDashboardPageComponent } from './pages/stake-dashboard-page/stake-dashboard-page.component';
 
@@ -13,6 +14,7 @@ const routes: Routes = [
       },
       {
         path: 'stake-amount',
+        canActivate: [AvxTokenGuard],
         component: StakeAmountPageComponent
       },
 

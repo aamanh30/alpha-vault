@@ -9,7 +9,7 @@ export class StakeFormService {
   constructor(private fb: FormBuilder, private userService: UserService) {}
 
   getAVXStakingForm(data = <any>{}): FormGroup {
-    const balance = this.userService.getWalletBalanceValue();
+    const balance = this.userService.getAVXBalanceValue();
     const form = this.fb.group({
       email: [data?.email || null],
       stakingAmount: [
