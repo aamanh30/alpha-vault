@@ -236,4 +236,14 @@ export class PortfolioService extends HttpService {
       })
     );
   }
+
+  getPortfolioUserInvestments(): Observable<any> {
+    return this.userService.getUser().pipe(
+      switchMap(({ email }) => {
+        const url = `${environment.baseUrl}${this.slug}/protfolio-list-all-user/${email}`;
+        return this.get(url);
+      }),
+      map(({ data }) => data)
+    );
+  }
 }
