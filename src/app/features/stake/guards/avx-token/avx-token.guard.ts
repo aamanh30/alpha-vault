@@ -6,17 +6,16 @@ import {
   UrlTree
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { UserService } from '../../../../core/services/user/user.service';
-import { StakeService } from '../../services/stake/stake.service';
-
+import { AvxService } from '../../../portfolio/services/avx/avx.service';
 @Injectable({
   providedIn: 'root'
 })
 export class AvxTokenGuard implements CanActivate {
   constructor(
     private userService: UserService,
-    private stakeService: StakeService
+    private avxService: AvxService
   ) {}
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -26,8 +25,7 @@ export class AvxTokenGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    return this.userService.getUser().pipe(
-      switchMap(({ email }: any) => this.stakeService.getStakeAmount()),
+    return this.avxService.getAVXTokenBalance().pipe(
       map(({ amount }: any) => {
         this.userService.updateAVXBalance(amount);
         return true;
