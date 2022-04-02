@@ -54,7 +54,8 @@ export class PortfolioDashboardPageComponent
       this.portfolioService.getPortfolioInvestments(),
       this.portfolioService.getPortfolioList(),
       this.portfolioService.getAlphaVaultPortfolios(),
-      this.avxService.getAVXTokenBalance()
+      this.avxService.getAVXTokenBalance(),
+      this.portfolioService.getPortfolioUserInvestments()
     ])
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
@@ -63,8 +64,10 @@ export class PortfolioDashboardPageComponent
           investments,
           customPortfolios,
           alphaVaultPortfolios,
-          avxHoldingsDetails
+          avxHoldingsDetails,
+          userInvestments
         ]) => {
+          console.log(`UserInvestments:`, userInvestments);
           this.loading = false;
           this.customPortfolios$ = this.formatPortfolios(
             customPortfolios,
