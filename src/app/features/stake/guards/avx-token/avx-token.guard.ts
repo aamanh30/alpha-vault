@@ -27,7 +27,7 @@ export class AvxTokenGuard implements CanActivate {
     | UrlTree {
     return this.avxService.getAVXTokenBalance().pipe(
       map(({ amount }: any) => {
-        this.userService.updateAVXBalance(amount);
+        this.userService.updateAVXBalance(amount ?? 0);
         return true;
       })
     );

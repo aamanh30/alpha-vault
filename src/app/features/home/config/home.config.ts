@@ -18,7 +18,7 @@ export const createPortfolioDetails = {
 export const avxDetails = {
   title: `AVX Tokens`,
   type: null,
-  percentage: 92.61,
+  percentage: null,
   isTrending: true,
   content: `Buy and stake AVX tokens to get additional rewards, discounts and access to Alpha Exclusive vault`
 };

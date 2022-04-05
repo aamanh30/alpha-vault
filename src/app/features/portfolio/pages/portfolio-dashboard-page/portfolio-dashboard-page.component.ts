@@ -52,29 +52,22 @@ export class PortfolioDashboardPageComponent
     combineLatest([
       this.portfolioService.getPortfolioDashboardDetails(),
       this.portfolioService.getPortfolioInvestments(),
-      this.portfolioService.getPortfolioList(),
-      this.portfolioService.getAlphaVaultPortfolios(),
       this.avxService.getAVXTokenBalance(),
       this.portfolioService.getPortfolioUserInvestments()
     ])
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
-        ([
-          config,
-          investments,
-          customPortfolios,
-          alphaVaultPortfolios,
-          avxHoldingsDetails,
-          userInvestments
-        ]) => {
-          console.log(`UserInvestments:`, userInvestments);
+        ([config, investments, avxHoldingsDetails, userInvestments]) => {
+          const customPortfolios = userInvestments.filter(
+            ({ isAdmin }: any) => !isAdmin
+          );
+          const alphaVaultPortfolios = userInvestments.filter(
+            ({ isAdmin }: any) => isAdmin
+          );
           this.loading = false;
           this.customPortfolios$ = this.formatPortfolios(
             customPortfolios,
             investments
-          );
-          alphaVaultPortfolios = alphaVaultPortfolios.filter(({ id }: any) =>
-            investments.get(`${id}`)
           );
           this.alphaVaultPortfolios$ = this.formatPortfolios(
             alphaVaultPortfolios,
@@ -156,12 +149,7 @@ export class PortfolioDashboardPageComponent
     };
   }
 
-  getPortfolioValue(cell: any): null | string {
-    const value =
-      ((cell.totalCurrentPrice - cell.totalCreatedPrice) /
-        cell.totalCreatedPrice) *
-      100;
-
+  getPortfolioValue({ differentPercentage: value }: any): null | string {
     return isNaN(value) ? null : value.toFixed(2);
   }
 

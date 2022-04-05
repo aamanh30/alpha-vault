@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map, mergeMap, switchMap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { catchError, map, mergeMap, switchMap } from 'rxjs/operators';
 
 import { environment } from './../../../../../environments/environment';
 import { HttpService } from './../../../../core/services/http/http.service';
@@ -31,7 +31,14 @@ export class AvxService extends HttpService {
           amount: !i ? amount : `$${amount}`
         })),
         columns: ['title', 'amount']
-      }))
+      })),
+      catchError(({ error }: HttpErrorResponse) =>
+        of({
+          ...avxHoldingsDetails,
+          amount: null,
+          portfolios: []
+        })
+      )
     );
   }
 

@@ -11,7 +11,7 @@ export const reportGenerationDetails = {
   categories: []
 };
 
-export const columns = ['name', 'totalCreatedPrice', 'investmentAmount'];
+export const columns = ['name', 'differentPercentage', 'investmentAmount'];
 
 export const alphaHoldingsDetails = {
   id: null,

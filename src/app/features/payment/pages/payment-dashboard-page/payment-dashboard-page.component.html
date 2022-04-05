@@ -43,8 +43,13 @@
     <alpha-vault-card-details [heading]="avxTokenBalance?.title">
       <ng-container class="additional-content">
         <alpha-vault-avx-holdings-table
+          *ngIf="avxTokenBalance?.portfolios?.length"
           [avxHoldingsDetails]="avxTokenBalance"
         ></alpha-vault-avx-holdings-table>
+
+        <p class="text-center" *ngIf="!avxTokenBalance?.portfolios?.length">
+          No {{ avxTokenBalance?.title | titlecase }} found
+        </p>
       </ng-container>
       <a class="primary-button" routerLinkActive="active-link">
         <button
