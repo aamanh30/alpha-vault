@@ -4,8 +4,14 @@
   .chart-canvas {
     width: 100%;
     min-height: 300px;
+    position: relative;
     &.loading-canvas {
       display: contents;
+    }
+    &.empty-chart {
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
   @media screen and (max-width: $small) {

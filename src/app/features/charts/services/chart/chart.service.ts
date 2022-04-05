@@ -17,6 +17,10 @@ export class ChartService {
     if (!chartElement || !chartElement.nativeElement) {
       return;
     }
+    if (!(data && data.length)) {
+      this.renderEmptyMessage(chartElement);
+      return;
+    }
     let renderFunction: Function;
     switch (type) {
       case ChartTypes.donut: {
@@ -36,6 +40,15 @@ export class ChartService {
 
     google.charts.load('current', { packages: ['corechart'] });
     google.charts.setOnLoadCallback(renderFunction);
+  }
+
+  renderEmptyMessage(element: ElementRef | null): void {
+    if (!(element && element.nativeElement)) {
+      return;
+    }
+    const htmlTag = document.createElement('strong');
+    htmlTag.innerText = `No data found`;
+    (element.nativeElement as HTMLElement).appendChild(htmlTag);
   }
 
   renderDonutChart(data: any, chart: any): Function {

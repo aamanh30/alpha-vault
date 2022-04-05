@@ -19,6 +19,7 @@ export class ChartComponent implements OnChanges, AfterViewInit {
   @Input() type: ChartTypes = ChartTypes.line;
   @Input() data: any[] = [];
   loading: boolean = true;
+  isDataEmpty: boolean = false;
 
   @ViewChild('chart') chartElement: ElementRef = <ElementRef>{};
   constructor(private chartService: ChartService) {}
@@ -36,7 +37,12 @@ export class ChartComponent implements OnChanges, AfterViewInit {
   }
 
   initChart(): void {
-    this.chartService.initChart(this.type, this.data, this.chartElement);
     setTimeout(() => (this.loading = false), 1000);
+    this.isDataEmpty = this.data.every(({ value }: any) => !value);
+    if (this.isDataEmpty) {
+      this.chartService.renderEmptyMessage(this.chartElement);
+      return;
+    }
+    this.chartService.initChart(this.type, this.data, this.chartElement);
   }
 }

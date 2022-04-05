@@ -7,6 +7,10 @@
       <alpha-vault-spinner></alpha-vault-spinner>
     </div>
 
-    <div #chart class="chart-canvas" [ngClass]="{ invisible: loading }"></div>
+    <div
+      #chart
+      class="chart-canvas"
+      [ngClass]="{ invisible: loading, 'empty-chart': isDataEmpty }"
+    ></div>
   </div>
 </div>
